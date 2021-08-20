@@ -31,7 +31,7 @@
     "eslint-plugin-jsdoc": "^35.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6",
-    "lint-staged": "^11.0.0",
+    "lint-staged": "^11.1.2",
     "mocha": "^8.4.0",
     "oclif": "^2.0.0-main.1",
     "prettier": "^2.3.2",
