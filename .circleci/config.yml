@@ -6,14 +6,15 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
+      - node/install-packages:
+          pkg-manager: yarn
       - run: npx semantic-release
 
 workflows:
   test_and_release:
     jobs:
       - node/test:
+          pkg-manager: yarn
           matrix:
             parameters:
               version:
