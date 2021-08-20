@@ -77,7 +77,6 @@ module.exports = {
     'jsdoc/check-indentation': 'error',
     'jsdoc/newline-after-description': 'error',
 
-
     // Override @typescript-eslint/recommended
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-namespace': 'off',
@@ -130,8 +129,8 @@ module.exports = {
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/type-annotation-spacing': 'error',
     '@typescript-eslint/unified-signatures': 'error',
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error",
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
   },
   ignorePatterns: ['*.js'],
 };
