@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-08-20)
+
+
+### Bug Fixes
+
+* use @octokit/core ([dbc52d7](https://github.com/mdonnalley/multiple-package-manager/commit/dbc52d733881e8758884c7ad4efea58bcff9a1b4))
+
 # [1.0.0-beta.2](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-08-20)
 
 
