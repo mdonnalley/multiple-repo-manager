@@ -48,7 +48,7 @@
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
     "postpack": "rm oclif.manifest.json",
     "posttest": "yarn run lint",
-    "prepack": "rm -rf lib && tsc && oclif manifest",
+    "prepack": "rm -rf lib && tsc && oclif manifest .",
     "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
     "semantic-release": "semantic-release",
     "test": "mocha \"test/**/*.test.ts\" --forbid-only",
