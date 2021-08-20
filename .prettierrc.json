@@ -1,1 +1,5 @@
-"@salesforce/prettier-config"
+{
+  "singleQuote": true,
+  "printWidth": 120,
+  "endOfLine": "auto"
+}
