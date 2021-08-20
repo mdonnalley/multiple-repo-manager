@@ -131,6 +131,7 @@ module.exports = {
     '@typescript-eslint/unified-signatures': 'error',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
+    camelcase: 'off',
   },
   ignorePatterns: ['*.js'],
 };
