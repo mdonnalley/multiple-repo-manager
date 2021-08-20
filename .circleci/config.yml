@@ -6,7 +6,8 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages
+      - node/install:
+          install-yarn: true
       - run: npx semantic-release
 
 workflows:
