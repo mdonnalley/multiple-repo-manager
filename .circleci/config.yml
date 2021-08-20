@@ -3,7 +3,9 @@ orbs:
   node: circleci/node@4.5
 jobs:
   release:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: 14.7.0
     steps:
       - checkout
       - node/install-packages:
