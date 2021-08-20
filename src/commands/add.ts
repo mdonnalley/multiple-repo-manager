@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { mkdir, access, writeFile, readFile } from 'fs/promises';
-import { Octokit } from 'octokit';
+import { Octokit } from '@octokit/core';
 import { exec } from 'shelljs';
 import * as chalk from 'chalk';
 import { Command, Flags } from '@oclif/core';
