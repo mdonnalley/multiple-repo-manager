@@ -1,21 +1,22 @@
 import { cli } from 'cli-ux';
 import { Command } from '@oclif/core';
-import { readRepo } from '../util';
+import { Repos } from '../repos';
 
 export class View extends Command {
-  public static readonly description = 'View a github repository';
+  public static readonly description = 'View a github repository.';
   public static readonly flags = {};
   public static readonly args = [
     {
       name: 'repo',
-      description: 'Name of repository',
+      description: 'Name of repository.',
       required: true,
     },
   ];
 
   public async run(): Promise<void> {
     const { args } = await this.parse(View);
-    const repo = await readRepo(args.repo);
+    const repos = await Repos.create();
+    const repo = repos.get(args.repo);
     const columns = { key: {}, value: {} };
     const data = [
       { key: 'name', value: repo.name },
