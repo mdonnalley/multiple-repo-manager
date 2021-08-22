@@ -2,7 +2,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { ConfigFile, JsonMap } from './configFile';
 
-export interface Configuration extends JsonMap {
+export interface Configuration extends JsonMap<string> {
   directory: string;
 }
 

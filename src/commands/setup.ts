@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Command, Flags } from '@oclif/core';
 import { prompt } from 'inquirer';
 import { Config } from '../config';
+import { AutoComplete } from '../autocomplete';
 
 export class Setup extends Command {
   public static readonly description = 'Setup mpm';
@@ -30,5 +31,6 @@ export class Setup extends Command {
     await config.write();
 
     this.log(`All repositories will be cloned into ${config.get('directory')}`);
+    await AutoComplete.create(config.get('directory'));
   }
 }
