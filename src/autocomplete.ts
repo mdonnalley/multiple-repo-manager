@@ -21,7 +21,7 @@ const COMPLETE = 'complete -F _repo_completions mpm';
 
 export class AutoComplete extends AsyncCreatable<string> {
   public static LOCATION = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
-  public static COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd'];
+  public static COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm'];
   public constructor(private directory: string) {
     super(directory);
   }
@@ -30,6 +30,7 @@ export class AutoComplete extends AsyncCreatable<string> {
     if (process.platform === 'win32') return;
     const bashRc = await BashRc.create();
     let contents = AUTO_COMPLETE_TEMPLATE.replace('@CODE_DIRECTORY@', this.directory);
+
     for (const cmd of AutoComplete.COMMANDS) {
       contents += `${COMPLETE} ${cmd}${os.EOL}`;
     }
