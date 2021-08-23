@@ -65,7 +65,9 @@
     "test": "mocha \"test/**/*.test.ts\" --forbid-only",
     "version": "oclif readme && git add README.md"
   },
-  "bin": "mpm",
+  "bin": {
+    "mpm": "bin/run"
+  },
   "engines": {
     "node": ">=12.0.0"
   },
