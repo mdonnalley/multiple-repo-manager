@@ -1,3 +1,10 @@
+# [1.0.0-beta.8](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-08-23)
+
+
+### Bug Fixes
+
+* actually disable json flag ([f45e2f8](https://github.com/mdonnalley/multiple-package-manager/commit/f45e2f805be92357b13b901d44f61f65a83fee03))
+
 # [1.0.0-beta.7](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-08-23)
 
 
