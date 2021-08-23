@@ -5,7 +5,7 @@ import { mkdir, readFile } from 'fs/promises';
 import { Octokit } from '@octokit/core';
 import { Duration } from '@salesforce/kit';
 import { exec } from 'shelljs';
-import { ConfigFile, JsonMap } from './configFile';
+import { ConfigFile } from './configFile';
 import { getToken } from './util';
 import { Config } from './config';
 import { Directory } from './directory';
@@ -46,12 +46,12 @@ export type RepositoryResponse = {
   default_branch: string;
 };
 
-export interface RepoIndex extends JsonMap {
+export interface RepoIndex {
   [key: string]: Repository;
 }
 
 export class Repos extends ConfigFile<RepoIndex> {
-  public static REFRESH_TIME = Duration.hours(2);
+  public static REFRESH_TIME = Duration.hours(8);
   public directory!: Directory;
   private octokit!: Octokit;
 
@@ -96,9 +96,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     const config = await Config.create();
     this.directory = await Directory.create({ name: config.get('directory') });
 
-    if (this.needsRefresh()) {
-      await this.refresh();
-    }
+    if (this.needsRefresh()) await this.refresh();
   }
 
   private needsRefresh(): boolean {
@@ -110,11 +108,9 @@ export class Repos extends ConfigFile<RepoIndex> {
     const orgs = Array.from(new Set(Object.values(this.getContents()).map((r) => r.org)));
     for (const org of orgs) {
       const orgRepos = await this.fetch(org);
-      for (const repo of orgRepos) {
-        if (originalRepos.includes(repo.name)) {
-          this.set(repo.name, await this.addAdditionalInfo(repo));
-        }
-      }
+      orgRepos.forEach((repo) => {
+        if (originalRepos.includes(repo.name)) this.update(repo.name, repo);
+      });
     }
     await this.write();
   }
@@ -140,9 +136,8 @@ export class Repos extends ConfigFile<RepoIndex> {
     const location = repo.location || path.join(this.directory.name, repo.org, repo.name);
     const pkgJsonPath = path.join(location, 'package.json');
     const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf-8')) as { name: string };
-    repo.npm = {
-      name: pkgJson.name,
-    };
+    repo.npm = { name: pkgJson.name };
+
     const npmInfoRaw = exec(`npm view ${pkgJson.name} --json`, { silent: true }).stdout;
     const npmInfo = JSON.parse(npmInfoRaw) as {
       'dist-tags': Record<string, string>;

@@ -5,11 +5,7 @@ import { Stats } from 'fs';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
 import { Directory } from './directory';
 
-export interface JsonMap<T = unknown> {
-  [key: string]: T;
-}
-
-export abstract class ConfigFile<T extends JsonMap> extends AsyncOptionalCreatable<string> {
+export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
   public static MPM_DIR_NAME = '.mpm';
   public static MPM_DIR = path.join(os.homedir(), ConfigFile.MPM_DIR_NAME);
 
@@ -24,36 +20,42 @@ export abstract class ConfigFile<T extends JsonMap> extends AsyncOptionalCreatab
   }
 
   public async read(): Promise<T> {
-    if (await this.exists(this.filepath)) {
-      const config = JSON.parse(await readFile(this.filepath, 'utf-8')) as T;
-      this.contents = config;
-      return this.contents;
-    } else {
-      this.contents = this.make();
-      await this.write();
-      return this.contents;
-    }
+    this.contents = JSON.parse(await readFile(this.filepath, 'utf-8')) as T;
+    return this.contents;
   }
 
   public async write(newContents: T = this.contents): Promise<void> {
     await writeFile(this.filepath, JSON.stringify(newContents, null, 2));
   }
 
+  public getContents(): T {
+    return this.contents;
+  }
+
   public get(key: keyof T): T[keyof T] {
     return this.contents[key];
   }
 
-  public getContents(): T {
-    return this.contents;
+  public has(key: keyof T): boolean {
+    const keys = Object.keys(this.getContents()) as Array<keyof T>;
+    return keys.includes(key);
   }
 
   public set(key: keyof T, value: T[keyof T]): void {
     this.contents[key] = value;
   }
 
-  public async exists(filepath: string): Promise<boolean> {
+  public update(key: keyof T, value: T[keyof T]): void {
+    this.contents[key] = Object.assign({}, this.contents[key], value);
+  }
+
+  public unset(key: keyof T): void {
+    delete this.contents[key];
+  }
+
+  public async exists(): Promise<boolean> {
     try {
-      await access(filepath);
+      await access(this.filepath);
       return true;
     } catch {
       return false;
@@ -62,7 +64,13 @@ export abstract class ConfigFile<T extends JsonMap> extends AsyncOptionalCreatab
 
   protected async init(): Promise<void> {
     await Directory.create({ name: ConfigFile.MPM_DIR });
-    this.contents = await this.read();
+    if (await this.exists()) {
+      this.contents = await this.read();
+    } else {
+      this.contents = this.make();
+      await this.write();
+    }
+
     this.stats = await stat(this.filepath);
   }
 

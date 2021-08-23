@@ -20,7 +20,7 @@ export class List extends Command {
       const columns = {
         name: { header: 'Name' },
         url: { header: 'URL', get: (r: Repository): string => r.urls.html },
-        version: { header: 'Version', get: (r: Repository): string => r.npm.version },
+        location: { header: 'Location', get: (r: Repository): string => r.location },
       };
       const sorted = sortBy(Object.values(repos), 'name');
       cli.table(sorted, columns, { title: chalk.cyan.bold(`${org} Respositories`) });

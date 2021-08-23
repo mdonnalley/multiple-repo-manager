@@ -1,8 +1,8 @@
 import * as os from 'os';
 import * as path from 'path';
-import { ConfigFile, JsonMap } from './configFile';
+import { ConfigFile } from './configFile';
 
-export interface Configuration extends JsonMap<string> {
+export interface Configuration {
   directory: string;
 }
 
