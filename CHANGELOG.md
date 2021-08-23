@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-08-23)
+
+
+### Bug Fixes
+
+* various improvements ([e6a3af5](https://github.com/mdonnalley/multiple-package-manager/commit/e6a3af5c12db9065f97fcd775341a04afd78573b))
+
 # [1.0.0-beta.5](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-08-23)
 
 
