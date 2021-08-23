@@ -13,7 +13,7 @@ export default class Open extends Command {
       required: true,
     },
   ];
-  public static readonly aliases = ['o'];
+  public static aliases = ['o'];
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Open);

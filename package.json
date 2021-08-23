@@ -12,7 +12,7 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@oclif/core": "^0.5.31",
+    "@oclif/core": "^0.5.32",
     "@octokit/core": "^3.5.1",
     "@salesforce/kit": "^1.5.17",
     "chalk": "^4.1.2",

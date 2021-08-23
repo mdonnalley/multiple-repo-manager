@@ -21,7 +21,7 @@ const COMPLETE = 'complete -F _repo_completions mpm';
 
 export class AutoComplete extends AsyncCreatable<string> {
   public static LOCATION = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
-  public static COMMANDS = ['view', 'open', 'cd'];
+  public static COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd'];
   public constructor(private directory: string) {
     super(directory);
   }

@@ -10,14 +10,13 @@ export default class View extends Command {
       default: false,
     }),
   };
-  public static readonly args = [
+  public static args = [
     {
       name: 'repo',
       description: 'Name of repository.',
       required: true,
     },
   ];
-  public static readonly aliases = ['v'];
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(View);

@@ -13,7 +13,7 @@ export default class View extends Command {
       required: true,
     },
   ];
-  public static readonly aliases = ['v'];
+  public static aliases = ['v'];
 
   public async run(): Promise<void> {
     const { args } = await this.parse(View);
