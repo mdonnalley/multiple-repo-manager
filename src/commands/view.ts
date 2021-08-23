@@ -2,10 +2,11 @@ import { cli } from 'cli-ux';
 import { Command } from '@oclif/core';
 import { Repos } from '../repos';
 
-export class View extends Command {
-  public static readonly description = 'View a github repository.';
-  public static readonly flags = {};
-  public static readonly args = [
+export default class View extends Command {
+  public static description = 'View a github repository.';
+  public static disableJsonFlag = true;
+  public static flags = {};
+  public static args = [
     {
       name: 'repo',
       description: 'Name of repository.',

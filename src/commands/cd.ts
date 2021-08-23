@@ -1,9 +1,10 @@
 import { Command } from '@oclif/core';
 
-export class Cd extends Command {
-  public static readonly description = 'cd into a github repository.';
-  public static readonly flags = {};
-  public static readonly args = [
+export default class Cd extends Command {
+  public static description = 'cd into a github repository.';
+  public static disableJsonFlag = true;
+  public static flags = {};
+  public static args = [
     {
       name: 'repo',
       description: 'Name of repository.',

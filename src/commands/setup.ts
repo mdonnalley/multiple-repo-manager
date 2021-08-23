@@ -6,9 +6,10 @@ import { Config } from '../config';
 import { AutoComplete } from '../autocomplete';
 import { MpmCd } from '../mpmCd';
 
-export class Setup extends Command {
-  public static readonly description = 'Setup mpm';
-  public static readonly flags = {
+export default class Setup extends Command {
+  public static description = 'Setup mpm';
+  public static disableJsonFlag = true;
+  public static flags = {
     directory: Flags.string({
       description: 'Location to setup repositories.',
       char: 'd',

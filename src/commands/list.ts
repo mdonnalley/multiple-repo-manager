@@ -4,10 +4,11 @@ import { cli } from 'cli-ux';
 import { groupBy, sortBy } from 'lodash';
 import { Repos, Repository } from '../repos';
 
-export class List extends Command {
-  public static readonly description = 'List all added repositories.';
-  public static readonly flags = {};
-  public static readonly aliases = ['ls'];
+export default class List extends Command {
+  public static description = 'List all added repositories.';
+  public static disableJsonFlag = true;
+  public static flags = {};
+  public static aliases = ['ls'];
 
   public async run(): Promise<void> {
     const repositories = (await Repos.create()).getContents();

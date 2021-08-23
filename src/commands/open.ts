@@ -2,10 +2,11 @@ import { Command } from '@oclif/core';
 import * as open from 'open';
 import { Repos } from '../repos';
 
-export class Open extends Command {
-  public static readonly description = 'Open a github repository.';
-  public static readonly flags = {};
-  public static readonly args = [
+export default class Open extends Command {
+  public static description = 'Open a github repository.';
+  public static disableJsonFlag = true;
+  public static flags = {};
+  public static args = [
     {
       name: 'repo',
       description: 'Name of repository.',

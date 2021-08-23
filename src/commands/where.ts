@@ -1,9 +1,10 @@
 import { Command, Flags } from '@oclif/core';
 import { Repos } from '../repos';
 
-export class View extends Command {
-  public static readonly description = 'Print location of a github repository.';
-  public static readonly flags = {
+export default class View extends Command {
+  public static description = 'Print location of a github repository.';
+  public static disableJsonFlag = true;
+  public static flags = {
     remote: Flags.boolean({
       description: 'Return url of repository',
       default: false,

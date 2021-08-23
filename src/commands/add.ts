@@ -24,9 +24,11 @@ function parseOrgAndRepo(entity: string): { org: string; repo: string | null } {
   }
 }
 
-export class Add extends Command {
-  public static readonly description = 'Add a github org. Requires GH_TOKEN to be set in the environment.';
-  public static readonly flags = {
+export default class Add extends Command {
+  public static description = 'Add a github org. Requires GH_TOKEN to be set in the environment.';
+  public static disableJsonFlag = true;
+
+  public static flags = {
     method: Flags.string({
       description: 'Method to use for cloning.',
       default: 'ssh',
@@ -34,7 +36,7 @@ export class Add extends Command {
     }),
   };
 
-  public static readonly args = [
+  public static args = [
     {
       name: 'entity',
       description: 'Github org, repo, or url to add',
