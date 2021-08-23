@@ -1,3 +1,10 @@
+# [1.0.0-beta.10](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-08-23)
+
+
+### Bug Fixes
+
+* fail gracefully when getting npm info ([515b85f](https://github.com/mdonnalley/multiple-package-manager/commit/515b85f518da47feba6d4cb2b3bbd0f271c731c1))
+
 # [1.0.0-beta.9](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-08-23)
 
 
