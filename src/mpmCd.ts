@@ -4,16 +4,17 @@ import { AsyncOptionalCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 
-const TEMPLATE = `
-#/usr/bin/env bash
+const TEMPLATE = `#/usr/bin/env bash
 
-function mpm {
-  if [[ "$1" == "cd" ]]; then
+function _mpm {
+  if [[ "$1" == "cd" && "$2" != "--help" ]]; then
     cd $(mpm where $2)
   else
     mpm "$@"
   fi
 }
+
+alias mpm='_mpm'
 `;
 
 /**

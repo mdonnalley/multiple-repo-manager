@@ -5,8 +5,7 @@ import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 
-const AUTO_COMPLETE_TEMPLATE = `
-#/usr/bin/env bash
+const AUTO_COMPLETE_TEMPLATE = `#/usr/bin/env bash
 
 _repo_completions()
 {

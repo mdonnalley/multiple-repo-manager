@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const oclif = require('@oclif/core');
+oclif.settings.disableJsonFlag = true;
 
 const path = require('path');
 const project = path.join(__dirname, '..', 'tsconfig.json');
