@@ -1,3 +1,11 @@
+# [1.0.0-beta.9](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-08-23)
+
+
+### Features
+
+* add exec command ([2ead2be](https://github.com/mdonnalley/multiple-package-manager/commit/2ead2be5a4304c90c403cdd7ca1304d95835aafc))
+* add remove command ([bd9b2a0](https://github.com/mdonnalley/multiple-package-manager/commit/bd9b2a050c28bafc7c623faed7d564c8d1b26809))
+
 # [1.0.0-beta.8](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-08-23)
 
 
