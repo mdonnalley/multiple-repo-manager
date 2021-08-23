@@ -1,3 +1,10 @@
+# [1.0.0-beta.5](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-08-23)
+
+
+### Bug Fixes
+
+* use correct bin path ([d68eec8](https://github.com/mdonnalley/multiple-package-manager/commit/d68eec80014f00dbae8aec5fc562ae59008ec0ed))
+
 # [1.0.0-beta.4](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-08-23)
 
 
