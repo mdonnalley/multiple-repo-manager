@@ -12,16 +12,21 @@ export class View extends Command {
       required: true,
     },
   ];
+  public static readonly aliases = ['v'];
 
   public async run(): Promise<void> {
     const { args } = await this.parse(View);
     const repos = await Repos.create();
     const repo = repos.get(args.repo);
+    if (!repo) {
+      process.exitCode = 1;
+      throw new Error(`${args.repo as string} has not been added yet.`);
+    }
     const columns = { key: {}, value: {} };
     const data = [
       { key: 'name', value: repo.name },
-      { key: 'organization', value: repo.owner.login },
-      { key: 'url', value: repo.html_url },
+      { key: 'organization', value: repo.org },
+      { key: 'url', value: repo.urls.html },
     ];
     cli.table(data, columns);
   }

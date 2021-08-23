@@ -12,10 +12,15 @@ export class Open extends Command {
       required: true,
     },
   ];
+  public static readonly aliases = ['o'];
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Open);
     const repo = (await Repos.create()).get(args.repo);
-    await open(repo.html_url, { wait: false });
+    if (!repo) {
+      process.exitCode = 1;
+      throw new Error(`${args.repo as string} has not been added yet.`);
+    }
+    await open(repo.urls.html, { wait: false });
   }
 }

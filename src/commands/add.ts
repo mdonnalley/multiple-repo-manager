@@ -1,17 +1,8 @@
 import * as path from 'path';
-import { mkdir } from 'fs/promises';
 import { URL } from 'url';
-import { exec } from 'shelljs';
 import * as chalk from 'chalk';
 import { Command, Flags } from '@oclif/core';
-import { Config } from '../config';
-import { Repos } from '../repos';
-import { Directory } from '../directory';
-
-async function clone(url: string, dir: string): Promise<void> {
-  await mkdir(dir, { recursive: true });
-  exec(`git -C ${dir} clone ${url}`, { silent: true });
-}
+import { CloneMethod, Repos } from '../repos';
 
 function parseOrgAndRepo(entity: string): { org: string; repo: string | null } {
   if (entity.startsWith('https://')) {
@@ -53,19 +44,14 @@ export class Add extends Command {
 
   public async run(): Promise<void> {
     const { flags, args } = await this.parse(Add);
-    const config = await Config.create();
-    const directory = await Directory.create({ name: config.get('directory') });
     const repos = await Repos.create();
 
     const info = parseOrgAndRepo(args.entity);
     const repositories = await repos.fetch(info.org, info.repo);
-    this.log(`Cloning repositories into ${path.join(directory.name, info.org)}`);
+    this.log(`Cloning repositories into ${path.join(repos.directory.name, info.org)}`);
     for (const repo of repositories) {
-      const url = flags.method === 'ssh' ? repo.ssh_url : repo.clone_url;
       this.log(`  * ${chalk.bold(repo.name)}`);
-      const dir = path.join(directory.name, repo.owner.login);
-      await clone(url, dir);
-      repos.set(repo.name, repo);
+      await repos.clone(repo, flags.method as CloneMethod);
     }
     await repos.write();
   }
