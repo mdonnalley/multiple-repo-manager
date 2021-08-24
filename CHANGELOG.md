@@ -1,3 +1,11 @@
+# 1.0.0 (2021-08-24)
+
+
+### Features
+
+* intial release ([0a31f71](https://github.com/mdonnalley/multiple-package-manager/commit/0a31f7156fd846f8cd5007591a3597fd724812ac))
+* release ([97110f4](https://github.com/mdonnalley/multiple-package-manager/commit/97110f4f9b30968e64260639e4a886aaa871f7f0))
+
 # [1.0.0-beta.12](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2021-08-24)
 
 
