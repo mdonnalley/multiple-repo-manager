@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0...v1.0.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* improve autocomplete ([9e2c052](https://github.com/mdonnalley/multiple-package-manager/commit/9e2c052524b84e3f75c78343f4b5b6fa87a6e348))
+
 # 1.0.0 (2021-08-24)
 
 
