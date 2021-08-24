@@ -34,7 +34,7 @@ complete -F _mpm_autocomplete mpm
 
 export class AutoComplete extends AsyncCreatable<string> {
   public static LOCATION = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
-  public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm'];
+  public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
   public static MPM_COMMANDS = ['add', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
 
   public constructor(private directory: string) {
