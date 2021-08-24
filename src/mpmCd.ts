@@ -23,7 +23,7 @@ alias mpm='_mpm'
  * capture the `mpm cd` execution and use bash instead.
  */
 export class MpmCd extends AsyncOptionalCreatable {
-  public static LOCATION = path.join(ConfigFile.MPM_DIR, 'mpmcd.bash');
+  public static LOCATION = path.join(ConfigFile.MPM_DIR, 'mpm-cd.bash');
   public constructor() {
     super();
   }

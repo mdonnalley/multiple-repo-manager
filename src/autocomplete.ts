@@ -1,27 +1,41 @@
 import * as path from 'path';
-import * as os from 'os';
 import { writeFile } from 'fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 
-const AUTO_COMPLETE_TEMPLATE = `#/usr/bin/env bash
-
-_repo_completions()
+const AUTO_COMPLETE = `_mpm_autocomplete()
 {
-    local cur
-    COMPREPLY=()
-    cur=\${COMP_WORDS[COMP_CWORD]}
-    code_dir=@CODE_DIRECTORY@
-    COMPREPLY=($( compgen -W "$(ls -d $code_dir/**/* | xargs basename)" -- $cur ))
-}
-`;
+    local cur prev
 
-const COMPLETE = 'complete -F _repo_completions mpm';
+    cur=\${COMP_WORDS[COMP_CWORD]}
+    prev=\${COMP_WORDS[COMP_CWORD-1]}
+    code_dir=@CODE_DIRECTORY@
+    case \${COMP_CWORD} in
+        1)
+            COMPREPLY=($(compgen -W "@COMMANDS@" -- \${cur}))
+            ;;
+        2)
+            case \${prev} in
+                @REPO_COMMANDS@)
+                    COMPREPLY=($( compgen -W "$(ls -d $code_dir/**/* | xargs basename)" -- $cur ))
+                    ;;
+            esac
+            ;;
+        *)
+            COMPREPLY=()
+            ;;
+    esac
+}
+
+complete -F _mpm_autocomplete mpm
+`;
 
 export class AutoComplete extends AsyncCreatable<string> {
   public static LOCATION = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
-  public static COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm'];
+  public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm'];
+  public static MPM_COMMANDS = ['add', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
+
   public constructor(private directory: string) {
     super(directory);
   }
@@ -29,11 +43,11 @@ export class AutoComplete extends AsyncCreatable<string> {
   protected async init(): Promise<void> {
     if (process.platform === 'win32') return;
     const bashRc = await BashRc.create();
-    let contents = AUTO_COMPLETE_TEMPLATE.replace('@CODE_DIRECTORY@', this.directory);
 
-    for (const cmd of AutoComplete.COMMANDS) {
-      contents += `${COMPLETE} ${cmd}${os.EOL}`;
-    }
+    const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
+      .replace('@COMMANDS@', AutoComplete.MPM_COMMANDS.join(' '))
+      .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '));
+
     await writeFile(AutoComplete.LOCATION, contents);
 
     bashRc.append(`source ${AutoComplete.LOCATION}`);
