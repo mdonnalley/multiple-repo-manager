@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.1...v1.1.0) (2021-08-24)
+
+
+### Features
+
+* add alias command ([9cb6984](https://github.com/mdonnalley/multiple-package-manager/commit/9cb6984c7420e9711d5b86a4be2ca063734b92dc))
+
 ## [1.0.1](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0...v1.0.1) (2021-08-24)
 
 
