@@ -1,7 +1,7 @@
 {
   "name": "multiple-package-manager",
   "description": "CLI for managing multiple node packages",
-  "version": "0.0.0-development",
+  "version": "1.0.0-beta.12",
   "author": "Mike Donnalley",
   "homepage": "https://github.com/mdonnalley/multiple-package-manager",
   "repository": "mdonnalley/multiple-package-manager",
@@ -12,14 +12,25 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@oclif/core": "^0.5.31",
+    "@oclif/core": "^0.5.32",
+    "@octokit/core": "^3.5.1",
+    "@salesforce/kit": "^1.5.17",
+    "chalk": "^4.1.2",
+    "cli-ux": "^5.6.3",
+    "inquirer": "^8.1.2",
+    "lodash": "^4.17.21",
+    "open": "^8.2.1",
+    "shelljs": "^0.8.4",
     "tslib": "^2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^13.1.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
+    "@types/inquirer": "^7.3.3",
+    "@types/lodash": "^4.14.172",
     "@types/node": "^16.6.2",
+    "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "chai": "^4.3.4",
@@ -48,11 +59,14 @@
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
     "postpack": "rm oclif.manifest.json",
     "posttest": "yarn run lint",
-    "prepack": "rm -rf lib && tsc && oclif manifest",
+    "prepack": "rm -rf lib && tsc && oclif manifest .",
     "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
     "semantic-release": "semantic-release",
     "test": "mocha \"test/**/*.test.ts\" --forbid-only",
     "version": "oclif readme && git add README.md"
+  },
+  "bin": {
+    "mpm": "bin/run"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -63,7 +77,8 @@
   ],
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "mpm"
+    "bin": "mpm",
+    "topicSeparator": " "
   },
   "publishConfig": {
     "access": "public"

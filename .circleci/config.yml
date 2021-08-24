@@ -25,6 +25,3 @@ workflows:
       - release:
           requires:
             - node/test
-          filters:
-            branches:
-              only: main
