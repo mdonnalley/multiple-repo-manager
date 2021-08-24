@@ -1,3 +1,10 @@
+# [1.0.0-beta.12](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2021-08-24)
+
+
+### Bug Fixes
+
+* default to opening current dir ([7bd9a61](https://github.com/mdonnalley/multiple-package-manager/commit/7bd9a6109af1530ac4e7ccd06e6752206d310262))
+
 # [1.0.0-beta.11](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-08-24)
 
 
