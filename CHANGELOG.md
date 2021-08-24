@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/mdonnalley/multiple-package-manager/compare/v1.1.0...v1.1.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* add where to list of commands with repo autocomplete ([b41a942](https://github.com/mdonnalley/multiple-package-manager/commit/b41a9428bd58176709b27b5ceac9838a68f9773e))
+
 # [1.1.0](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.1...v1.1.0) (2021-08-24)
 
 
