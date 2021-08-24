@@ -4,7 +4,8 @@ import { Command, Flags } from '@oclif/core';
 import { prompt } from 'inquirer';
 import { Config } from '../config';
 import { AutoComplete } from '../autocomplete';
-import { MpmCd } from '../mpmCd';
+import { MpmWrapper } from '../mpmWrapper';
+import { BashRc } from '../bashRc';
 
 export default class Setup extends Command {
   public static description = 'Setup mpm';
@@ -34,6 +35,8 @@ export default class Setup extends Command {
 
     this.log(`All repositories will be cloned into ${config.get('directory')}`);
     await AutoComplete.create(config.get('directory'));
-    await MpmCd.create();
+    await MpmWrapper.create();
+
+    this.log(`Open a new terminal or run "source ${BashRc.LOCATION}" for autocomplete to work.`);
   }
 }

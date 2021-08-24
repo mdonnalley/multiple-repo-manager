@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
+import { Aliases } from './aliases';
 
 const AUTO_COMPLETE = `_mpm_autocomplete()
 {
@@ -43,15 +44,16 @@ export class AutoComplete extends AsyncCreatable<string> {
   protected async init(): Promise<void> {
     if (process.platform === 'win32') return;
     const bashRc = await BashRc.create();
+    const aliases = (await Aliases.create()).keys();
+    const commands = AutoComplete.MPM_COMMANDS.concat(aliases);
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
-      .replace('@COMMANDS@', AutoComplete.MPM_COMMANDS.join(' '))
+      .replace('@COMMANDS@', commands.join(' '))
       .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '));
 
     await writeFile(AutoComplete.LOCATION, contents);
 
     bashRc.append(`source ${AutoComplete.LOCATION}`);
     await bashRc.write();
-    bashRc.source();
   }
 }

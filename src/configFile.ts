@@ -36,9 +36,16 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
     return this.contents[key];
   }
 
+  public entries(): Array<[keyof T, T[keyof T]]> {
+    return Object.entries(this.getContents()) as Array<[keyof T, T[keyof T]]>;
+  }
+
+  public keys(): Array<keyof T> {
+    return Object.keys(this.getContents()) as Array<keyof T>;
+  }
+
   public has(key: keyof T): boolean {
-    const keys = Object.keys(this.getContents()) as Array<keyof T>;
-    return keys.includes(key);
+    return this.keys().includes(key);
   }
 
   public set(key: keyof T, value: T[keyof T]): void {
