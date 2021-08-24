@@ -5,6 +5,8 @@ import { mkdir, readFile } from 'fs/promises';
 import { Octokit } from '@octokit/core';
 import { Duration } from '@salesforce/kit';
 import { exec } from 'shelljs';
+import { cli } from 'cli-ux';
+import * as chalk from 'chalk';
 import { ConfigFile } from './configFile';
 import { getToken } from './util';
 import { Config } from './config';
@@ -107,10 +109,14 @@ export class Repos extends ConfigFile<RepoIndex> {
     const originalRepos = Object.keys(this.getContents());
     const orgs = Array.from(new Set(Object.values(this.getContents()).map((r) => r.org)));
     for (const org of orgs) {
-      const orgRepos = await this.fetch(org);
-      orgRepos.forEach((repo) => {
-        if (originalRepos.includes(repo.name)) this.update(repo.name, repo);
-      });
+      try {
+        const orgRepos = await this.fetch(org);
+        orgRepos.forEach((repo) => {
+          if (originalRepos.includes(repo.name)) this.update(repo.name, repo);
+        });
+      } catch {
+        cli.log(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
+      }
     }
     await this.write();
   }
