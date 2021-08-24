@@ -1,3 +1,10 @@
+# [1.0.0-beta.11](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-08-24)
+
+
+### Bug Fixes
+
+* gracefully fail when refreshing orgs ([7f6e254](https://github.com/mdonnalley/multiple-package-manager/commit/7f6e2549208572fcb72bc88311136c701551c764))
+
 # [1.0.0-beta.10](https://github.com/mdonnalley/multiple-package-manager/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-08-23)
 
 
