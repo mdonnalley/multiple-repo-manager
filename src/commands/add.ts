@@ -25,7 +25,25 @@ function parseOrgAndRepo(entity: string): { org: string; repo: string | null } {
 }
 
 export default class Add extends Command {
-  public static description = 'Add a github org. Requires GH_TOKEN to be set in the environment.';
+  public static description = 'Add a github org or repo. Requires GH_TOKEN to be set in the environment.';
+  public static examples = [
+    {
+      description: 'Add a github org',
+      command: '<%= config.bin %> <%= command.id %> my-github-org',
+    },
+    {
+      description: 'Add a github org by url',
+      command: '<%= config.bin %> <%= command.id %> https://github.com/my-github-org',
+    },
+    {
+      description: 'Add a github repo by name',
+      command: '<%= config.bin %> <%= command.id %> my-github-org/my-repo',
+    },
+    {
+      description: 'Add a github repo by url',
+      command: '<%= config.bin %> <%= command.id %> https://github.com/my-github-org/my-repo',
+    },
+  ];
   public static disableJsonFlag = true;
 
   public static flags = {

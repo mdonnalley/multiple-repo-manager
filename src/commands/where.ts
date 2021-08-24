@@ -6,7 +6,7 @@ export default class View extends Command {
   public static disableJsonFlag = true;
   public static flags = {
     remote: Flags.boolean({
-      description: 'Return url of repository',
+      description: 'Return url of repository.',
       default: false,
     }),
   };
