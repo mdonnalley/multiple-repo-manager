@@ -142,7 +142,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     const location = repo.location || path.join(this.directory.name, repo.org, repo.name);
     repo.location = location;
     const pkgJsonPath = path.join(location, 'package.json');
-    if (this.exists(pkgJsonPath)) {
+    if (await this.exists(pkgJsonPath)) {
       try {
         const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf-8')) as { name: string };
         repo.npm = { name: pkgJson.name };

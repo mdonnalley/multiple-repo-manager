@@ -8,7 +8,9 @@
   "bugs": "https://github.com/mdonnalley/multiple-repo-manager/issues",
   "keywords": [
     "multiple package manager",
-    "package manager"
+    "package manager",
+    "multiple repo manager",
+    "repo manager"
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
