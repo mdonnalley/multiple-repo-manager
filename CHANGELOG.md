@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.1...v1.5.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* improve aliases ([51fb7c2](https://github.com/mdonnalley/multiple-repo-manager/commit/51fb7c2a19409f03e0e08b75aeffd5771b6013e4))
+
 ## [1.5.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.0...v1.5.1) (2021-08-25)
 
 
