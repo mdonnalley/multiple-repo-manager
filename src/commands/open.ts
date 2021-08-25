@@ -16,7 +16,7 @@ enum GithubTab {
 }
 
 export default class Open extends Command {
-  public static description = 'Open a github repository.';
+  public static description = 'Open a repository in github.';
   public static examples = [
     {
       description: 'Open the main page of a github repository',

@@ -1,6 +1,6 @@
 {
   "name": "multiple-repo-manager",
-  "description": "CLI for managing multiple node packages",
+  "description": "CLI for managing multiple repositories",
   "version": "1.5.0",
   "author": "Mike Donnalley",
   "homepage": "https://github.com/mdonnalley/multiple-repo-manager",

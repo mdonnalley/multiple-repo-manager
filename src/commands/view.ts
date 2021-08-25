@@ -5,7 +5,7 @@ import * as chalk from 'chalk';
 import { Repos, Repository } from '../repos';
 
 export default class View extends Command {
-  public static description = 'View a github repository.';
+  public static description = 'View a repository.';
   public static disableJsonFlag = true;
   public static flags = {};
   public static args = [
