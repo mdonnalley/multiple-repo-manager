@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import * as path from 'path';
-import { mkdir, readFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { Octokit } from '@octokit/core';
 import { Duration } from '@salesforce/kit';
 import { exec } from 'shelljs';
@@ -27,11 +27,6 @@ export type Repository = {
   archived: boolean;
   defaultBranch: string;
   location?: string;
-  npm?: {
-    name: string;
-    version?: string;
-    tags?: Record<string, string>;
-  };
 };
 
 export type RepositoryResponse = {
@@ -90,19 +85,10 @@ export class Repos extends ConfigFile<RepoIndex> {
   public async fetch(org: string, repo?: string | null): Promise<Repository[]> {
     if (repo) {
       const response = await this.octokit.request('GET /repos/{owner}/{repo}', { owner: org, repo });
-      let transformed = this.transform(response.data);
-      if (transformed.location) {
-        transformed = await this.addAdditionalInfo(transformed);
-      }
-      return [transformed];
+      return [this.transform(response.data)];
     } else {
       const response = await this.octokit.request('GET /orgs/{org}/repos', { org });
-      const transformed = response.data.map((r) => this.transform(r as RepositoryResponse));
-      const promises = transformed.map(async (t) => {
-        if (t.location) return this.addAdditionalInfo(t);
-        else return t;
-      });
-      return Promise.all(promises);
+      return response.data.map((r) => this.transform(r as RepositoryResponse));
     }
   }
 
@@ -113,7 +99,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     exec(`git -C ${orgDir} clone ${url}`, { silent: true });
 
     try {
-      this.set(repo.fullName, await this.addAdditionalInfo(repo));
+      this.set(repo.fullName, repo);
     } catch {
       // do nothing
     }
@@ -160,30 +146,8 @@ export class Repos extends ConfigFile<RepoIndex> {
         ssh: repo.ssh_url,
       },
       defaultBranch: repo.default_branch,
+      location: path.join(this.directory.name, repo.owner.login, repo.name),
     };
     return transformed;
-  }
-
-  private async addAdditionalInfo(repo: Repository): Promise<Repository> {
-    const location = repo.location || path.join(this.directory.name, repo.org, repo.name);
-    repo.location = location;
-    const pkgJsonPath = path.join(location, 'package.json');
-    if (await this.exists(pkgJsonPath)) {
-      try {
-        const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf-8')) as { name: string };
-        repo.npm = { name: pkgJson.name };
-
-        const npmInfoRaw = exec(`npm view ${pkgJson.name} --json`, { silent: true }).stdout;
-        const npmInfo = JSON.parse(npmInfoRaw) as {
-          'dist-tags': Record<string, string>;
-          versions: string[];
-        };
-        repo.npm.version = npmInfo['dist-tags']['latest'] ?? npmInfo.versions.reverse()[0];
-        repo.npm.tags = npmInfo['dist-tags'];
-      } catch {
-        // likely not an npm package, which is okay
-      }
-    }
-    return repo;
   }
 }

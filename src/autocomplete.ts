@@ -29,6 +29,13 @@ _multi_autocomplete()
                     COMPREPLY=($( compgen -W "$(_get_repo_autocomplete)" -- $cur ))
                     ;;
             esac
+
+            case \${aliases} in
+                *"$prev"*)
+                    COMPREPLY=($( compgen -W "$(_get_repo_autocomplete)" -- $cur ))
+                    ;;
+            esac
+
             ;;
         *)
             COMPREPLY=()

@@ -54,7 +54,7 @@ One the main advantages of using `multi` is that you can define your own command
 ```yaml
 open-circle: multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
 done-with-branch: |
-  local current_branch=$(git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/")
+  local current_branch=$(git rev-parse --abbrev-ref HEAD)
   multi exec . git checkout {repo.defaultBranch}
   git pull
   git remote prune origin
@@ -162,7 +162,7 @@ USAGE
   $ multi alias resolve [ALIAS]
 
 ARGUMENTS
-  ALIAS  Name of alias to resolve..
+  ALIAS  Name of alias to resolve.
 
 DESCRIPTION
   Return the value of an alias.
