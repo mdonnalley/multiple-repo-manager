@@ -1,11 +1,11 @@
 {
-  "name": "multiple-package-manager",
+  "name": "multiple-repo-manager",
   "description": "CLI for managing multiple node packages",
   "version": "1.2.0",
   "author": "Mike Donnalley",
-  "homepage": "https://github.com/mdonnalley/multiple-package-manager",
-  "repository": "mdonnalley/multiple-package-manager",
-  "bugs": "https://github.com/mdonnalley/multiple-package-manager/issues",
+  "homepage": "https://github.com/mdonnalley/multiple-repo-manager",
+  "repository": "mdonnalley/multiple-repo-manager",
+  "bugs": "https://github.com/mdonnalley/multiple-repo-manager/issues",
   "keywords": [
     "multiple package manager",
     "package manager"
@@ -68,7 +68,7 @@
     "version": "oclif readme && git add README.md"
   },
   "bin": {
-    "mpm": "bin/run"
+    "multi": "bin/run"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -79,7 +79,7 @@
   ],
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "mpm",
+    "bin": "multi",
     "topicSeparator": " "
   },
   "publishConfig": {

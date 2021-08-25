@@ -5,7 +5,7 @@ import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 import { Aliases } from './aliases';
 
-const AUTO_COMPLETE = `_mpm_autocomplete()
+const AUTO_COMPLETE = `_multi_autocomplete()
 {
     local cur prev
 
@@ -30,7 +30,7 @@ const AUTO_COMPLETE = `_mpm_autocomplete()
     esac
 }
 
-complete -F _mpm_autocomplete mpm
+complete -F _multi_autocomplete multi
 `;
 
 export class AutoComplete extends AsyncCreatable<string> {

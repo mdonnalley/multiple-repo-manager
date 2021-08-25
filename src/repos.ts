@@ -142,19 +142,21 @@ export class Repos extends ConfigFile<RepoIndex> {
     const location = repo.location || path.join(this.directory.name, repo.org, repo.name);
     repo.location = location;
     const pkgJsonPath = path.join(location, 'package.json');
-    try {
-      const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf-8')) as { name: string };
-      repo.npm = { name: pkgJson.name };
+    if (this.exists(pkgJsonPath)) {
+      try {
+        const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf-8')) as { name: string };
+        repo.npm = { name: pkgJson.name };
 
-      const npmInfoRaw = exec(`npm view ${pkgJson.name} --json`, { silent: true }).stdout;
-      const npmInfo = JSON.parse(npmInfoRaw) as {
-        'dist-tags': Record<string, string>;
-        versions: string[];
-      };
-      repo.npm.version = npmInfo['dist-tags']['latest'] ?? npmInfo.versions.reverse()[0];
-      repo.npm.tags = npmInfo['dist-tags'];
-    } catch {
-      // likely not an npm package, which is okay
+        const npmInfoRaw = exec(`npm view ${pkgJson.name} --json`, { silent: true }).stdout;
+        const npmInfo = JSON.parse(npmInfoRaw) as {
+          'dist-tags': Record<string, string>;
+          versions: string[];
+        };
+        repo.npm.version = npmInfo['dist-tags']['latest'] ?? npmInfo.versions.reverse()[0];
+        repo.npm.tags = npmInfo['dist-tags'];
+      } catch {
+        // likely not an npm package, which is okay
+      }
     }
     return repo;
   }

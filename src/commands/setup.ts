@@ -4,11 +4,11 @@ import { Command, Flags } from '@oclif/core';
 import { prompt } from 'inquirer';
 import { Config } from '../config';
 import { AutoComplete } from '../autocomplete';
-import { MpmWrapper } from '../mpmWrapper';
+import { MultiWrapper } from '../multiWrapper';
 import { BashRc } from '../bashRc';
 
 export default class Setup extends Command {
-  public static description = 'Setup mpm';
+  public static description = 'Setup multi';
   public static disableJsonFlag = true;
   public static flags = {
     directory: Flags.string({
@@ -34,7 +34,7 @@ export default class Setup extends Command {
     await config.write();
 
     this.log(`All repositories will be cloned into ${config.get('directory')}`);
-    await MpmWrapper.create();
+    await MultiWrapper.create();
     await AutoComplete.create(config.get('directory'));
 
     this.log(`Open a new terminal or run "source ${BashRc.LOCATION}" for autocomplete to work.`);

@@ -6,7 +6,7 @@ import { AsyncOptionalCreatable } from '@salesforce/kit';
 import { Directory } from './directory';
 
 export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
-  public static MPM_DIR_NAME = '.mpm';
+  public static MPM_DIR_NAME = '.multi';
   public static MPM_DIR = path.join(os.homedir(), ConfigFile.MPM_DIR_NAME);
 
   public stats: Stats;
@@ -60,9 +60,9 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
     delete this.contents[key];
   }
 
-  public async exists(): Promise<boolean> {
+  public async exists(filepath = this.filepath): Promise<boolean> {
     try {
-      await access(this.filepath);
+      await access(filepath);
       return true;
     } catch {
       return false;

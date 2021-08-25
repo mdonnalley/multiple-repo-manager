@@ -11,10 +11,10 @@ export default class Alias extends Command {
       command: '<%= config.bin %> <%= command.id %> build=yarn build',
     },
     {
-      description: 'Set an alias that uses mpm exec',
+      description: 'Set an alias that uses multi exec',
       command:
         // eslint-disable-next-line max-len
-        '<%= config.bin %> <%= command.id %> circle=mpm exec . open https://app.circleci.com/pipelines/github/{repo.fullName}',
+        '<%= config.bin %> <%= command.id %> circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}',
     },
     {
       description: 'Unset an alias',

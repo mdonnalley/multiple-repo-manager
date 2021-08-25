@@ -1,7 +1,7 @@
 import * as os from 'os';
 import * as path from 'path';
 
-export const MPM_DIR_NAME = '.mpm';
+export const MPM_DIR_NAME = '.multi';
 export const MPM_DIR = path.join(os.homedir(), MPM_DIR_NAME);
 
 export function getToken(): string {
