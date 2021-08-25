@@ -15,7 +15,11 @@ function _multi {
     if [[ "$2" == "--help" ]]; then
       echo "--help is not supported on aliased commands"
     else
-      eval $($multi_exec alias resolve $1)
+      if [[ -n \${@:2} ]]; then
+        source <($multi_exec alias resolve $1) \${@:2}
+      else
+        source <($multi_exec alias resolve $1) ""
+      fi
     fi
   elif [[ "$1" == "cd" && "$2" != "--help" ]]; then
     cd $(eval $multi_exec where $2)
