@@ -20,11 +20,7 @@ export default class Open extends Command {
   public async run(): Promise<void> {
     const { args } = await this.parse(Open);
     const repoName = (args.repo === '.' ? path.basename(process.cwd()) : args.repo) as string;
-    const repo = (await Repos.create()).get(repoName);
-    if (!repo) {
-      process.exitCode = 1;
-      throw new Error(`${repoName} has not been added yet.`);
-    }
+    const repo = (await Repos.create()).getOne(repoName);
     await open(repo.urls.html, { wait: false });
   }
 }

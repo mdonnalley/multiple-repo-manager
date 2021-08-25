@@ -61,6 +61,32 @@ export class Repos extends ConfigFile<RepoIndex> {
     super('repos.json');
   }
 
+  public getMatches(nameOrFullName: string): Repository[] {
+    if (this.has(nameOrFullName)) {
+      return [super.get(nameOrFullName)];
+    }
+    const matches = this.values().filter((v) => v.name === nameOrFullName);
+    return matches ?? [];
+  }
+
+  public getOne(nameOrFullName: string): Repository {
+    if (this.has(nameOrFullName)) {
+      return super.get(nameOrFullName);
+    } else {
+      const matches = this.values().filter((v) => v.name === nameOrFullName);
+      if (matches.length === 0) {
+        throw new Error(`${nameOrFullName} has not been added yet.`);
+      } else if (matches.length > 1) {
+        const suggestions = matches.map((m) => m.fullName).join(', ');
+        throw new Error(
+          `Multiple repos found for ${nameOrFullName}. Please specify one of the following: ${suggestions}`
+        );
+      } else {
+        return matches[0];
+      }
+    }
+  }
+
   public async fetch(org: string, repo?: string | null): Promise<Repository[]> {
     if (repo) {
       const response = await this.octokit.request('GET /repos/{owner}/{repo}', { owner: org, repo });
@@ -87,7 +113,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     exec(`git -C ${orgDir} clone ${url}`, { silent: true });
 
     try {
-      this.set(repo.name, await this.addAdditionalInfo(repo));
+      this.set(repo.fullName, await this.addAdditionalInfo(repo));
     } catch {
       // do nothing
     }
@@ -112,7 +138,7 @@ export class Repos extends ConfigFile<RepoIndex> {
       try {
         const orgRepos = await this.fetch(org);
         orgRepos.forEach((repo) => {
-          if (originalRepos.includes(repo.name)) this.update(repo.name, repo);
+          if (originalRepos.includes(repo.fullName)) this.update(repo.fullName, repo);
         });
       } catch {
         cli.log(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);

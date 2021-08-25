@@ -40,6 +40,10 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
     return Object.entries(this.getContents()) as Array<[keyof T, T[keyof T]]>;
   }
 
+  public values(): Array<T[keyof T]> {
+    return Object.values(this.getContents()) as Array<T[keyof T]>;
+  }
+
   public keys(): Array<keyof T> {
     return Object.keys(this.getContents()) as Array<keyof T>;
   }

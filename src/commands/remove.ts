@@ -18,13 +18,8 @@ export default class Remove extends Command {
   public async run(): Promise<void> {
     const { args } = await this.parse(Remove);
     const repos = await Repos.create();
-    const repo = repos.get(args.repo);
-    if (!repo) {
-      process.exitCode = 1;
-      throw new Error(`${args.repo as string} has not been added yet.`);
-    }
-
-    repos.unset(args.repo);
+    const repo = repos.getOne(args.repo);
+    repos.unset(repo.fullName);
     await repos.write();
     await rm(repo.location, { recursive: true, force: true });
   }

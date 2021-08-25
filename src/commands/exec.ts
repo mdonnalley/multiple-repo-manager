@@ -37,12 +37,7 @@ export default class Exec extends Command {
     const repoName = (args.repo === '.' ? path.basename(process.cwd()) : args.repo) as string;
     let executable = argv.splice(argv.indexOf(args.repo) + 1).join(' ');
 
-    const repo = (await Repos.create()).get(repoName);
-    if (!repo) {
-      process.exitCode = 1;
-      throw new Error(`${args.repo as string} has not been added yet.`);
-    }
-
+    const repo = (await Repos.create()).getOne(repoName);
     const tokensRegex = /{(.*?)}/g;
     const tokens = executable.match(tokensRegex) ?? [];
     tokens.forEach((t) => {

@@ -21,12 +21,7 @@ export default class View extends Command {
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(View);
     const repos = await Repos.create();
-    const repo = repos.get(args.repo);
-    if (!repo) {
-      process.exitCode = 1;
-      throw new Error(`${args.repo as string} has not been added yet.`);
-    }
-
+    const repo = repos.getOne(args.repo);
     this.log(flags.remote ? repo.urls.html : repo.location);
   }
 }
