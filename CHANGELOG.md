@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/mdonnalley/multiple-package-manager/compare/v1.1.1...v1.2.0) (2021-08-25)
+
+
+### Features
+
+* improve autocomplete and aliases ([bfb87ed](https://github.com/mdonnalley/multiple-package-manager/commit/bfb87edce36e3a50177a85a8fcbabaa38c09ed77))
+
 ## [1.1.1](https://github.com/mdonnalley/multiple-package-manager/compare/v1.1.0...v1.1.1) (2021-08-24)
 
 
