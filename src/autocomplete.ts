@@ -5,10 +5,16 @@ import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 import { Aliases } from './aliases';
 
-const AUTO_COMPLETE = `_multi_autocomplete()
+const AUTO_COMPLETE = `#/usr/bin/env bash
+
+_get_repo_autocomplete()
+{
+  echo $(ls -d @CODE_DIRECTORY@/**/* | sed 's/\\/*$//g' | awk -F/ '{print $(NF-1)"/"$(NF)" "$(NF)}')
+}
+
+_multi_autocomplete()
 {
     local cur prev
-    local code_dir=@CODE_DIRECTORY@
     local aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
 
     cur=\${COMP_WORDS[COMP_CWORD]}
@@ -20,7 +26,7 @@ const AUTO_COMPLETE = `_multi_autocomplete()
         2)
             case \${prev} in
                 @REPO_COMMANDS@)
-                    COMPREPLY=($( compgen -W "$(ls -d $code_dir/**/* | xargs basename)" -- $cur ))
+                    COMPREPLY=($( compgen -W "$(_get_repo_autocomplete)" -- $cur ))
                     ;;
             esac
             ;;
