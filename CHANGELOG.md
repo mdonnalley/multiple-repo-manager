@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.4.0...v1.4.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* improve autocomplete ([33cd246](https://github.com/mdonnalley/multiple-repo-manager/commit/33cd246f91e3184e7da247f773caeef11606ee8f))
+
 # [1.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.3.1...v1.4.0) (2021-08-25)
 
 
