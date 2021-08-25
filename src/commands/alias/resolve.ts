@@ -16,7 +16,7 @@ export default class Resolve extends Command {
   public async run(): Promise<void> {
     const { args } = await this.parse(Resolve);
     const aliases = await Aliases.create();
-    const executable = aliases.get(args.alias);
+    const executable = aliases.get(args.alias).replace(/\n/g, ' ; ');
     this.log(executable);
   }
 }

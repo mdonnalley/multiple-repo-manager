@@ -8,11 +8,11 @@ import { Aliases } from './aliases';
 const AUTO_COMPLETE = `_multi_autocomplete()
 {
     local cur prev
+    local code_dir=@CODE_DIRECTORY@
+    local aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
 
     cur=\${COMP_WORDS[COMP_CWORD]}
     prev=\${COMP_WORDS[COMP_CWORD-1]}
-    code_dir=@CODE_DIRECTORY@
-    aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
     case \${COMP_CWORD} in
         1)
             COMPREPLY=($(compgen -W "@COMMANDS@ \${aliases}" -- \${cur}))

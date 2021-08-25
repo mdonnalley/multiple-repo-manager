@@ -8,14 +8,14 @@ import { Aliases } from './aliases';
 const TEMPLATE = `#/usr/bin/env bash
 
 function _multi {
-  aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
-  multi_exec=$(which multi)
+  local aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
+  local multi_exec=$(which multi)
 
   if [[ " $aliases " =~ .*\\ $1\\ .* ]]; then
     if [[ "$2" == "--help" ]]; then
       echo "--help is not supported on aliased commands"
     else
-    $(eval $multi_exec alias resolve $1)
+      eval $($multi_exec alias resolve $1)
     fi
   elif [[ "$1" == "cd" && "$2" != "--help" ]]; then
     cd $(eval $multi_exec where $2)
