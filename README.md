@@ -1,12 +1,12 @@
-# Multiple Repo Manager (multi)
+# Multiple Repo Manager
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/multiple-repo-manager.svg)](https://npmjs.org/package/multiple-repo-manager) [![CircleCI](https://circleci.com/gh/mdonnalley/multiple-repo-manager/tree/main.svg?style=shield)](https://circleci.com/gh/mdonnalley/multiple-repo-manager/tree/main) [![Downloads/week](https://img.shields.io/npm/dw/multiple-repo-manager.svg)](https://npmjs.org/package/multiple-repo-manager) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/mdonnalley/multiple-repo-manager/main/LICENSE.txt)
 
-`multi` is a CLI for managing node packages across multiple Github organizations and repositories.
+`multi` is a CLI for managing node packages across multiple Github organizations and repositories. Autocomplete and user defined aliases are supported for linux and osx users.
 
 <!-- toc -->
-* [Multiple Repo Manager (multi)](#multiple-repo-manager-multi)
+* [Multiple Repo Manager](#multiple-repo-manager)
 * [Getting Started](#getting-started)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -17,8 +17,6 @@
 
 ```sh-session
 $ npm install -g multiple-repo-manager
-$ multi --version
-multiple-repo-manager/1.1.1 darwin-x64 node-v14.15.4
 $ multi --help [COMMAND]
 USAGE
   $ multi COMMAND
@@ -45,6 +43,22 @@ To add a repository:
 
 ```bash
 multi add my-github-org/my-repo
+```
+
+## Aliases
+
+One the main advantages of using `multi` is that you can define your own command aliases. Theses aliases are stored at `~/.mutli/aliases.yml` and can set be set and unset using the `multi alias` command.
+
+### Examles
+
+```yaml
+open-circle: multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
+done-with-branch: |
+  local current_branch=$(git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/")
+  multi exec . git checkout {repo.defaultBranch}
+  git pull
+  git remote prune origin
+  git branch -D $current_branch
 ```
 
 # Commands

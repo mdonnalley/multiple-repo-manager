@@ -18,7 +18,7 @@ export default class Cd extends Command {
      * of the executing shell - instead we must use bash. This command is here just so that it shows up in
      * the help output.
      *
-     * See the MpmCd class for more context.
+     * See the MultiWrapper class for more context.
      */
   }
 }

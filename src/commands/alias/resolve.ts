@@ -8,7 +8,7 @@ export default class Resolve extends Command {
   public static args = [
     {
       name: 'alias',
-      description: 'Name of alias to resolve..',
+      description: 'Name of alias to resolve.',
       required: true,
     },
   ];

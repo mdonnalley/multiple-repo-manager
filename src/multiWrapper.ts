@@ -28,9 +28,10 @@ alias multi='_multi'
 `;
 
 /**
- * It's not possible to use node to change the directory of the executing
- * shell so instead we write a multi function to the .bashrc so that we can
- * capture the `multi cd` execution and use bash instead.
+ * We wrap the `multi` executable for two reasons:
+ * 1. To support executing user defined aliases
+ * 2. To support the `cd` command. Node can't change the directory
+ * of the executing shell, so we have to do it in bash.
  */
 export class MultiWrapper extends AsyncOptionalCreatable {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'multi-wrapper.bash');
