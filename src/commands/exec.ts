@@ -44,7 +44,7 @@ export default class Exec extends Command {
     }
 
     const tokensRegex = /{(.*?)}/g;
-    const tokens = executable.match(tokensRegex);
+    const tokens = executable.match(tokensRegex) ?? [];
     tokens.forEach((t) => {
       const value = get(repo, t.replace(/{|}/g, '').replace('repo.', '')) as string;
       executable = executable.replace(t, value);

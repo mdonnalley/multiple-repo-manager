@@ -10,9 +10,9 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
   public static MPM_DIR = path.join(os.homedir(), ConfigFile.MPM_DIR_NAME);
 
   public stats: Stats;
+  public filepath: string;
 
   private contents: T;
-  private filepath: string;
 
   public constructor(filename: string) {
     super(filename);
@@ -20,12 +20,12 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
   }
 
   public async read(): Promise<T> {
-    this.contents = JSON.parse(await readFile(this.filepath, 'utf-8')) as T;
+    this.contents = this.parse(await readFile(this.filepath, 'utf-8'));
     return this.contents;
   }
 
   public async write(newContents: T = this.contents): Promise<void> {
-    await writeFile(this.filepath, JSON.stringify(newContents, null, 2));
+    await writeFile(this.filepath, this.format(newContents));
   }
 
   public getContents(): T {
@@ -83,5 +83,13 @@ export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
 
   protected make(): T {
     return {} as T;
+  }
+
+  protected parse(contents: string): T {
+    return JSON.parse(contents) as T;
+  }
+
+  protected format(contents: T): string {
+    return JSON.stringify(contents, null, 2);
   }
 }

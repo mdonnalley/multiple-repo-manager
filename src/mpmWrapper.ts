@@ -8,26 +8,23 @@ import { Aliases } from './aliases';
 const TEMPLATE = `#/usr/bin/env bash
 
 function _mpm {
-  @ALIASES@
-  if [[ "$1" == "cd" && "$2" != "--help" ]]; then
-    cd $(mpm where $2)
+  aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
+  mpm_exec=$(which mpm)
+
+  if [[ " $aliases " =~ .*\\ $1\\ .* ]]; then
+    if [[ "$2" == "--help" ]]; then
+      echo "--help is not supported on aliased commands"
+    else
+    $(eval $mpm_exec alias resolve $1)
+    fi
+  elif [[ "$1" == "cd" && "$2" != "--help" ]]; then
+    cd $(eval $mpm_exec where $2)
   else
-    mpm "$@"
+    eval $mpm_exec "$@"
   fi
 }
 
 alias mpm='_mpm'
-`;
-
-const ALIASED_CMD_TEMPLATE = `
-  if [[ "$1" == "@CMD@" ]]; then
-    if [[ "$2" == "--help" ]]; then
-      echo "--help is not supported on aliased commands"
-    else
-      @VALUE@
-    fi
-    return
-  fi
 `;
 
 /**
@@ -36,7 +33,7 @@ const ALIASED_CMD_TEMPLATE = `
  * capture the `mpm cd` execution and use bash instead.
  */
 export class MpmWrapper extends AsyncOptionalCreatable {
-  public static LOCATION = path.join(ConfigFile.MPM_DIR, 'mpm-wrapper.bash');
+  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'mpm-wrapper.bash');
   public constructor() {
     super();
   }
@@ -44,14 +41,10 @@ export class MpmWrapper extends AsyncOptionalCreatable {
   protected async init(): Promise<void> {
     if (process.platform === 'win32') return;
     const aliases = await Aliases.create();
-    let aliasesString = '';
-    for (const [cmd, value] of aliases.entries()) {
-      aliasesString += ALIASED_CMD_TEMPLATE.replace('@CMD@', cmd).replace('@VALUE@', value);
-    }
-    const contents = TEMPLATE.replace('@ALIASES@', aliasesString);
-    await writeFile(MpmWrapper.LOCATION, contents);
+    const contents = TEMPLATE.replace('@ALIASES_PATH@', aliases.filepath);
+    await writeFile(MpmWrapper.FILE_PATH, contents);
     const bashRc = await BashRc.create();
-    bashRc.append(`source ${MpmWrapper.LOCATION}`);
+    bashRc.append(`source ${MpmWrapper.FILE_PATH}`);
     await bashRc.write();
   }
 }

@@ -12,9 +12,10 @@ const AUTO_COMPLETE = `_mpm_autocomplete()
     cur=\${COMP_WORDS[COMP_CWORD]}
     prev=\${COMP_WORDS[COMP_CWORD-1]}
     code_dir=@CODE_DIRECTORY@
+    aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
     case \${COMP_CWORD} in
         1)
-            COMPREPLY=($(compgen -W "@COMMANDS@" -- \${cur}))
+            COMPREPLY=($(compgen -W "@COMMANDS@ \${aliases}" -- \${cur}))
             ;;
         2)
             case \${prev} in
@@ -33,7 +34,7 @@ complete -F _mpm_autocomplete mpm
 `;
 
 export class AutoComplete extends AsyncCreatable<string> {
-  public static LOCATION = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
+  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
   public static MPM_COMMANDS = ['add', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
 
@@ -44,16 +45,15 @@ export class AutoComplete extends AsyncCreatable<string> {
   protected async init(): Promise<void> {
     if (process.platform === 'win32') return;
     const bashRc = await BashRc.create();
-    const aliases = (await Aliases.create()).keys();
-    const commands = AutoComplete.MPM_COMMANDS.concat(aliases);
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
-      .replace('@COMMANDS@', commands.join(' '))
-      .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '));
+      .replace('@COMMANDS@', AutoComplete.MPM_COMMANDS.join(' '))
+      .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '))
+      .replace('@ALIASES_PATH@', Aliases.FILE_PATH);
 
-    await writeFile(AutoComplete.LOCATION, contents);
+    await writeFile(AutoComplete.FILE_PATH, contents);
 
-    bashRc.append(`source ${AutoComplete.LOCATION}`);
+    bashRc.append(`source ${AutoComplete.FILE_PATH}`);
     await bashRc.write();
   }
 }

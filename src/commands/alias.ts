@@ -1,9 +1,6 @@
-import { Command } from '@oclif/core';
+import { spawn } from 'child_process';
+import { Command, Flags } from '@oclif/core';
 import { Aliases } from '../aliases';
-import { AutoComplete } from '../autocomplete';
-import { BashRc } from '../bashRc';
-import { Config } from '../config';
-import { MpmWrapper } from '../mpmWrapper';
 
 export default class Alias extends Command {
   public static summary = 'Set or unset an executable alias.';
@@ -23,10 +20,19 @@ export default class Alias extends Command {
       description: 'Unset an alias',
       command: '<%= config.bin %> <%= command.id %> build=',
     },
+    {
+      description: 'Set an alias interactively',
+      command: '<%= config.bin %> <%= command.id %> build --interactive',
+    },
   ];
   public static disableJsonFlag = true;
   public static strict = false;
-  public static flags = {};
+  public static flags = {
+    interactive: Flags.boolean({
+      description: 'Open a vim editor to add your alias',
+      default: false,
+    }),
+  };
   public static args = [
     {
       name: 'keyValue',
@@ -36,30 +42,37 @@ export default class Alias extends Command {
   ];
 
   public async run(): Promise<void> {
-    const { args, argv } = await this.parse(Alias);
+    const { args, argv, flags } = await this.parse(Alias);
     const keyValue = args.keyValue as string;
-    if (!keyValue.includes('=')) {
+
+    if (!flags.interactive && !keyValue.includes('=')) {
       process.exitCode = 1;
       throw new Error(`The provided argument ${args.keyValue as string} is not a valid key=value pair.`);
     }
-    const [alias, firstPart] = keyValue.split('=');
-    const executable = firstPart ? firstPart + ' ' + argv.splice(argv.indexOf(keyValue) + 1).join(' ') : null;
+
     const aliases = await Aliases.create();
-    if (!executable) {
-      aliases.unset(alias);
+    const [alias, firstPart] = keyValue.split('=');
+    if (flags.interactive) {
+      aliases.set(alias, '');
+      await aliases.write();
+      spawn('vim', [aliases.filepath], {
+        stdio: 'inherit',
+        detached: true,
+      });
+      await aliases.write();
     } else {
-      aliases.set(alias, executable);
-    }
-    await aliases.write();
-
-    const config = await Config.create();
-    await AutoComplete.create(config.get('directory'));
-    await MpmWrapper.create();
-
-    if (executable) {
-      this.log(`Open a new terminal or run "source ${BashRc.LOCATION}" for the new alias to work.`);
-    } else {
-      this.log(`${alias} was successfully removed.`);
+      const executable = firstPart ? firstPart + ' ' + argv.splice(argv.indexOf(keyValue) + 1).join(' ') : null;
+      if (!executable) {
+        aliases.unset(alias);
+      } else {
+        aliases.set(alias, executable);
+      }
+      await aliases.write();
+      if (executable) {
+        this.log(`${alias} was successfully created.`);
+      } else {
+        this.log(`${alias} was successfully removed.`);
+      }
     }
   }
 }

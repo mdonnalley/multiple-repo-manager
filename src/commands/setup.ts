@@ -34,8 +34,8 @@ export default class Setup extends Command {
     await config.write();
 
     this.log(`All repositories will be cloned into ${config.get('directory')}`);
-    await AutoComplete.create(config.get('directory'));
     await MpmWrapper.create();
+    await AutoComplete.create(config.get('directory'));
 
     this.log(`Open a new terminal or run "source ${BashRc.LOCATION}" for autocomplete to work.`);
   }
