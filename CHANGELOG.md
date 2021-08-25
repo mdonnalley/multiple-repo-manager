@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.3.0...v1.3.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* autocomplete and alias improvements ([c11d7dd](https://github.com/mdonnalley/multiple-repo-manager/commit/c11d7dd291f443f77f8f30def87f84adb8ce6836))
+
 # [1.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.2.0...v1.3.0) (2021-08-25)
 
 
