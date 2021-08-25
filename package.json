@@ -64,10 +64,10 @@
     "postpack": "rm oclif.manifest.json",
     "posttest": "yarn run lint",
     "prepack": "rm -rf lib && tsc && oclif manifest .",
+    "readme": "oclif readme && git add README.md",
     "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
     "semantic-release": "semantic-release",
-    "test": "mocha \"test/**/*.test.ts\" --forbid-only",
-    "version": "oclif readme && git add README.md"
+    "test": "mocha \"test/**/*.test.ts\" --forbid-only"
   },
   "bin": {
     "multi": "bin/run"
