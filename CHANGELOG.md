@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.3.1...v1.4.0) (2021-08-25)
+
+
+### Features
+
+* handle naming conflicts ([7c9207e](https://github.com/mdonnalley/multiple-repo-manager/commit/7c9207ec9e83f74e92de94a0bc4091ae06e62d43))
+
 ## [1.3.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.3.0...v1.3.1) (2021-08-25)
 
 
