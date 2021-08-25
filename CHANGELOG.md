@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.2.0...v1.3.0) (2021-08-25)
+
+
+### Bug Fixes
+
+* await promise ([0d5183a](https://github.com/mdonnalley/multiple-repo-manager/commit/0d5183a23f454516f877ee01a78183ab8d7cc99a))
+
+
+### Features
+
+* rename to multi ([20d11d8](https://github.com/mdonnalley/multiple-repo-manager/commit/20d11d8e61fc68641df62e5866c39f74db0b8a65))
+
 # [1.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.1.1...v1.2.0) (2021-08-25)
 
 
