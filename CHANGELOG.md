@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.0...v1.5.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* improve help output ([2104603](https://github.com/mdonnalley/multiple-repo-manager/commit/2104603abb9f795a1b646a39c3e981359c1dc7d4))
+
 # [1.5.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.4.1...v1.5.0) (2021-08-25)
 
 
