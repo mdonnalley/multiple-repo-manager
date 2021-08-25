@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.4.1...v1.5.0) (2021-08-25)
+
+
+### Features
+
+* open tabs and files ([653e5d2](https://github.com/mdonnalley/multiple-repo-manager/commit/653e5d2f575b403cda1927c0652c98a747119fde))
+
 ## [1.4.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.4.0...v1.4.1) (2021-08-25)
 
 
