@@ -48,7 +48,7 @@ export interface RepoIndex {
 }
 
 export class Repos extends ConfigFile<RepoIndex> {
-  public static REFRESH_TIME = Duration.hours(8);
+  public static REFRESH_TIME = Duration.weeks(1);
   public directory!: Directory;
   private octokit!: Octokit;
 
@@ -127,7 +127,7 @@ export class Repos extends ConfigFile<RepoIndex> {
           if (originalRepos.includes(repo.fullName)) this.update(repo.fullName, repo);
         });
       } catch {
-        cli.log(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
+        cli.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
       }
     }
     await this.write();
