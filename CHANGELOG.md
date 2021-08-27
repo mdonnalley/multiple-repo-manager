@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.2...v1.5.3) (2021-08-27)
+
+
+### Bug Fixes
+
+* increase time between refreshes ([7c38cb2](https://github.com/mdonnalley/multiple-repo-manager/commit/7c38cb2857345c420099a6ea0e55592e89100dd2))
+
 ## [1.5.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.1...v1.5.2) (2021-08-25)
 
 
