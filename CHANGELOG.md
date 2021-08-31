@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.3...v2.0.0) (2021-08-31)
+
+
+### Features
+
+* rename aliases to tasks ([03a99e3](https://github.com/mdonnalley/multiple-repo-manager/commit/03a99e3b31978a2a31b8cab767fcb9236f41808c))
+
+
+### BREAKING CHANGES
+
+* aliases renamed to tasks
+
 ## [1.5.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.2...v1.5.3) (2021-08-27)
 
 ### Bug Fixes
