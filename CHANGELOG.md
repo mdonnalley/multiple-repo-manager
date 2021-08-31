@@ -1,3 +1,10 @@
+# [2.0.0-beta.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-08-31)
+
+
+### Bug Fixes
+
+* task get ([db3feb9](https://github.com/mdonnalley/multiple-repo-manager/commit/db3feb93159378d25743b1389b6fd9f04f02ad20))
+
 # [2.0.0-beta.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.3...v2.0.0-beta.1) (2021-08-31)
 
 
