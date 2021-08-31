@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
-import { Aliases } from './aliases';
+import { Tasks } from './tasks';
 
 const AUTO_COMPLETE = `#/usr/bin/env bash
 
@@ -15,13 +15,13 @@ _get_repo_autocomplete()
 _multi_autocomplete()
 {
     local cur prev
-    local aliases=$(sed -e 's/\:.*//;s/ .*//' @ALIASES_PATH@ | tr '\\n' ' ')
+    local tasks=$(sed -e 's/\:.*//;s/ .*//' @TASKS_PATH@ | tr '\\n' ' ')
 
     cur=\${COMP_WORDS[COMP_CWORD]}
     prev=\${COMP_WORDS[COMP_CWORD-1]}
     case \${COMP_CWORD} in
         1)
-            COMPREPLY=($(compgen -W "@COMMANDS@ \${aliases}" -- \${cur}))
+            COMPREPLY=($(compgen -W "@COMMANDS@ \${tasks}" -- \${cur}))
             ;;
         2)
             case \${prev} in
@@ -30,7 +30,7 @@ _multi_autocomplete()
                     ;;
             esac
 
-            case \${aliases} in
+            case \${tasks} in
                 *"$prev"*)
                     COMPREPLY=($( compgen -W "$(_get_repo_autocomplete)" -- $cur ))
                     ;;
@@ -44,12 +44,13 @@ _multi_autocomplete()
 }
 
 complete -F _multi_autocomplete multi
+complete -F _multi_autocomplete m
 `;
 
 export class AutoComplete extends AsyncCreatable<string> {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
-  public static MPM_COMMANDS = ['add', 'alias', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
+  public static MPM_COMMANDS = ['add', 'tasks', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
 
   public constructor(private directory: string) {
     super(directory);
@@ -62,7 +63,7 @@ export class AutoComplete extends AsyncCreatable<string> {
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
       .replace('@COMMANDS@', AutoComplete.MPM_COMMANDS.join(' '))
       .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '))
-      .replace('@ALIASES_PATH@', Aliases.FILE_PATH);
+      .replace('@TASKS_PATH@', Tasks.FILE_PATH);
 
     await writeFile(AutoComplete.FILE_PATH, contents);
 
