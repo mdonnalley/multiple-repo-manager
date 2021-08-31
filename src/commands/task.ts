@@ -1,27 +1,27 @@
 import { spawn } from 'child_process';
 import { Command, Flags } from '@oclif/core';
-import { Aliases } from '../aliases';
+import { Tasks } from '../tasks';
 
-export default class Alias extends Command {
-  public static summary = 'Set or unset an executable alias.';
-  public static description = 'Provide an empty to value to unset the alias. This feature is not support on Windows.';
+export default class Task extends Command {
+  public static summary = 'Set or unset an executable task.';
+  public static description = 'Provide an empty to value to unset the task. This feature is not support on Windows.';
   public static examples = [
     {
-      description: 'Set an alias',
+      description: 'Set a task',
       command: '<%= config.bin %> <%= command.id %> build=yarn build',
     },
     {
-      description: 'Set an alias that uses multi exec',
+      description: 'Set a task that uses multi exec',
       command:
         // eslint-disable-next-line max-len
         '<%= config.bin %> <%= command.id %> circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}',
     },
     {
-      description: 'Unset an alias',
+      description: 'Unset a task',
       command: '<%= config.bin %> <%= command.id %> build=',
     },
     {
-      description: 'Set an alias interactively',
+      description: 'Set a task interactively',
       command: '<%= config.bin %> <%= command.id %> build --interactive',
     },
   ];
@@ -29,20 +29,20 @@ export default class Alias extends Command {
   public static strict = false;
   public static flags = {
     interactive: Flags.boolean({
-      description: 'Open a vim editor to add your alias',
+      description: 'Open a vim editor to add your task',
       default: false,
     }),
   };
   public static args = [
     {
       name: 'keyValue',
-      description: 'alias=value',
+      description: 'task=value',
       required: true,
     },
   ];
 
   public async run(): Promise<void> {
-    const { args, argv, flags } = await this.parse(Alias);
+    const { args, argv, flags } = await this.parse(Task);
     const keyValue = args.keyValue as string;
 
     if (!flags.interactive && !keyValue.includes('=')) {
@@ -50,28 +50,28 @@ export default class Alias extends Command {
       throw new Error(`The provided argument ${args.keyValue as string} is not a valid key=value pair.`);
     }
 
-    const aliases = await Aliases.create();
-    const [alias, firstPart] = keyValue.split('=');
+    const tasks = await Tasks.create();
+    const [task, firstPart] = keyValue.split('=');
     if (flags.interactive) {
-      aliases.set(alias, '');
-      await aliases.write();
-      spawn('vim', [aliases.filepath], {
+      tasks.set(task, '');
+      await tasks.write();
+      spawn('vim', [tasks.filepath], {
         stdio: 'inherit',
         detached: true,
       });
-      await aliases.write();
+      await tasks.write();
     } else {
       const executable = firstPart ? firstPart + ' ' + argv.splice(argv.indexOf(keyValue) + 1).join(' ') : null;
       if (!executable) {
-        aliases.unset(alias);
+        tasks.unset(task);
       } else {
-        aliases.set(alias, executable);
+        tasks.set(task, executable);
       }
-      await aliases.write();
+      await tasks.write();
       if (executable) {
-        this.log(`${alias} was successfully created.`);
+        this.log(`${task} was successfully created.`);
       } else {
-        this.log(`${alias} was successfully removed.`);
+        this.log(`${task} was successfully removed.`);
       }
     }
   }
