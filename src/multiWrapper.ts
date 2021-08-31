@@ -16,9 +16,9 @@ function _multi {
       echo "--help is not supported on tasks"
     else
       if [[ -n \${@:2} ]]; then
-        source <($multi_exec tasks get $1) \${@:2}
+        source <($multi_exec task get $1) \${@:2}
       else
-        source <($multi_exec tasks get $1) ""
+        source <($multi_exec task get $1) ""
       fi
     fi
   elif [[ "$1" == "cd" && "$2" != "--help" ]]; then
