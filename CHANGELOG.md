@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.1...v2.1.2) (2021-09-01)
+
+
+### Bug Fixes
+
+* set cwd when running open ([8fa70c2](https://github.com/mdonnalley/multiple-repo-manager/commit/8fa70c2f6bb56ac08c767dda3f8c8882996ee1e9))
+
 ## [2.1.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.0...v2.1.1) (2021-09-01)
 
 
