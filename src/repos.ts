@@ -47,6 +47,14 @@ export interface RepoIndex {
   [key: string]: Repository;
 }
 
+export type Pull = {
+  url: string;
+  number: number;
+  title: string;
+  user: string;
+  repo: string;
+};
+
 export class Repos extends ConfigFile<RepoIndex> {
   public static REFRESH_TIME = Duration.weeks(1);
   public directory!: Directory;
@@ -82,6 +90,10 @@ export class Repos extends ConfigFile<RepoIndex> {
     }
   }
 
+  public getOrgs(): string[] {
+    return Array.from(new Set(Object.values(this.getContents()).map((r) => r.org)));
+  }
+
   public async fetch(org: string, repo?: string | null): Promise<Repository[]> {
     if (repo) {
       const response = await this.octokit.request('GET /repos/{owner}/{repo}', { owner: org, repo });
@@ -90,6 +102,26 @@ export class Repos extends ConfigFile<RepoIndex> {
       const response = await this.octokit.paginate('GET /orgs/{org}/repos', { org });
       return response.map((r) => this.transform(r as RepositoryResponse));
     }
+  }
+
+  public async fetchPulls(): Promise<Pull[]> {
+    const config = await Config.create();
+    const response = await this.octokit.paginate('GET /search/issues', {
+      q: `is:pr is:open author:${config.get('username')}`,
+    });
+    const pulls = response
+      // eslint-disable-next-line arrow-body-style
+      .map((r) => {
+        return {
+          url: r.html_url,
+          number: r.number,
+          title: r.title,
+          user: r.user.login,
+          repo: r.repository_url.split('/').slice(-2).join('/'),
+        } as Pull;
+      })
+      .filter((r) => this.has(r.repo));
+    return pulls;
   }
 
   public async clone(repo: Repository, method: CloneMethod = 'ssh'): Promise<void> {
@@ -104,6 +136,7 @@ export class Repos extends ConfigFile<RepoIndex> {
       // do nothing
     }
   }
+
   protected async init(): Promise<void> {
     await super.init();
     this.octokit = new Octokit({ auth: getToken() });
@@ -119,7 +152,7 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   private async refresh(): Promise<void> {
     const originalRepos = Object.keys(this.getContents());
-    const orgs = Array.from(new Set(Object.values(this.getContents()).map((r) => r.org)));
+    const orgs = this.getOrgs();
     for (const org of orgs) {
       try {
         const orgRepos = await this.fetch(org);
