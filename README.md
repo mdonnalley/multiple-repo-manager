@@ -112,7 +112,7 @@ EXAMPLES
     $ multi add https://github.com/my-github-org/my-repo
 ```
 
-_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/add.ts)_
 
 ## `multi alias KEYVALUE`
 
@@ -151,7 +151,7 @@ EXAMPLES
     $ multi alias build --interactive
 ```
 
-_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/alias.ts)_
+_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/alias.ts)_
 
 ## `multi alias resolve ALIAS`
 
@@ -183,7 +183,7 @@ DESCRIPTION
   cd into a github repository.
 ```
 
-_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/cd.ts)_
+_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/cd.ts)_
 
 ## `multi exec REPO`
 
@@ -216,7 +216,7 @@ EXAMPLES
     $ multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 
-_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/exec.ts)_
+_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/exec.ts)_
 
 ## `multi list`
 
@@ -233,7 +233,7 @@ ALIASES
   $ multi ls
 ```
 
-_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/list.ts)_
 
 ## `multi open REPO`
 
@@ -253,7 +253,7 @@ ALIASES
   $ multi o
 ```
 
-_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/open.ts)_
 
 ## `multi remove REPO`
 
@@ -273,7 +273,7 @@ ALIASES
   $ multi rm
 ```
 
-_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/remove.ts)_
+_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/remove.ts)_
 
 ## `multi setup`
 
@@ -290,7 +290,7 @@ DESCRIPTION
   Setup multi
 ```
 
-_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/setup.ts)_
+_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/setup.ts)_
 
 ## `multi view REPO`
 
@@ -310,7 +310,7 @@ ALIASES
   $ multi v
 ```
 
-_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/view.ts)_
+_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/view.ts)_
 
 ## `multi where REPO`
 
@@ -330,5 +330,5 @@ DESCRIPTION
   Print location of a github repository.
 ```
 
-_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0-beta.1/src/commands/where.ts)_
+_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/where.ts)_
 <!-- commandsstop -->

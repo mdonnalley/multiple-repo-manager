@@ -2,7 +2,7 @@
 
 import * as path from 'path';
 import { mkdir } from 'fs/promises';
-import { Octokit } from '@octokit/core';
+import { Octokit } from 'octokit';
 import { Duration } from '@salesforce/kit';
 import { exec } from 'shelljs';
 import { cli } from 'cli-ux';
@@ -87,8 +87,8 @@ export class Repos extends ConfigFile<RepoIndex> {
       const response = await this.octokit.request('GET /repos/{owner}/{repo}', { owner: org, repo });
       return [this.transform(response.data)];
     } else {
-      const response = await this.octokit.request('GET /orgs/{org}/repos', { org });
-      return response.data.map((r) => this.transform(r as RepositoryResponse));
+      const response = await this.octokit.paginate('GET /orgs/{org}/repos', { org });
+      return response.map((r) => this.transform(r as RepositoryResponse));
     }
   }
 
