@@ -50,7 +50,7 @@ complete -F _multi_autocomplete m
 export class AutoComplete extends AsyncCreatable<string> {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
-  public static MPM_COMMANDS = ['add', 'tasks', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where'];
+  public static COMMANDS = ['add', 'tasks', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where', 'pulls'];
 
   public constructor(private directory: string) {
     super(directory);
@@ -61,7 +61,7 @@ export class AutoComplete extends AsyncCreatable<string> {
     const bashRc = await BashRc.create();
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
-      .replace('@COMMANDS@', AutoComplete.MPM_COMMANDS.join(' '))
+      .replace('@COMMANDS@', AutoComplete.COMMANDS.join(' '))
       .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '))
       .replace('@TASKS_PATH@', Tasks.FILE_PATH);
 
