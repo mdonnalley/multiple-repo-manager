@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.0.0...v2.1.0) (2021-09-01)
+
+
+### Bug Fixes
+
+* paginate repositories request ([0f2a838](https://github.com/mdonnalley/multiple-repo-manager/commit/0f2a838ad07b999754acb264fb3b926fdbc79b42))
+
+
+### Features
+
+* add diff command ([1bb96f4](https://github.com/mdonnalley/multiple-repo-manager/commit/1bb96f4d074fc58c16809e3c64089950bf3fd661))
+* add pulls command ([42531a0](https://github.com/mdonnalley/multiple-repo-manager/commit/42531a0eeded5f1115b3fd12401a316ac135fc92))
+
 # [2.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.3...v2.0.0) (2021-08-31)
 
 ### Features
