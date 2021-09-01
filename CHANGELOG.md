@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.0...v2.1.1) (2021-09-01)
+
+
+### Bug Fixes
+
+* add pulls to autocomplete ([7d41a65](https://github.com/mdonnalley/multiple-repo-manager/commit/7d41a659d029b8318c0ac31f01f8be82411c7e85))
+
 # [2.1.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.0.0...v2.1.0) (2021-09-01)
 
 
