@@ -65,14 +65,15 @@ done-with-branch: |
 
 <!-- commands -->
 * [`multi add ENTITY`](#multi-add-entity)
-* [`multi alias KEYVALUE`](#multi-alias-keyvalue)
-* [`multi alias resolve ALIAS`](#multi-alias-resolve-alias)
 * [`multi cd REPO`](#multi-cd-repo)
+* [`multi diff ORG`](#multi-diff-org)
 * [`multi exec REPO`](#multi-exec-repo)
 * [`multi list`](#multi-list)
 * [`multi open REPO`](#multi-open-repo)
 * [`multi remove REPO`](#multi-remove-repo)
 * [`multi setup`](#multi-setup)
+* [`multi task KEYVALUE`](#multi-task-keyvalue)
+* [`multi task get TASK`](#multi-task-get-task)
 * [`multi view REPO`](#multi-view-repo)
 * [`multi where REPO`](#multi-where-repo)
 
@@ -114,63 +115,9 @@ EXAMPLES
 
 _See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/add.ts)_
 
-## `multi alias KEYVALUE`
-
-Provide an empty to value to unset the alias. This feature is not support on Windows.
-
-```
-USAGE
-  $ multi alias [KEYVALUE] [--interactive]
-
-ARGUMENTS
-  KEYVALUE  alias=value
-
-FLAGS
-  --interactive  Open a vim editor to add your alias
-
-DESCRIPTION
-  Set or unset an executable alias.
-
-  Provide an empty to value to unset the alias. This feature is not support on Windows.
-
-EXAMPLES
-  Set an alias
-
-    $ multi alias build=yarn build
-
-  Set an alias that uses multi exec
-
-    $ multi alias circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
-
-  Unset an alias
-
-    $ multi alias build=
-
-  Set an alias interactively
-
-    $ multi alias build --interactive
-```
-
-_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/alias.ts)_
-
-## `multi alias resolve ALIAS`
-
-Return the value of an alias.
-
-```
-USAGE
-  $ multi alias resolve [ALIAS]
-
-ARGUMENTS
-  ALIAS  Name of alias to resolve.
-
-DESCRIPTION
-  Return the value of an alias.
-```
-
 ## `multi cd REPO`
 
-cd into a github repository.
+cd into a repository.
 
 ```
 USAGE
@@ -180,10 +127,30 @@ ARGUMENTS
   REPO  Name of repository.
 
 DESCRIPTION
-  cd into a github repository.
+  cd into a repository.
 ```
 
 _See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/cd.ts)_
+
+## `multi diff ORG`
+
+Show repositories in an org that are not cloned locally. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi diff [ORG]
+
+ARGUMENTS
+  ORG  Github org
+
+DESCRIPTION
+  Show repositories in an org that are not cloned locally. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi diff my-github-org
+```
+
+_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/diff.ts)_
 
 ## `multi exec REPO`
 
@@ -220,14 +187,14 @@ _See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi list`
 
-List all added repositories.
+List all repositories.
 
 ```
 USAGE
   $ multi list
 
 DESCRIPTION
-  List all added repositories.
+  List all repositories.
 
 ALIASES
   $ multi ls
@@ -237,27 +204,45 @@ _See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi open REPO`
 
-Open a github repository.
+Open a repository in github.
 
 ```
 USAGE
-  $ multi open [REPO]
+  $ multi open [REPO] [-f <value> | -t issues|pulls|discussions|actions|wiki|security|pulse|settings]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
 
+FLAGS
+  -f, --file=<value>  File to open in github.
+  -t, --tab=<option>  Tab to open in github.
+                      <options: issues|pulls|discussions|actions|wiki|security|pulse|settings>
+
 DESCRIPTION
-  Open a github repository.
+  Open a repository in github.
 
 ALIASES
   $ multi o
+
+EXAMPLES
+  Open the main page of a github repository
+
+    $ multi open my-repo
+
+  Open the issues tab of a github repository
+
+    $ multi open my-repo --tab issues
+
+  Open a specific file in a github repository
+
+    $ multi open my-repo --file path/to/my/code.ts
 ```
 
 _See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/open.ts)_
 
 ## `multi remove REPO`
 
-Remove a github repository from your local filesystem.
+Remove a repository from your local file system.
 
 ```
 USAGE
@@ -267,7 +252,7 @@ ARGUMENTS
   REPO  Name of repository.
 
 DESCRIPTION
-  Remove a github repository from your local filesystem.
+  Remove a repository from your local file system.
 
 ALIASES
   $ multi rm
@@ -292,9 +277,63 @@ DESCRIPTION
 
 _See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/setup.ts)_
 
+## `multi task KEYVALUE`
+
+Provide an empty to value to unset the task. This feature is not support on Windows.
+
+```
+USAGE
+  $ multi task [KEYVALUE] [--interactive]
+
+ARGUMENTS
+  KEYVALUE  task=value
+
+FLAGS
+  --interactive  Open a vim editor to add your task
+
+DESCRIPTION
+  Set or unset an executable task.
+
+  Provide an empty to value to unset the task. This feature is not support on Windows.
+
+EXAMPLES
+  Set a task
+
+    $ multi task build=yarn build
+
+  Set a task that uses multi exec
+
+    $ multi task circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
+
+  Unset a task
+
+    $ multi task build=
+
+  Set a task interactively
+
+    $ multi task build --interactive
+```
+
+_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/task.ts)_
+
+## `multi task get TASK`
+
+Return the value of a task.
+
+```
+USAGE
+  $ multi task get [TASK]
+
+ARGUMENTS
+  TASK  Name of task to get.
+
+DESCRIPTION
+  Return the value of a task.
+```
+
 ## `multi view REPO`
 
-View a github repository.
+View a repository.
 
 ```
 USAGE
@@ -304,7 +343,7 @@ ARGUMENTS
   REPO  Name of repository.
 
 DESCRIPTION
-  View a github repository.
+  View a repository.
 
 ALIASES
   $ multi v
@@ -314,7 +353,7 @@ _See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi where REPO`
 
-Print location of a github repository.
+Print location of a repository.
 
 ```
 USAGE
@@ -327,7 +366,7 @@ FLAGS
   --remote  Return url of repository.
 
 DESCRIPTION
-  Print location of a github repository.
+  Print location of a repository.
 ```
 
 _See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.0.0/src/commands/where.ts)_
