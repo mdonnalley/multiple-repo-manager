@@ -65,7 +65,8 @@ export default class Open extends Command {
     }
 
     if (flags.file) {
-      const branch = exec('git rev-parse --abbrev-ref HEAD', { silent: true }).stdout ?? repo.defaultBranch;
+      const branch =
+        exec(`git -C ${repo.location} rev-parse --abbrev-ref HEAD`, { silent: true }).stdout ?? repo.defaultBranch;
       const url = `${repo.urls.html}/blob/${branch.trim()}/${flags.file}`;
       await open(url, { wait: false });
       return;

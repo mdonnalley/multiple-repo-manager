@@ -26,7 +26,7 @@ export type Repository = {
   updated: string;
   archived: boolean;
   defaultBranch: string;
-  location?: string;
+  location: string;
 };
 
 export type RepositoryResponse = {
