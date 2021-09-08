@@ -4,6 +4,10 @@ import { exec } from 'shelljs';
 import { get } from 'lodash';
 import { Repos } from '../repos';
 
+function parseRepoNameFromPath(): string {
+  return process.cwd().split(path.sep).reverse().slice(0, 2).reverse().join(path.sep);
+}
+
 export default class Exec extends Command {
   public static description = 'Execute a command or script in a repository.';
   public static examples = [
@@ -34,7 +38,8 @@ export default class Exec extends Command {
 
   public async run(): Promise<void> {
     const { args, argv } = await this.parse(Exec);
-    const repoName = (args.repo === '.' ? path.basename(process.cwd()) : args.repo) as string;
+    const repoName = (args.repo === '.' ? parseRepoNameFromPath() : args.repo) as string;
+
     let executable = argv.splice(argv.indexOf(args.repo) + 1).join(' ');
 
     const repo = (await Repos.create()).getOne(repoName);
