@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.2...v2.1.3) (2021-09-08)
+
+
+### Bug Fixes
+
+* **exec:** parse full name from path ([96c5821](https://github.com/mdonnalley/multiple-repo-manager/commit/96c582158ebf4fc8d901b5c183e7ef017342cd29))
+
 ## [2.1.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.1...v2.1.2) (2021-09-01)
 
 
