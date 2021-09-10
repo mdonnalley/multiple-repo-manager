@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { Command, Flags } from '@oclif/core';
 import * as open from 'open';
 import { exec } from 'shelljs';
