@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.3...v2.1.4) (2021-09-10)
+
+
+### Bug Fixes
+
+* use full name for open ([4532e43](https://github.com/mdonnalley/multiple-repo-manager/commit/4532e4331a97c22fe304bfe420364e27469fb790))
+
 ## [2.1.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.2...v2.1.3) (2021-09-08)
 
 
