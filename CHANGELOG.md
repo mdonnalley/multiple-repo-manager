@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.4...v2.1.5) (2021-09-10)
+
+
+### Bug Fixes
+
+* compilation issue ([4ff1e2a](https://github.com/mdonnalley/multiple-repo-manager/commit/4ff1e2a6ced7b111edde03400ec20773fa7104bc))
+
 ## [2.1.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.3...v2.1.4) (2021-09-10)
 
 
