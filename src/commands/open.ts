@@ -3,6 +3,7 @@ import { Command, Flags } from '@oclif/core';
 import * as open from 'open';
 import { exec } from 'shelljs';
 import { Repos } from '../repos';
+import { parseRepoNameFromPath } from '../util';
 
 enum GithubTab {
   ISSUES = 'issues',
@@ -57,7 +58,7 @@ export default class Open extends Command {
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Open);
-    const repoName = (args.repo === '.' ? path.basename(process.cwd()) : args.repo) as string;
+    const repoName = (args.repo === '.' ? parseRepoNameFromPath() : args.repo) as string;
     const repo = (await Repos.create()).getOne(repoName);
     if (!flags.file && !flags.tab) {
       await open(repo.urls.html, { wait: false });

@@ -1,12 +1,8 @@
-import * as path from 'path';
 import { Command } from '@oclif/core';
 import { exec } from 'shelljs';
 import { get } from 'lodash';
 import { Repos } from '../repos';
-
-function parseRepoNameFromPath(): string {
-  return process.cwd().split(path.sep).reverse().slice(0, 2).reverse().join(path.sep);
-}
+import { parseRepoNameFromPath } from '../util';
 
 export default class Exec extends Command {
   public static description = 'Execute a command or script in a repository.';
