@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.6...v2.2.0) (2021-09-17)
+
+
+### Features
+
+* add alias command ([bdfde8f](https://github.com/mdonnalley/multiple-repo-manager/commit/bdfde8f8c7671ba6ce8f9b7b5f75fe16c5299fe7))
+
 ## [2.1.6](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.5...v2.1.6) (2021-09-17)
 
 
