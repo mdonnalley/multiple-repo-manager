@@ -31,7 +31,6 @@ export default class Open extends Command {
       command: '<%= config.bin %> <%= command.id %> my-repo --file path/to/my/code.ts',
     },
   ];
-  public static disableJsonFlag = true;
   public static flags = {
     file: Flags.string({
       description: 'File to open in github.',

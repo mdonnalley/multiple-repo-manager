@@ -44,7 +44,6 @@ export default class Add extends Command {
       command: '<%= config.bin %> <%= command.id %> https://github.com/my-github-org/my-repo',
     },
   ];
-  public static disableJsonFlag = true;
 
   public static flags = {
     method: Flags.string({

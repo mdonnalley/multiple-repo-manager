@@ -25,7 +25,6 @@ export default class Task extends Command {
       command: '<%= config.bin %> <%= command.id %> build --interactive',
     },
   ];
-  public static disableJsonFlag = true;
   public static strict = false;
   public static flags = {
     interactive: Flags.boolean({

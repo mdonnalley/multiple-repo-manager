@@ -6,7 +6,6 @@ import { Repos, Repository } from '../repos';
 
 export default class List extends Command {
   public static description = 'List all repositories.';
-  public static disableJsonFlag = true;
   public static flags = {};
   public static aliases = ['ls'];
 

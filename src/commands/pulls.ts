@@ -7,7 +7,6 @@ export default class Pulls extends Command {
   public static description =
     'List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.';
   public static examples = ['<%= config.bin %> <%= command.id %>'];
-  public static disableJsonFlag = true;
 
   public static flags = {};
 

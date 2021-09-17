@@ -20,7 +20,6 @@ export default class Exec extends Command {
       command: '<%= config.bin %> <%= command.id %> . open https://app.circleci.com/pipelines/github/{repo.fullName}',
     },
   ];
-  public static disableJsonFlag = true;
   public static flags = {};
   public static args = [
     {

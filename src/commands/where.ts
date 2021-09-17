@@ -3,7 +3,6 @@ import { Repos } from '../repos';
 
 export default class View extends Command {
   public static description = 'Print location of a repository.';
-  public static disableJsonFlag = true;
   public static flags = {
     remote: Flags.boolean({
       description: 'Return url of repository.',

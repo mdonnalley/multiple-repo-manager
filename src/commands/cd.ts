@@ -2,7 +2,6 @@ import { Command } from '@oclif/core';
 
 export default class Cd extends Command {
   public static description = 'cd into a repository.';
-  public static disableJsonFlag = true;
   public static flags = {};
   public static args = [
     {

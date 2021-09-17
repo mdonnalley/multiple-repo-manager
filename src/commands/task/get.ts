@@ -3,7 +3,6 @@ import { Tasks } from '../../tasks';
 
 export default class Get extends Command {
   public static description = 'Return the value of a task.';
-  public static disableJsonFlag = true;
   public static flags = {};
   public static args = [
     {

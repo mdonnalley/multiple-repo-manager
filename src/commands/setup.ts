@@ -9,7 +9,6 @@ import { BashRc } from '../bashRc';
 
 export default class Setup extends Command {
   public static description = 'Setup multi';
-  public static disableJsonFlag = true;
   public static flags = {
     directory: Flags.string({
       description: 'Location to setup repositories.',

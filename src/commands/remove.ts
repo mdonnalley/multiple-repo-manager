@@ -4,7 +4,6 @@ import { Repos } from '../repos';
 
 export default class Remove extends Command {
   public static description = 'Remove a repository from your local file system.';
-  public static disableJsonFlag = true;
   public static flags = {};
   public static args = [
     {
