@@ -51,7 +51,21 @@ complete -F _multi_autocomplete m
 export class AutoComplete extends AsyncCreatable<string> {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
-  public static COMMANDS = ['add', 'tasks', 'cd', 'exec', 'list', 'open', 'remove', 'setup', 'view', 'where', 'pulls'];
+  public static COMMANDS = [
+    'add',
+    'alias',
+    'cd',
+    'diff',
+    'exec',
+    'list',
+    'open',
+    'pulls',
+    'remove',
+    'setup',
+    'tasks',
+    'view',
+    'where',
+  ];
 
   public constructor(private directory: string) {
     super(directory);
