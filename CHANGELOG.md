@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.1...v2.2.2) (2021-09-17)
+
+
+### Bug Fixes
+
+* update multi wrapper ([fb764b6](https://github.com/mdonnalley/multiple-repo-manager/commit/fb764b6a3a74e8feb68e2ad90bcd7fb5f41d75cc))
+
 ## [2.2.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.0...v2.2.1) (2021-09-17)
 
 
