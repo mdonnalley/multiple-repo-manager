@@ -4,6 +4,7 @@ import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
 import { BashRc } from './bashRc';
 import { Tasks } from './tasks';
+import { Aliases } from './aliases';
 
 const AUTO_COMPLETE = `#/usr/bin/env bash
 
@@ -16,7 +17,7 @@ _multi_autocomplete()
 {
     local cur prev
     local tasks=$(sed -e 's/\:.*//;s/ .*//' @TASKS_PATH@ | tr '\\n' ' ')
-    local aliases=$(sed -e 's/:.*//;s/ .*//' /Users/mdonnalley/.multi/aliases.yml | tr '\n' ' ')
+    local aliases=$(sed -e 's/:.*//;s/ .*//'  @ALIASES_PATH@ | tr '\n' ' ')
 
     cur=\${COMP_WORDS[COMP_CWORD]}
     prev=\${COMP_WORDS[COMP_CWORD-1]}
@@ -78,7 +79,8 @@ export class AutoComplete extends AsyncCreatable<string> {
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
       .replace('@COMMANDS@', AutoComplete.COMMANDS.join(' '))
       .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '))
-      .replace('@TASKS_PATH@', Tasks.FILE_PATH);
+      .replace('@TASKS_PATH@', Tasks.FILE_PATH)
+      .replace('@ALIASES_PATH@', Aliases.FILE_PATH);
 
     await writeFile(AutoComplete.FILE_PATH, contents);
 
