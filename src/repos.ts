@@ -11,6 +11,7 @@ import { ConfigFile } from './configFile';
 import { getToken } from './util';
 import { Config } from './config';
 import { Directory } from './directory';
+import { Aliases } from './aliases';
 
 export type CloneMethod = 'ssh' | 'https';
 
@@ -59,12 +60,18 @@ export class Repos extends ConfigFile<RepoIndex> {
   public static REFRESH_TIME = Duration.weeks(1);
   public directory!: Directory;
   private octokit!: Octokit;
+  private aliases!: Aliases;
 
   public constructor() {
     super('repos.json');
   }
 
-  public getMatches(nameOrFullName: string): Repository[] {
+  public getNameOrFullName(nameOrFullNameOrAlias: string): string {
+    return this.aliases.get(nameOrFullNameOrAlias) ?? nameOrFullNameOrAlias;
+  }
+
+  public getMatches(nameOrFullNameOrAlias: string): Repository[] {
+    const nameOrFullName = this.getNameOrFullName(nameOrFullNameOrAlias);
     if (this.has(nameOrFullName)) {
       return [super.get(nameOrFullName)];
     }
@@ -72,7 +79,8 @@ export class Repos extends ConfigFile<RepoIndex> {
     return matches ?? [];
   }
 
-  public getOne(nameOrFullName: string): Repository {
+  public getOne(nameOrFullNameOrAlias: string): Repository {
+    const nameOrFullName = this.getNameOrFullName(nameOrFullNameOrAlias);
     if (this.has(nameOrFullName)) {
       return super.get(nameOrFullName);
     } else {
@@ -142,7 +150,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     this.octokit = new Octokit({ auth: getToken() });
     const config = await Config.create();
     this.directory = await Directory.create({ name: config.get('directory') });
-
+    this.aliases = await Aliases.create();
     if (this.needsRefresh()) await this.refresh();
   }
 

@@ -9,13 +9,14 @@ const AUTO_COMPLETE = `#/usr/bin/env bash
 
 _get_repo_autocomplete()
 {
-  echo $(ls -d @CODE_DIRECTORY@/**/* | sed 's/\\/*$//g' | awk -F/ '{print $(NF-1)"/"$(NF)" "$(NF)}')
+  echo $(ls -d @CODE_DIRECTORY@/**/* | sed 's/\\/*$//g' | awk -F/ '{print $(NF-1)"/"$(NF)" "$(NF)}') $aliases
 }
 
 _multi_autocomplete()
 {
     local cur prev
     local tasks=$(sed -e 's/\:.*//;s/ .*//' @TASKS_PATH@ | tr '\\n' ' ')
+    local aliases=$(sed -e 's/:.*//;s/ .*//' /Users/mdonnalley/.multi/aliases.yml | tr '\n' ' ')
 
     cur=\${COMP_WORDS[COMP_CWORD]}
     prev=\${COMP_WORDS[COMP_CWORD-1]}

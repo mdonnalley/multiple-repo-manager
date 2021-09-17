@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as yml from 'js-yaml';
+import { isEmpty } from 'lodash';
 import { Config } from './config';
 import { ConfigFile } from './configFile';
 
@@ -14,10 +15,11 @@ export class Tasks extends ConfigFile<TasksMap> {
   }
 
   protected parse(contents: string): TasksMap {
-    return yml.load(contents) as TasksMap;
+    return (yml.load(contents) ?? {}) as TasksMap;
   }
 
   protected format(contents: TasksMap): string {
+    if (isEmpty(contents)) return '';
     return yml.dump(contents);
   }
 }
