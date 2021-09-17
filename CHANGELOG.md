@@ -1,3 +1,11 @@
+## [2.2.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.0...v2.2.1) (2021-09-17)
+
+
+### Bug Fixes
+
+* dont hardcode aliases path ([a31bdce](https://github.com/mdonnalley/multiple-repo-manager/commit/a31bdcea476880738f0faf52c428caec0cfdf858))
+* update list of autocomplete commands ([979ad23](https://github.com/mdonnalley/multiple-repo-manager/commit/979ad236e8ada441af5818b477454e9d10fc9a1f))
+
 # [2.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.6...v2.2.0) (2021-09-17)
 
 
