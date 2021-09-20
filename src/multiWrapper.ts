@@ -12,7 +12,7 @@ function _multi {
   local multi_exec=$(which multi)
 
   if [[ " $tasks " =~ .*\\ $1\\ .* ]]; then
-    if [[ " $@ " =~ .*\ --help\ .* ]]; then
+    if [[ " $@ " =~ .*\\ --help\\ .* ]]; then
       echo "--help is not supported on tasks"
     else
       if [[ -n \${@:2} ]]; then
