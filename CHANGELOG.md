@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.2...v2.2.3) (2021-09-20)
+
+
+### Bug Fixes
+
+* bash syntax in multiWrapper ([e3871cf](https://github.com/mdonnalley/multiple-repo-manager/commit/e3871cf75a83e60ea5f5561da7f4f4032de611c2))
+
 ## [2.2.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.1...v2.2.2) (2021-09-17)
 
 
