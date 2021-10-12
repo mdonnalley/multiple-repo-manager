@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.3...v2.2.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* use latest version of oclif/core ([b00f275](https://github.com/mdonnalley/multiple-repo-manager/commit/b00f2752ecc74285e9e531851d7b2ca32d1403f1))
+
 ## [2.2.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.2...v2.2.3) (2021-09-20)
 
 
