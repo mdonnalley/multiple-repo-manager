@@ -420,10 +420,10 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^0.5.39":
-  version "0.5.39"
-  resolved "https://registry.npmjs.org/@oclif/core/-/core-0.5.39.tgz#d00705f31c5e6617145e84bb9dd50156cf3b01c5"
-  integrity sha512-4XusxLX8PnHDQxtRP25PImlkIj1Mlx6wt0NWb1FxQGvTJOAgXGJZl3YB02ZeXZLYbeKA2A3AqqxFTTKbADnZng==
+"@oclif/core@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-0.6.0.tgz#85c341cddac0419b1b1c3172cb4f76277a87fd2a"
+  integrity sha512-pKCGuQoLdz9zY17slvVjPSvXlbyDoB0llPK+LIL4kELwpoOJ1Y52+00wIoD9B8xxPeQW9Cnavj1IHeKQes5ziw==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     chalk "^4.1.0"
