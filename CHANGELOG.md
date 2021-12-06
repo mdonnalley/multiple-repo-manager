@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.4...v2.3.0) (2021-12-06)
+
+
+### Features
+
+* allow . as arg to where cmd ([04bfb06](https://github.com/mdonnalley/multiple-repo-manager/commit/04bfb06f27117964de2a579cc3385cf5acfb7890))
+
 ## [2.2.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.3...v2.2.4) (2021-10-12)
 
 
