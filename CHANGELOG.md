@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.3.0...v2.4.0) (2022-01-26)
+
+
+### Features
+
+* remove cli-ux ([15438fa](https://github.com/mdonnalley/multiple-repo-manager/commit/15438fa2907970162e2acf24b94031fdd7176831))
+
 # [2.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.4...v2.3.0) (2021-12-06)
 
 ### Features
