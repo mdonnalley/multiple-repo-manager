@@ -1,5 +1,4 @@
-import { cli } from 'cli-ux';
-import { Command } from '@oclif/core';
+import { CliUx, Command } from '@oclif/core';
 import { sortBy } from 'lodash';
 import * as chalk from 'chalk';
 import { Repos, Repository } from '../repos';
@@ -31,7 +30,7 @@ export default class View extends Command {
         { key: 'url', value: matches[0].urls.html },
         { key: 'location', value: matches[0].location },
       ];
-      cli.table(data, columns);
+      CliUx.ux.table(data, columns);
     } else {
       const columns = {
         name: { header: 'Name' },
@@ -40,7 +39,7 @@ export default class View extends Command {
         location: { header: 'Location', get: (r: Repository): string => r.location },
       };
       const sorted = sortBy(Object.values(matches), 'name');
-      cli.table(sorted, columns, { title: chalk.cyan.bold('Found Multiple Respositories:') });
+      CliUx.ux.table(sorted, columns, { title: chalk.cyan.bold('Found Multiple Respositories:') });
     }
   }
 }

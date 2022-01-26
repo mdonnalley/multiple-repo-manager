@@ -4,8 +4,8 @@ import * as path from 'path';
 import { mkdir } from 'fs/promises';
 import { Octokit } from 'octokit';
 import { Duration } from '@salesforce/kit';
+import { CliUx } from '@oclif/core';
 import { exec } from 'shelljs';
-import { cli } from 'cli-ux';
 import * as chalk from 'chalk';
 import { ConfigFile } from './configFile';
 import { getToken } from './util';
@@ -168,7 +168,7 @@ export class Repos extends ConfigFile<RepoIndex> {
           if (originalRepos.includes(repo.fullName)) this.update(repo.fullName, repo);
         });
       } catch {
-        cli.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
+        CliUx.ux.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
       }
     }
     await this.write();

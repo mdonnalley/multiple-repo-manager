@@ -1,5 +1,4 @@
-import { Command } from '@oclif/core';
-import { cli } from 'cli-ux';
+import { CliUx, Command } from '@oclif/core';
 import { sortBy } from 'lodash';
 import { Repos, Repository } from '../repos';
 
@@ -27,6 +26,6 @@ export default class Diff extends Command {
       url: { header: 'URL', get: (r: Repository): string => r.urls.html },
     };
     const sorted = sortBy(Object.values(remote), 'name');
-    cli.table(sorted, columns, { title: `${args.org as string} Diff` });
+    CliUx.ux.table(sorted, columns, { title: `${args.org as string} Diff` });
   }
 }

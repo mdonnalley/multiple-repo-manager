@@ -1,6 +1,5 @@
-import { Command } from '@oclif/core';
+import { CliUx, Command } from '@oclif/core';
 import * as chalk from 'chalk';
-import { cli } from 'cli-ux';
 import { groupBy, sortBy } from 'lodash';
 import { Repos, Repository } from '../repos';
 
@@ -23,7 +22,7 @@ export default class List extends Command {
         location: { header: 'Location', get: (r: Repository): string => r.location },
       };
       const sorted = sortBy(Object.values(repos), 'name');
-      cli.table(sorted, columns, { title: chalk.cyan.bold(`${org} Respositories`) });
+      CliUx.ux.table(sorted, columns, { title: chalk.cyan.bold(`${org} Respositories`) });
       this.log();
     }
   }
