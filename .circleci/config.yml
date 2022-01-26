@@ -5,7 +5,7 @@ jobs:
   release:
     executor:
       name: node/default
-      tag: 14.7.0
+      tag: 14.15.0
     steps:
       - checkout
       - node/install-packages:
@@ -21,7 +21,7 @@ workflows:
             parameters:
               version:
                 - 16.1.0
-                - 14.7.0
+                - 14.15.0
       - release:
           requires:
             - node/test

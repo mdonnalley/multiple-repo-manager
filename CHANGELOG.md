@@ -1,100 +1,86 @@
 # [2.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.4...v2.3.0) (2021-12-06)
 
-
 ### Features
 
-* allow . as arg to where cmd ([04bfb06](https://github.com/mdonnalley/multiple-repo-manager/commit/04bfb06f27117964de2a579cc3385cf5acfb7890))
+- allow . as arg to where cmd ([04bfb06](https://github.com/mdonnalley/multiple-repo-manager/commit/04bfb06f27117964de2a579cc3385cf5acfb7890))
 
 ## [2.2.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.3...v2.2.4) (2021-10-12)
 
-
 ### Bug Fixes
 
-* use latest version of oclif/core ([b00f275](https://github.com/mdonnalley/multiple-repo-manager/commit/b00f2752ecc74285e9e531851d7b2ca32d1403f1))
+- use latest version of oclif/core ([b00f275](https://github.com/mdonnalley/multiple-repo-manager/commit/b00f2752ecc74285e9e531851d7b2ca32d1403f1))
 
 ## [2.2.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.2...v2.2.3) (2021-09-20)
 
-
 ### Bug Fixes
 
-* bash syntax in multiWrapper ([e3871cf](https://github.com/mdonnalley/multiple-repo-manager/commit/e3871cf75a83e60ea5f5561da7f4f4032de611c2))
+- bash syntax in multiWrapper ([e3871cf](https://github.com/mdonnalley/multiple-repo-manager/commit/e3871cf75a83e60ea5f5561da7f4f4032de611c2))
 
 ## [2.2.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.1...v2.2.2) (2021-09-17)
 
-
 ### Bug Fixes
 
-* update multi wrapper ([fb764b6](https://github.com/mdonnalley/multiple-repo-manager/commit/fb764b6a3a74e8feb68e2ad90bcd7fb5f41d75cc))
+- update multi wrapper ([fb764b6](https://github.com/mdonnalley/multiple-repo-manager/commit/fb764b6a3a74e8feb68e2ad90bcd7fb5f41d75cc))
 
 ## [2.2.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.0...v2.2.1) (2021-09-17)
 
-
 ### Bug Fixes
 
-* dont hardcode aliases path ([a31bdce](https://github.com/mdonnalley/multiple-repo-manager/commit/a31bdcea476880738f0faf52c428caec0cfdf858))
-* update list of autocomplete commands ([979ad23](https://github.com/mdonnalley/multiple-repo-manager/commit/979ad236e8ada441af5818b477454e9d10fc9a1f))
+- dont hardcode aliases path ([a31bdce](https://github.com/mdonnalley/multiple-repo-manager/commit/a31bdcea476880738f0faf52c428caec0cfdf858))
+- update list of autocomplete commands ([979ad23](https://github.com/mdonnalley/multiple-repo-manager/commit/979ad236e8ada441af5818b477454e9d10fc9a1f))
 
 # [2.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.6...v2.2.0) (2021-09-17)
 
-
 ### Features
 
-* add alias command ([bdfde8f](https://github.com/mdonnalley/multiple-repo-manager/commit/bdfde8f8c7671ba6ce8f9b7b5f75fe16c5299fe7))
+- add alias command ([bdfde8f](https://github.com/mdonnalley/multiple-repo-manager/commit/bdfde8f8c7671ba6ce8f9b7b5f75fe16c5299fe7))
 
 ## [2.1.6](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.5...v2.1.6) (2021-09-17)
 
-
 ### Bug Fixes
 
-* bump to latest @oclif/core ([4c0c6f7](https://github.com/mdonnalley/multiple-repo-manager/commit/4c0c6f7829ff68c0e7f4ea83318a891e84f0a41a))
+- bump to latest @oclif/core ([4c0c6f7](https://github.com/mdonnalley/multiple-repo-manager/commit/4c0c6f7829ff68c0e7f4ea83318a891e84f0a41a))
 
 ## [2.1.5](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.4...v2.1.5) (2021-09-10)
 
-
 ### Bug Fixes
 
-* compilation issue ([4ff1e2a](https://github.com/mdonnalley/multiple-repo-manager/commit/4ff1e2a6ced7b111edde03400ec20773fa7104bc))
+- compilation issue ([4ff1e2a](https://github.com/mdonnalley/multiple-repo-manager/commit/4ff1e2a6ced7b111edde03400ec20773fa7104bc))
 
 ## [2.1.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.3...v2.1.4) (2021-09-10)
 
-
 ### Bug Fixes
 
-* use full name for open ([4532e43](https://github.com/mdonnalley/multiple-repo-manager/commit/4532e4331a97c22fe304bfe420364e27469fb790))
+- use full name for open ([4532e43](https://github.com/mdonnalley/multiple-repo-manager/commit/4532e4331a97c22fe304bfe420364e27469fb790))
 
 ## [2.1.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.2...v2.1.3) (2021-09-08)
 
-
 ### Bug Fixes
 
-* **exec:** parse full name from path ([96c5821](https://github.com/mdonnalley/multiple-repo-manager/commit/96c582158ebf4fc8d901b5c183e7ef017342cd29))
+- **exec:** parse full name from path ([96c5821](https://github.com/mdonnalley/multiple-repo-manager/commit/96c582158ebf4fc8d901b5c183e7ef017342cd29))
 
 ## [2.1.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.1...v2.1.2) (2021-09-01)
 
-
 ### Bug Fixes
 
-* set cwd when running open ([8fa70c2](https://github.com/mdonnalley/multiple-repo-manager/commit/8fa70c2f6bb56ac08c767dda3f8c8882996ee1e9))
+- set cwd when running open ([8fa70c2](https://github.com/mdonnalley/multiple-repo-manager/commit/8fa70c2f6bb56ac08c767dda3f8c8882996ee1e9))
 
 ## [2.1.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.1.0...v2.1.1) (2021-09-01)
 
-
 ### Bug Fixes
 
-* add pulls to autocomplete ([7d41a65](https://github.com/mdonnalley/multiple-repo-manager/commit/7d41a659d029b8318c0ac31f01f8be82411c7e85))
+- add pulls to autocomplete ([7d41a65](https://github.com/mdonnalley/multiple-repo-manager/commit/7d41a659d029b8318c0ac31f01f8be82411c7e85))
 
 # [2.1.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.0.0...v2.1.0) (2021-09-01)
 
-
 ### Bug Fixes
 
-* paginate repositories request ([0f2a838](https://github.com/mdonnalley/multiple-repo-manager/commit/0f2a838ad07b999754acb264fb3b926fdbc79b42))
-
+- paginate repositories request ([0f2a838](https://github.com/mdonnalley/multiple-repo-manager/commit/0f2a838ad07b999754acb264fb3b926fdbc79b42))
 
 ### Features
 
-* add diff command ([1bb96f4](https://github.com/mdonnalley/multiple-repo-manager/commit/1bb96f4d074fc58c16809e3c64089950bf3fd661))
-* add pulls command ([42531a0](https://github.com/mdonnalley/multiple-repo-manager/commit/42531a0eeded5f1115b3fd12401a316ac135fc92))
+- add diff command ([1bb96f4](https://github.com/mdonnalley/multiple-repo-manager/commit/1bb96f4d074fc58c16809e3c64089950bf3fd661))
+- add pulls command ([42531a0](https://github.com/mdonnalley/multiple-repo-manager/commit/42531a0eeded5f1115b3fd12401a316ac135fc92))
 
 # [2.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v1.5.3...v2.0.0) (2021-08-31)
 
