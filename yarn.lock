@@ -795,9 +795,9 @@
     aggregate-error "^3.1.0"
 
 "@salesforce/kit@^1.5.17":
-  version "1.5.32"
-  resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.5.32.tgz#ed5925ea6cca23ef7cdef8086d9e663e50f98e93"
-  integrity sha512-5MIYLLx1Ee3eTcqEoqFXDCKXwtU8J5wo1QWyzb+BjReNGLVUuSc6Qi5JoCZtYGXeZpdBJmM3s9Y14QXr53ZmQw==
+  version "1.5.36"
+  resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.5.36.tgz#fa9950fb70520fc33352d5184cec5815463f6ff1"
+  integrity sha512-g1IgZID3q7Ehi4x9rIQNOROcsqHVatZgUr36SyXOhADUhqWhRmoUaQq0W0XlAMQr18rrOSct1nviJwHmlqy//A==
   dependencies:
     "@salesforce/ts-types" "^1.5.20"
     shx "^0.3.3"
