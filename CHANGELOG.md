@@ -1,3 +1,13 @@
+# [3.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.4.0...v3.0.0) (2022-06-10)
+
+
+* feat!: release version 3 ([cf68096](https://github.com/mdonnalley/multiple-repo-manager/commit/cf68096cdd605f76771494f221311b89790c9640))
+
+
+### BREAKING CHANGES
+
+* use zsh instead of bash
+
 # [2.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.3.0...v2.4.0) (2022-01-26)
 
 
