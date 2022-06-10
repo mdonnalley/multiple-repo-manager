@@ -69,14 +69,19 @@ done-with-branch: |
 * [`multi diff ORG`](#multi-diff-org)
 * [`multi exec REPO`](#multi-exec-repo)
 * [`multi list`](#multi-list)
+* [`multi ls`](#multi-ls)
+* [`multi o REPO`](#multi-o-repo)
 * [`multi open REPO`](#multi-open-repo)
 * [`multi pulls`](#multi-pulls)
 * [`multi remove REPO`](#multi-remove-repo)
+* [`multi rm REPO`](#multi-rm-repo)
 * [`multi setup`](#multi-setup)
 * [`multi task KEYVALUE`](#multi-task-keyvalue)
 * [`multi task get TASK`](#multi-task-get-task)
+* [`multi v REPO`](#multi-v-repo)
 * [`multi view REPO`](#multi-view-repo)
 * [`multi where REPO`](#multi-where-repo)
+* [`multi x REPO`](#multi-x-repo)
 
 ## `multi add ENTITY`
 
@@ -114,7 +119,7 @@ EXAMPLES
     $ multi add https://github.com/my-github-org/my-repo
 ```
 
-_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/add.ts)_
 
 ## `multi cd REPO`
 
@@ -131,7 +136,7 @@ DESCRIPTION
   cd into a repository.
 ```
 
-_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/cd.ts)_
+_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/cd.ts)_
 
 ## `multi diff ORG`
 
@@ -151,7 +156,7 @@ EXAMPLES
   $ multi diff my-github-org
 ```
 
-_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/diff.ts)_
+_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/diff.ts)_
 
 ## `multi exec REPO`
 
@@ -184,7 +189,7 @@ EXAMPLES
     $ multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 
-_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/exec.ts)_
+_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/exec.ts)_
 
 ## `multi list`
 
@@ -201,7 +206,58 @@ ALIASES
   $ multi ls
 ```
 
-_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/list.ts)_
+
+## `multi ls`
+
+List all repositories.
+
+```
+USAGE
+  $ multi ls
+
+DESCRIPTION
+  List all repositories.
+
+ALIASES
+  $ multi ls
+```
+
+## `multi o REPO`
+
+Open a repository in github.
+
+```
+USAGE
+  $ multi o [REPO] [-f <value> | -t issues|pulls|discussions|actions|wiki|security|pulse|settings]
+
+ARGUMENTS
+  REPO  [default: .] Name of repository.
+
+FLAGS
+  -f, --file=<value>  File to open in github.
+  -t, --tab=<option>  Tab to open in github.
+                      <options: issues|pulls|discussions|actions|wiki|security|pulse|settings>
+
+DESCRIPTION
+  Open a repository in github.
+
+ALIASES
+  $ multi o
+
+EXAMPLES
+  Open the main page of a github repository
+
+    $ multi o my-repo
+
+  Open the issues tab of a github repository
+
+    $ multi o my-repo --tab issues
+
+  Open a specific file in a github repository
+
+    $ multi o my-repo --file path/to/my/code.ts
+```
 
 ## `multi open REPO`
 
@@ -239,7 +295,7 @@ EXAMPLES
     $ multi open my-repo --file path/to/my/code.ts
 ```
 
-_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/open.ts)_
 
 ## `multi pulls`
 
@@ -256,7 +312,7 @@ EXAMPLES
   $ multi pulls
 ```
 
-_See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/pulls.ts)_
+_See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/pulls.ts)_
 
 ## `multi remove REPO`
 
@@ -276,7 +332,25 @@ ALIASES
   $ multi rm
 ```
 
-_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/remove.ts)_
+_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/remove.ts)_
+
+## `multi rm REPO`
+
+Remove a repository from your local file system.
+
+```
+USAGE
+  $ multi rm [REPO]
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  Remove a repository from your local file system.
+
+ALIASES
+  $ multi rm
+```
 
 ## `multi setup`
 
@@ -290,7 +364,7 @@ DESCRIPTION
   Setup multi
 ```
 
-_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/setup.ts)_
+_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/setup.ts)_
 
 ## `multi task KEYVALUE`
 
@@ -329,7 +403,7 @@ EXAMPLES
     $ multi task build --interactive
 ```
 
-_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/task.ts)_
+_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/task.ts)_
 
 ## `multi task get TASK`
 
@@ -344,6 +418,24 @@ ARGUMENTS
 
 DESCRIPTION
   Return the value of a task.
+```
+
+## `multi v REPO`
+
+View a repository.
+
+```
+USAGE
+  $ multi v [REPO]
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  View a repository.
+
+ALIASES
+  $ multi v
 ```
 
 ## `multi view REPO`
@@ -364,7 +456,7 @@ ALIASES
   $ multi v
 ```
 
-_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/view.ts)_
+_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/view.ts)_
 
 ## `multi where REPO`
 
@@ -384,5 +476,36 @@ DESCRIPTION
   Print location of a repository.
 ```
 
-_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.3.0/src/commands/where.ts)_
+_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/where.ts)_
+
+## `multi x REPO`
+
+Execute a command or script in a repository.
+
+```
+USAGE
+  $ multi x [REPO]
+
+ARGUMENTS
+  REPO  Name of repository to execute in. Use "." to specify the current working directory.
+
+DESCRIPTION
+  Execute a command or script in a repository.
+
+ALIASES
+  $ multi x
+
+EXAMPLES
+  Execute a script in a different repository
+
+    $ multi x my-repo yarn compile
+
+  Execute a script in the current working directory
+
+    $ multi x . yarn compile
+
+  Interpolate values into command execution
+
+    $ multi x . open https://app.circleci.com/pipelines/github/{repo.fullName}
+```
 <!-- commandsstop -->

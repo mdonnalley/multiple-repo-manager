@@ -4,8 +4,8 @@ import { writeFile, readFile } from 'fs/promises';
 import { exec } from 'shelljs';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
 
-export class BashRc extends AsyncOptionalCreatable {
-  public static LOCATION = path.join(os.homedir(), '.bashrc');
+export class ZshRc extends AsyncOptionalCreatable {
+  public static LOCATION = path.join(os.homedir(), '.zshrc');
 
   private contents!: string;
 
@@ -14,12 +14,12 @@ export class BashRc extends AsyncOptionalCreatable {
   }
 
   public async read(): Promise<string> {
-    this.contents = await readFile(BashRc.LOCATION, 'utf-8');
+    this.contents = await readFile(ZshRc.LOCATION, 'utf-8');
     return this.contents;
   }
 
   public async write(): Promise<void> {
-    await writeFile(BashRc.LOCATION, this.contents);
+    await writeFile(ZshRc.LOCATION, this.contents);
   }
 
   public has(str: string): boolean {
@@ -33,7 +33,7 @@ export class BashRc extends AsyncOptionalCreatable {
   }
 
   public source(): void {
-    exec(`source ${BashRc.LOCATION}`);
+    exec(`source ${ZshRc.LOCATION}`);
   }
 
   protected async init(): Promise<void> {

@@ -2,14 +2,14 @@ import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
-import { BashRc } from './bashRc';
 import { Tasks } from './tasks';
+import { ZshRc } from './zshRc';
 
-const TEMPLATE = `#/usr/bin/env bash
+const TEMPLATE = `#!/usr/bin/env bash
 
 function _multi {
   local tasks=$(sed -e 's/\:.*//;s/ .*//' @TASKS_PATH@ | tr '\\n' ' ')
-  local multi_exec=$(which multi)
+  local multi_exec=$(which -p multi)
 
   if [[ " $tasks " =~ .*\\ $1\\ .* ]]; then
     if [[ " $@ " =~ .*\\ --help\\ .* ]]; then
@@ -49,8 +49,8 @@ export class MultiWrapper extends AsyncOptionalCreatable {
     const tasks = await Tasks.create();
     const contents = TEMPLATE.replace('@TASKS_PATH@', tasks.filepath);
     await writeFile(MultiWrapper.FILE_PATH, contents);
-    const bashRc = await BashRc.create();
-    bashRc.append(`source ${MultiWrapper.FILE_PATH}`);
-    await bashRc.write();
+    const zshRc = await ZshRc.create();
+    zshRc.append(`[[ -r ${MultiWrapper.FILE_PATH} ]] && source ${MultiWrapper.FILE_PATH}`);
+    await zshRc.write();
   }
 }

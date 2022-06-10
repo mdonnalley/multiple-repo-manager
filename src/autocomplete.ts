@@ -2,15 +2,15 @@ import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
 import { ConfigFile } from './configFile';
-import { BashRc } from './bashRc';
 import { Tasks } from './tasks';
 import { Aliases } from './aliases';
+import { ZshRc } from './zshRc';
 
-const AUTO_COMPLETE = `#/usr/bin/env bash
+const AUTO_COMPLETE = `#!/usr/bin/env bash
 
 _get_repo_autocomplete()
 {
-  echo $(ls -d @CODE_DIRECTORY@/**/* | sed 's/\\/*$//g' | awk -F/ '{print $(NF-1)"/"$(NF)" "$(NF)}') $aliases
+  echo $(ls -d @CODE_DIRECTORY@/*/* | sed 's/\\/*$//g' | awk -F/ '{print $(NF-1)"/"$(NF)" "$(NF)}') $aliases
 }
 
 _multi_autocomplete()
@@ -45,8 +45,7 @@ _multi_autocomplete()
     esac
 }
 
-complete -F _multi_autocomplete multi
-complete -F _multi_autocomplete m
+complete -F _multi_autocomplete _multi
 `;
 
 export class AutoComplete extends AsyncCreatable<string> {
@@ -74,7 +73,7 @@ export class AutoComplete extends AsyncCreatable<string> {
 
   protected async init(): Promise<void> {
     if (process.platform === 'win32') return;
-    const bashRc = await BashRc.create();
+    const zshRc = await ZshRc.create();
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
       .replace('@COMMANDS@', AutoComplete.COMMANDS.join(' '))
@@ -83,8 +82,8 @@ export class AutoComplete extends AsyncCreatable<string> {
       .replace('@ALIASES_PATH@', Aliases.FILE_PATH);
 
     await writeFile(AutoComplete.FILE_PATH, contents);
-
-    bashRc.append(`source ${AutoComplete.FILE_PATH}`);
-    await bashRc.write();
+    zshRc.append('source autoload -Uz bashcompinit && bashcompinit');
+    zshRc.append(`[[ -r ${AutoComplete.FILE_PATH}]] && source ${AutoComplete.FILE_PATH}`);
+    await zshRc.write();
   }
 }

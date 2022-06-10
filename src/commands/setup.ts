@@ -5,7 +5,7 @@ import { prompt } from 'inquirer';
 import { Config } from '../config';
 import { AutoComplete } from '../autocomplete';
 import { MultiWrapper } from '../multiWrapper';
-import { BashRc } from '../bashRc';
+import { ZshRc } from '../zshRc';
 
 export default class Setup extends Command {
   public static description = 'Setup multi';
@@ -53,6 +53,6 @@ export default class Setup extends Command {
     await MultiWrapper.create();
     await AutoComplete.create(config.get('directory'));
 
-    this.log(`Open a new terminal or run "source ${BashRc.LOCATION}" for autocomplete to work.`);
+    this.log(`Open a new terminal or run "source ${ZshRc.LOCATION}" for autocomplete to work.`);
   }
 }
