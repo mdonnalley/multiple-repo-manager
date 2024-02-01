@@ -1,5 +1,5 @@
-import {ux} from '@oclif/core'
-import chalk from 'chalk'
+import {Errors, ux} from '@oclif/core'
+import makeDebug from 'debug'
 import {mkdir} from 'node:fs/promises'
 import path from 'node:path'
 import {Octokit} from 'octokit'
@@ -10,6 +10,8 @@ import {ConfigFile} from './config-file.js'
 import {Directory} from './directory.js'
 import execSync from './exec-sync.js'
 import {getToken} from './util.js'
+
+const debug = makeDebug('repos')
 
 export type CloneMethod = 'https' | 'ssh'
 
@@ -81,10 +83,12 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   public async fetch(org: string, repo?: null | string): Promise<Repository[]> {
     if (repo) {
+      debug(`GET /repos/${org}/${repo}`)
       const response = await this.octokit.request('GET /repos/{owner}/{repo}', {owner: org, repo})
       return [this.transform(response.data)]
     }
 
+    debug(`GET /orgs/${org}/repos`)
     const response = await this.octokit.paginate('GET /orgs/{org}/repos', {org})
     return response.map((r) => this.transform(r as RepositoryResponse))
   }
@@ -131,10 +135,12 @@ export class Repos extends ConfigFile<RepoIndex> {
 
     const matches = this.values().filter((v) => v.name === nameOrFullName)
     if (matches.length === 0) {
-      throw new Error(`${nameOrFullName} has not been added yet.`)
+      throw new Errors.CLIError(`${nameOrFullName} has not been added yet.`)
     } else if (matches.length > 1) {
       const suggestions = matches.map((m) => m.fullName).join(', ')
-      throw new Error(`Multiple repos found for ${nameOrFullName}. Please specify one of the following: ${suggestions}`)
+      throw new Errors.CLIError(
+        `Multiple repos found for ${nameOrFullName}. Please specify one of the following: ${suggestions}`,
+      )
     } else {
       return matches[0]
     }
@@ -156,25 +162,31 @@ export class Repos extends ConfigFile<RepoIndex> {
     return this
   }
 
-  private needsRefresh(): boolean {
-    return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME
-  }
-
-  private async refresh(): Promise<void> {
+  public async refresh(orgs?: string[]): Promise<void> {
+    debug('Repos JSON file', this.filepath)
     const originalRepos = Object.keys(this.getContents())
-    const orgs = this.getOrgs()
-    for (const org of orgs) {
+    const orgsToRefresh = orgs ?? this.getOrgs()
+    for (const org of orgsToRefresh) {
       try {
+        debug(`Refreshing org ${org}`)
         const orgRepos = await this.fetch(org)
         for (const repo of orgRepos) {
-          if (originalRepos.includes(repo.fullName)) this.update(repo.fullName, repo)
+          if (originalRepos.includes(repo.fullName)) {
+            this.update(repo.fullName, repo)
+            debug(`Updated ${org}/${repo.name}`)
+          }
         }
-      } catch {
-        ux.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`)
+      } catch (error) {
+        ux.warn(`Failed to refresh org ${org}`)
+        debug(error)
       }
     }
 
     await this.write()
+  }
+
+  private needsRefresh(): boolean {
+    return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME
   }
 
   private transform(repo: RepositoryResponse): Repository {

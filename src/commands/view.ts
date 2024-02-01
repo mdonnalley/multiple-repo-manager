@@ -1,4 +1,4 @@
-import {Args, Command, ux} from '@oclif/core'
+import {Args, Command, Errors, ux} from '@oclif/core'
 import chalk from 'chalk'
 import sortBy from 'lodash.sortby'
 
@@ -19,7 +19,7 @@ export default class View extends Command {
     const matches = repos.getMatches(args.repo)
     if (matches.length === 0) {
       process.exitCode = 1
-      throw new Error(`${args.repo} has not been added yet.`)
+      throw new Errors.CLIError(`${args.repo} has not been added yet.`)
     } else if (matches.length === 1) {
       const columns = {key: {}, value: {}}
       const data = [
@@ -37,7 +37,7 @@ export default class View extends Command {
         url: {get: (r: Repository): string => r.urls.html, header: 'URL'},
       }
       const sorted = sortBy(Object.values(matches), 'name')
-      ux.table(sorted, columns, {title: chalk.cyan.bold('Found Multiple Respositories:')})
+      ux.table(sorted, columns, {title: chalk.cyan.bold('Found Multiple Repositories:')})
     }
   }
 }

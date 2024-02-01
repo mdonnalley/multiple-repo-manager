@@ -1,4 +1,4 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Args, Command, Errors, Flags} from '@oclif/core'
 import {spawn} from 'node:child_process'
 
 import {Tasks} from '../tasks.js'
@@ -48,8 +48,7 @@ export default class Task extends Command {
     const {keyValue} = args
 
     if (!flags.interactive && !keyValue.includes('=')) {
-      process.exitCode = 1
-      throw new Error(`The provided argument ${keyValue} is not a valid key=value pair.`)
+      throw new Errors.CLIError(`The provided argument ${keyValue} is not a valid key=value pair.`)
     }
 
     const tasks = await new Tasks().init()

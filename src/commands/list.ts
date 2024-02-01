@@ -1,4 +1,4 @@
-import {Command, ux} from '@oclif/core'
+import {Command, Errors, ux} from '@oclif/core'
 import chalk from 'chalk'
 import groupBy from 'lodash.groupby'
 import sortBy from 'lodash.sortby'
@@ -13,8 +13,7 @@ export default class List extends Command {
   public async run(): Promise<void> {
     const repositories = (await new Repos().init()).getContents()
     if (Object.keys(repositories).length === 0) {
-      process.exitCode = 1
-      throw new Error('No repositories have been added yet.')
+      throw new Errors.CLIError('No repositories have been added yet.')
     }
 
     const grouped = groupBy(repositories, 'org')
