@@ -64,34 +64,26 @@ done-with-branch: |
 # Commands
 
 <!-- commands -->
-- [Multiple Repo Manager](#multiple-repo-manager)
-- [Getting Started](#getting-started)
-  - [Install](#install)
-  - [Setup](#setup)
-  - [Adding Organizations and Repositories](#adding-organizations-and-repositories)
-  - [Tasks](#tasks)
-    - [Examles](#examles)
-- [Commands](#commands)
-  - [`multi add ENTITY`](#multi-add-entity)
-  - [`multi alias KEYVALUE`](#multi-alias-keyvalue)
-  - [`multi cd REPO`](#multi-cd-repo)
-  - [`multi diff ORG`](#multi-diff-org)
-  - [`multi exec REPO`](#multi-exec-repo)
-  - [`multi list`](#multi-list)
-  - [`multi list org ORG`](#multi-list-org-org)
-  - [`multi ls`](#multi-ls)
-  - [`multi o REPO`](#multi-o-repo)
-  - [`multi open REPO`](#multi-open-repo)
-  - [`multi pulls`](#multi-pulls)
-  - [`multi remove REPO`](#multi-remove-repo)
-  - [`multi rm REPO`](#multi-rm-repo)
-  - [`multi setup`](#multi-setup)
-  - [`multi task KEYVALUE`](#multi-task-keyvalue)
-  - [`multi task get TASK`](#multi-task-get-task)
-  - [`multi v REPO`](#multi-v-repo)
-  - [`multi view REPO`](#multi-view-repo)
-  - [`multi where REPO`](#multi-where-repo)
-  - [`multi x REPO`](#multi-x-repo)
+* [`multi add ENTITY`](#multi-add-entity)
+* [`multi alias KEYVALUE`](#multi-alias-keyvalue)
+* [`multi cd REPO`](#multi-cd-repo)
+* [`multi diff ORG`](#multi-diff-org)
+* [`multi exec REPO`](#multi-exec-repo)
+* [`multi list`](#multi-list)
+* [`multi list org ORG`](#multi-list-org-org)
+* [`multi ls`](#multi-ls)
+* [`multi o REPO`](#multi-o-repo)
+* [`multi open REPO`](#multi-open-repo)
+* [`multi pulls`](#multi-pulls)
+* [`multi remove REPO`](#multi-remove-repo)
+* [`multi rm REPO`](#multi-rm-repo)
+* [`multi setup`](#multi-setup)
+* [`multi task KEYVALUE`](#multi-task-keyvalue)
+* [`multi task get TASK`](#multi-task-get-task)
+* [`multi v REPO`](#multi-v-repo)
+* [`multi view REPO`](#multi-view-repo)
+* [`multi where REPO`](#multi-where-repo)
+* [`multi x REPO`](#multi-x-repo)
 
 ## `multi add ENTITY`
 
@@ -216,15 +208,15 @@ ALIASES
 EXAMPLES
   Execute a script in a different repository
 
-    $ multi exec my-repo yarn compile
+    $ multi exec my-repo -- yarn compile
 
   Execute a script in the current working directory
 
-    $ multi exec . yarn compile
+    $ multi exec . -- yarn compile
 
   Interpolate values into command execution
 
-    $ multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
+    $ multi exec . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 
 _See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v3.0.0/src/commands/exec.ts)_
@@ -558,14 +550,14 @@ ALIASES
 EXAMPLES
   Execute a script in a different repository
 
-    $ multi x my-repo yarn compile
+    $ multi x my-repo -- yarn compile
 
   Execute a script in the current working directory
 
-    $ multi x . yarn compile
+    $ multi x . -- yarn compile
 
   Interpolate values into command execution
 
-    $ multi x . open https://app.circleci.com/pipelines/github/{repo.fullName}
+    $ multi x . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 <!-- commandsstop -->
