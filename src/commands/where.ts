@@ -20,7 +20,7 @@ export default class View extends Command {
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(View)
     const repoName = args.repo === '.' ? parseRepoNameFromPath() : args.repo
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const repo = repos.getOne(repoName)
     this.log(flags.remote ? repo.urls.html : repo.location)
   }

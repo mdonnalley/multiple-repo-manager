@@ -52,7 +52,7 @@ export default class Task extends Command {
       throw new Error(`The provided argument ${keyValue} is not a valid key=value pair.`)
     }
 
-    const tasks = await Tasks.create()
+    const tasks = await new Tasks().init()
     const [task, firstPart] = keyValue.split('=')
     if (flags.interactive) {
       tasks.set(task, '')

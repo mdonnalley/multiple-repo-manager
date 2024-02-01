@@ -15,7 +15,7 @@ export default class Remove extends Command {
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Remove)
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const repo = repos.getOne(args.repo)
     repos.unset(repo.fullName)
     await repos.write()

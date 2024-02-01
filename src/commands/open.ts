@@ -60,7 +60,7 @@ export default class Open extends Command {
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Open)
     const repoName = args.repo === '.' ? parseRepoNameFromPath() : args.repo
-    const repo = (await Repos.create()).getOne(repoName)
+    const repo = (await new Repos().init()).getOne(repoName)
     if (!flags.file && !flags.tab) {
       await open(repo.urls.html, {wait: false})
       return

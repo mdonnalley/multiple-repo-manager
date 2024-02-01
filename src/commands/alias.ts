@@ -31,7 +31,7 @@ export default class Alias extends Command {
     const {args} = await this.parse(Alias)
     const {keyValue} = args
 
-    const aliases = await Aliases.create()
+    const aliases = await new Aliases().init()
     const [alias, value] = keyValue.split('=')
     if (value) {
       aliases.set(alias, value)

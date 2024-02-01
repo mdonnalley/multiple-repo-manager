@@ -12,7 +12,7 @@ export default class Pulls extends Command {
   public static flags = {}
 
   public async run(): Promise<void> {
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const pulls = await repos.fetchPulls()
     const columns = {
       repo: {get: (p: Pull): string => p.repo.split('/')[1], header: 'Repo'},

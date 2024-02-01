@@ -1,4 +1,3 @@
-import {AsyncCreatable} from '@salesforce/kit'
 import {writeFile} from 'node:fs/promises'
 import path from 'node:path'
 
@@ -49,7 +48,7 @@ _multi_autocomplete()
 complete -F _multi_autocomplete _multi
 `
 
-export class AutoComplete extends AsyncCreatable<string> {
+export class AutoComplete {
   public static COMMANDS = [
     'add',
     'alias',
@@ -69,13 +68,12 @@ export class AutoComplete extends AsyncCreatable<string> {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash')
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where']
 
-  public constructor(private directory: string) {
-    super(directory)
-  }
+  // eslint-disable-next-line no-useless-constructor
+  public constructor(private directory: string) {}
 
-  protected async init(): Promise<void> {
+  public async init(): Promise<void> {
     if (process.platform === 'win32') return
-    const zshRc = await ZshRc.create()
+    const zshRc = await new ZshRc().init()
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
       .replace('@COMMANDS@', AutoComplete.COMMANDS.join(' '))

@@ -13,7 +13,7 @@ export default class Get extends Command {
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Get)
-    const tasks = await Tasks.create()
+    const tasks = await new Tasks().init()
     this.log(tasks.get(args.task))
   }
 }

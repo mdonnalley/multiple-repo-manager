@@ -64,7 +64,7 @@ export default class Add extends Command {
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Add)
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
 
     const info = parseOrgAndRepo(args.entity)
     const repositories = await repos.fetch(info.org, info.repo)

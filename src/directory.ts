@@ -1,20 +1,20 @@
-import {AsyncCreatable} from '@salesforce/kit'
 import {access, mkdir} from 'node:fs/promises'
 
-export class Directory extends AsyncCreatable {
-  public constructor(private options: DirectoryOptions) {
-    super(options)
-  }
+export class Directory {
+  // eslint-disable-next-line no-useless-constructor
+  public constructor(private options: DirectoryOptions) {}
 
   public get name(): string {
     return this.options.name
   }
 
-  protected async init(): Promise<void> {
+  public async init() {
     try {
       await access(this.options.name)
+      return this
     } catch {
       await mkdir(this.options.name, {recursive: true})
+      return this
     }
   }
 }

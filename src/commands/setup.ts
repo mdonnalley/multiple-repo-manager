@@ -27,7 +27,7 @@ export default class Setup extends Command {
 
   public async run(): Promise<void> {
     const {flags} = await this.parse(Setup)
-    const config = await Config.create()
+    const config = await new Config().init()
     if (!flags.directory || !flags.username) {
       const directory = await input({
         default: Config.DEFAULT_DIRECTORY,
@@ -47,8 +47,8 @@ export default class Setup extends Command {
     await config.write()
 
     this.log(`All repositories will be cloned into ${config.get('directory')}`)
-    await MultiWrapper.create()
-    await AutoComplete.create(config.get('directory'))
+    await new MultiWrapper().init()
+    await new AutoComplete(config.get('directory')).init()
 
     this.log(`Open a new terminal or run "source ${ZshRc.LOCATION}" for autocomplete to work.`)
   }

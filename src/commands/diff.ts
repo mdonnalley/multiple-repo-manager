@@ -17,7 +17,7 @@ export default class Diff extends Command {
 
   public async run(): Promise<void> {
     const {args} = await this.parse(Diff)
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const remote = (await repos.fetch(args.org)).filter((r) => !repos.has(r.fullName))
     const columns = {
       name: {header: 'Name'},

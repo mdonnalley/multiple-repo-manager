@@ -1,5 +1,4 @@
 import {ux} from '@oclif/core'
-import {Duration} from '@salesforce/kit'
 import chalk from 'chalk'
 import {mkdir} from 'node:fs/promises'
 import path from 'node:path'
@@ -53,8 +52,12 @@ export type Pull = {
   user: string
 }
 
+function weeksToMs(weeks: number): number {
+  return weeks * 7 * 24 * 60 * 60 * 1000
+}
+
 export class Repos extends ConfigFile<RepoIndex> {
-  public static REFRESH_TIME = Duration.weeks(1)
+  public static REFRESH_TIME = weeksToMs(1)
   public directory!: Directory
   private aliases!: Aliases
   private octokit!: Octokit
@@ -87,7 +90,7 @@ export class Repos extends ConfigFile<RepoIndex> {
   }
 
   public async fetchPulls(): Promise<Pull[]> {
-    const config = await Config.create()
+    const config = await new Config().init()
     const response = await this.octokit.paginate('GET /search/issues', {
       q: `is:pr is:open author:${config.get('username')}`,
     })
@@ -141,17 +144,20 @@ export class Repos extends ConfigFile<RepoIndex> {
     return [...new Set(Object.values(this.getContents()).map((r) => r.org))]
   }
 
-  protected async init(): Promise<void> {
+  public async init() {
     await super.init()
     this.octokit = new Octokit({auth: getToken()})
-    const config = await Config.create()
-    this.directory = await Directory.create({name: config.get('directory')})
-    this.aliases = await Aliases.create()
+    const config = await new Config().init()
+    this.directory = await new Directory({name: config.get('directory')}).init()
+    this.aliases = await new Aliases().init()
+
     if (this.needsRefresh()) await this.refresh()
+
+    return this
   }
 
   private needsRefresh(): boolean {
-    return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME.milliseconds
+    return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME
   }
 
   private async refresh(): Promise<void> {

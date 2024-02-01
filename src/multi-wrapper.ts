@@ -1,4 +1,3 @@
-import {AsyncOptionalCreatable} from '@salesforce/kit'
 import {writeFile} from 'node:fs/promises'
 import path from 'node:path'
 
@@ -39,15 +38,15 @@ alias m='_multi'
  * 2. To support the `cd` command. Node can't change the directory
  * of the executing shell, so we have to do it in bash.
  */
-export class MultiWrapper extends AsyncOptionalCreatable {
+export class MultiWrapper {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'multi-wrapper.bash')
 
-  protected async init(): Promise<void> {
+  public async init(): Promise<void> {
     if (process.platform === 'win32') return
-    const tasks = await Tasks.create()
+    const tasks = await new Tasks().init()
     const contents = TEMPLATE.replace('@TASKS_PATH@', tasks.filepath)
     await writeFile(MultiWrapper.FILE_PATH, contents)
-    const zshRc = await ZshRc.create()
+    const zshRc = await new ZshRc().init()
     zshRc.append(`[[ -r ${MultiWrapper.FILE_PATH} ]] && source ${MultiWrapper.FILE_PATH}`)
     await zshRc.write()
   }

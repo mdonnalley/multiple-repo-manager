@@ -18,7 +18,7 @@ export default class ListOrg extends Command {
 
   public async run(): Promise<void> {
     const {argv} = await this.parse(ListOrg)
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const all: Repository[] = []
     for (const org of argv as string[]) {
       all.push(...(await repos.fetch(org)))

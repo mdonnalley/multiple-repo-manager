@@ -15,7 +15,7 @@ export default class View extends Command {
 
   public async run(): Promise<void> {
     const {args} = await this.parse(View)
-    const repos = await Repos.create()
+    const repos = await new Repos().init()
     const matches = repos.getMatches(args.repo)
     if (matches.length === 0) {
       process.exitCode = 1

@@ -1,11 +1,10 @@
-import {AsyncOptionalCreatable} from '@salesforce/kit'
 import {readFile, writeFile} from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 
 import execSync from './exec-sync.js'
 
-export class ZshRc extends AsyncOptionalCreatable {
+export class ZshRc {
   public static LOCATION = path.join(os.homedir(), '.zshrc')
 
   private contents!: string
@@ -20,9 +19,10 @@ export class ZshRc extends AsyncOptionalCreatable {
     return this.contents.includes(str)
   }
 
-  protected async init(): Promise<void> {
-    if (process.platform === 'win32') return
+  public async init() {
+    if (process.platform === 'win32') return this
     await this.read()
+    return this
   }
 
   public async read(): Promise<string> {

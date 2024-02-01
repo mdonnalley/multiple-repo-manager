@@ -41,7 +41,7 @@ export default class Exec extends Command {
 
     let executable = argv.splice(argv.indexOf(args.repo) + 1).join(' ')
 
-    const repo = (await Repos.create()).getOne(repoName)
+    const repo = (await new Repos().init()).getOne(repoName)
     const tokensRegex = /{(.*?)}/g
     const tokens = executable.match(tokensRegex) ?? []
     for (const t of tokens) {

@@ -1,4 +1,3 @@
-import {AsyncOptionalCreatable} from '@salesforce/kit'
 import {Stats} from 'node:fs'
 import {access, readFile, stat, writeFile} from 'node:fs/promises'
 import os from 'node:os'
@@ -6,7 +5,7 @@ import path from 'node:path'
 
 import {Directory} from './directory.js'
 
-export abstract class ConfigFile<T extends Record<string, unknown>> extends AsyncOptionalCreatable<string> {
+export abstract class ConfigFile<T extends Record<string, unknown>> {
   public static MPM_DIR = path.join(os.homedir(), '.multi')
 
   public filepath: string
@@ -15,7 +14,6 @@ export abstract class ConfigFile<T extends Record<string, unknown>> extends Asyn
   private contents!: T
 
   public constructor(filename: string) {
-    super(filename)
     this.filepath = path.join(ConfigFile.MPM_DIR, filename)
   }
 
@@ -48,8 +46,8 @@ export abstract class ConfigFile<T extends Record<string, unknown>> extends Asyn
     return this.keys().includes(key)
   }
 
-  protected async init(): Promise<void> {
-    await Directory.create({name: ConfigFile.MPM_DIR})
+  public async init() {
+    await new Directory({name: ConfigFile.MPM_DIR}).init()
     if (await this.exists()) {
       this.contents = await this.read()
     } else {
@@ -58,6 +56,8 @@ export abstract class ConfigFile<T extends Record<string, unknown>> extends Asyn
     }
 
     this.stats = await stat(this.filepath)
+
+    return this
   }
 
   public keys(): Array<keyof T> {

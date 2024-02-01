@@ -11,7 +11,7 @@ export default class List extends Command {
   public static flags = {}
 
   public async run(): Promise<void> {
-    const repositories = (await Repos.create()).getContents()
+    const repositories = (await new Repos().init()).getContents()
     if (Object.keys(repositories).length === 0) {
       process.exitCode = 1
       throw new Error('No repositories have been added yet.')
