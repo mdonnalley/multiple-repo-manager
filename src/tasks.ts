@@ -17,7 +17,7 @@ export class Tasks extends ConfigFile<TasksMap> {
 
   protected format(contents: TasksMap): string {
     if (isEmpty(contents)) return ''
-    return yml.dump(contents)
+    return yml.dump(contents, {lineWidth: -1})
   }
 
   protected parse(contents: string): TasksMap {
