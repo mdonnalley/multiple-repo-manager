@@ -1,3 +1,9 @@
+# [4.1.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.2...v4.1.0) (2024-02-01)
+
+### Features
+
+- remove dependency on @salesforce/kit ([ab7def2](https://github.com/mdonnalley/multiple-repo-manager/commit/ab7def239331e22b34445c1d0c168e221e24e0bd))
+
 ## [4.0.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.1...v4.0.2) (2024-02-01)
 
 ### Bug Fixes
