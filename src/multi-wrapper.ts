@@ -1,9 +1,10 @@
-import * as path from 'path';
-import { writeFile } from 'fs/promises';
-import { AsyncOptionalCreatable } from '@salesforce/kit';
-import { ConfigFile } from './configFile';
-import { Tasks } from './tasks';
-import { ZshRc } from './zshRc';
+import {AsyncOptionalCreatable} from '@salesforce/kit'
+import {writeFile} from 'node:fs/promises'
+import path from 'node:path'
+
+import {ConfigFile} from './config-file.js'
+import {Tasks} from './tasks.js'
+import {ZshRc} from './zsh-rc.js'
 
 const TEMPLATE = `#!/usr/bin/env bash
 
@@ -30,7 +31,7 @@ function _multi {
 
 alias multi='_multi'
 alias m='_multi'
-`;
+`
 
 /**
  * We wrap the `multi` executable for two reasons:
@@ -39,18 +40,15 @@ alias m='_multi'
  * of the executing shell, so we have to do it in bash.
  */
 export class MultiWrapper extends AsyncOptionalCreatable {
-  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'multi-wrapper.bash');
-  public constructor() {
-    super();
-  }
+  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'multi-wrapper.bash')
 
   protected async init(): Promise<void> {
-    if (process.platform === 'win32') return;
-    const tasks = await Tasks.create();
-    const contents = TEMPLATE.replace('@TASKS_PATH@', tasks.filepath);
-    await writeFile(MultiWrapper.FILE_PATH, contents);
-    const zshRc = await ZshRc.create();
-    zshRc.append(`[[ -r ${MultiWrapper.FILE_PATH} ]] && source ${MultiWrapper.FILE_PATH}`);
-    await zshRc.write();
+    if (process.platform === 'win32') return
+    const tasks = await Tasks.create()
+    const contents = TEMPLATE.replace('@TASKS_PATH@', tasks.filepath)
+    await writeFile(MultiWrapper.FILE_PATH, contents)
+    const zshRc = await ZshRc.create()
+    zshRc.append(`[[ -r ${MultiWrapper.FILE_PATH} ]] && source ${MultiWrapper.FILE_PATH}`)
+    await zshRc.write()
   }
 }

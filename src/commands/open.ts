@@ -1,79 +1,81 @@
-import { Command, Flags } from '@oclif/core';
-import * as open from 'open';
-import { exec } from 'shelljs';
-import { Repos } from '../repos';
-import { parseRepoNameFromPath } from '../util';
+import {Args, Command, Flags} from '@oclif/core'
+import open from 'open'
+
+import execSync from '../exec-sync.js'
+import {Repos} from '../repos.js'
+import {parseRepoNameFromPath} from '../util.js'
 
 enum GithubTab {
+  ACTIONS = 'actions',
+  DISCUSSIONS = 'discussions',
   ISSUES = 'issues',
   PULLS = 'pulls',
-  DISCUSSIONS = 'discussions',
-  ACTIONS = 'actions',
-  WIKI = 'wiki',
-  SECURITY = 'security',
   PULSE = 'pulse',
+  SECURITY = 'security',
   SETTINGS = 'settings',
+  WIKI = 'wiki',
 }
 
 export default class Open extends Command {
-  public static description = 'Open a repository in github.';
+  public static aliases = ['o']
+  public static args = {
+    repo: Args.string({
+      default: '.',
+      description: 'Name of repository.',
+      required: true,
+    }),
+  }
+
+  public static description = 'Open a repository in github.'
+
   public static examples = [
     {
-      description: 'Open the main page of a github repository',
       command: '<%= config.bin %> <%= command.id %> my-repo',
+      description: 'Open the main page of a github repository',
     },
     {
-      description: 'Open the issues tab of a github repository',
       command: '<%= config.bin %> <%= command.id %> my-repo --tab issues',
+      description: 'Open the issues tab of a github repository',
     },
     {
-      description: 'Open a specific file in a github repository',
       command: '<%= config.bin %> <%= command.id %> my-repo --file path/to/my/code.ts',
+      description: 'Open a specific file in a github repository',
     },
-  ];
+  ]
+
   public static flags = {
     file: Flags.string({
-      description: 'File to open in github.',
       char: 'f',
+      description: 'File to open in github.',
       exclusive: ['tab'],
     }),
     tab: Flags.string({
-      description: 'Tab to open in github.',
       char: 't',
-      options: Object.values(GithubTab),
+      description: 'Tab to open in github.',
       exclusive: ['file'],
+      options: Object.values(GithubTab),
     }),
-  };
-  public static args = [
-    {
-      name: 'repo',
-      description: 'Name of repository.',
-      required: true,
-      default: '.',
-    },
-  ];
-  public static aliases = ['o'];
+  }
 
   public async run(): Promise<void> {
-    const { args, flags } = await this.parse(Open);
-    const repoName = (args.repo === '.' ? parseRepoNameFromPath() : args.repo) as string;
-    const repo = (await Repos.create()).getOne(repoName);
+    const {args, flags} = await this.parse(Open)
+    const repoName = args.repo === '.' ? parseRepoNameFromPath() : args.repo
+    const repo = (await Repos.create()).getOne(repoName)
     if (!flags.file && !flags.tab) {
-      await open(repo.urls.html, { wait: false });
-      return;
+      await open(repo.urls.html, {wait: false})
+      return
     }
 
     if (flags.file) {
       const branch =
-        exec(`git -C ${repo.location} rev-parse --abbrev-ref HEAD`, { silent: true }).stdout ?? repo.defaultBranch;
-      const url = `${repo.urls.html}/blob/${branch.trim()}/${flags.file}`;
-      await open(url, { wait: false });
-      return;
+        execSync(`git -C ${repo.location} rev-parse --abbrev-ref HEAD`, {silent: true}) ?? repo.defaultBranch
+      const url = `${repo.urls.html}/blob/${branch.trim()}/${flags.file}`
+      await open(url, {wait: false})
+      return
     }
 
     if (flags.tab) {
-      await open(`${repo.urls.html}/${flags.tab}`, { wait: false });
-      return;
+      await open(`${repo.urls.html}/${flags.tab}`, {wait: false})
     }
   }
 }

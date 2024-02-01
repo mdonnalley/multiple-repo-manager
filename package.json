@@ -1,7 +1,7 @@
 {
   "name": "multiple-repo-manager",
   "description": "CLI for managing multiple repositories",
-  "version": "3.0.0",
+  "version": "4.0.0-beta.1",
   "author": "Mike Donnalley",
   "homepage": "https://github.com/mdonnalley/multiple-repo-manager",
   "repository": "mdonnalley/multiple-repo-manager",
@@ -14,73 +14,74 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@oclif/core": "^1.2.0",
-    "@salesforce/kit": "^1.5.17",
-    "chalk": "^4.1.2",
-    "inquirer": "^8.1.2",
+    "@inquirer/input": "^1.2.16",
+    "@oclif/core": "^3",
+    "@salesforce/kit": "^3",
+    "chalk": "^5.3.0",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21",
-    "octokit": "^1.5.0",
-    "open": "^8.2.1",
-    "shelljs": "^0.8.4",
-    "tslib": "^2"
+    "lodash.get": "^4.4.2",
+    "lodash.groupby": "^4.6.0",
+    "lodash.isempty": "^4.4.0",
+    "lodash.sortby": "^4.7.0",
+    "octokit": "^3",
+    "open": "^10.0.3"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^13.1.0",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
-    "@types/inquirer": "^7.3.3",
+    "@commitlint/config-conventional": "^18",
+    "@oclif/prettier-config": "^0.2.1",
+    "@semantic-release/changelog": "^6",
+    "@semantic-release/git": "^10",
     "@types/js-yaml": "^4.0.3",
-    "@types/lodash": "^4.14.172",
-    "@types/node": "^16.6.2",
-    "@types/shelljs": "^0.8.9",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
+    "@types/lodash.get": "^4.4.9",
+    "@types/lodash.groupby": "^4.6.9",
+    "@types/lodash.isempty": "^4.4.9",
+    "@types/lodash.sortby": "^4.7.9",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
     "chai": "^4.3.4",
-    "commitlint": "^13.1.0",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsdoc": "^35.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6",
-    "lint-staged": "^11.0.0",
-    "mocha": "^8.4.0",
-    "oclif": "^2.3.0",
-    "prettier": "^2.3.2",
-    "pretty-quick": "^3.1.0",
-    "semantic-release": "^17.4.5",
-    "sinon": "^11.1.1",
-    "ts-node": "^10.0.0",
+    "commitlint": "^18",
+    "eslint": "^8.55.0",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9",
+    "lint-staged": "^15",
+    "mocha": "^10",
+    "oclif": "^4",
+    "prettier": "^3",
+    "semantic-release": "^23",
+    "sinon": "^17",
+    "ts-node": "^10",
     "typescript": "^4.1.3"
   },
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "commitlint": "commitlint",
+    "commitlint": "commitlint --edit $1",
     "lint-staged": "lint-staged",
-    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint . --ext .ts",
     "postpack": "rm oclif.manifest.json",
-    "posttest": "yarn run lint",
-    "prepack": "rm -rf lib && tsc && oclif manifest .",
+    "posttest": "npm run lint",
+    "prepack": "rm -rf lib && tsc && oclif manifest && npm shrinkwrap",
+    "prepare": "husky && npm run build",
     "readme": "oclif readme && git add README.md",
-    "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
     "semantic-release": "semantic-release",
     "test": "mocha \"test/**/*.test.ts\" --forbid-only"
   },
   "bin": {
-    "multi": "bin/run"
+    "multi": "bin/run.js"
   },
   "os": [
     "darwin",
     "linux"
   ],
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "files": [
     "/lib",
-    "/oclif.manifest.json"
+    "/oclif.manifest.json",
+    "/npm-shrinkwrap.json"
   ],
   "oclif": {
     "commands": "./lib/commands",
@@ -89,5 +90,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "type": "module",
+  "exports": "./lib/index.js"
 }

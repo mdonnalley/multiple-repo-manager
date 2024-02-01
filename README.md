@@ -64,10 +64,92 @@ done-with-branch: |
 # Commands
 
 <!-- commands -->
+* [`multi add ENTITY`](#multi-add-entity)
+* [`multi alias KEYVALUE`](#multi-alias-keyvalue)
 * [`multi cd REPO`](#multi-cd-repo)
+* [`multi diff ORG`](#multi-diff-org)
+* [`multi exec REPO`](#multi-exec-repo)
+* [`multi list`](#multi-list)
+* [`multi list org ORG`](#multi-list-org-org)
+* [`multi ls`](#multi-ls)
+* [`multi o REPO`](#multi-o-repo)
+* [`multi open REPO`](#multi-open-repo)
+* [`multi pulls`](#multi-pulls)
+* [`multi remove REPO`](#multi-remove-repo)
+* [`multi rm REPO`](#multi-rm-repo)
 * [`multi setup`](#multi-setup)
 * [`multi task KEYVALUE`](#multi-task-keyvalue)
 * [`multi task get TASK`](#multi-task-get-task)
+* [`multi v REPO`](#multi-v-repo)
+* [`multi view REPO`](#multi-view-repo)
+* [`multi where REPO`](#multi-where-repo)
+* [`multi x REPO`](#multi-x-repo)
+
+## `multi add ENTITY`
+
+Add a github org or repo. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi add ENTITY [--method ssh|https]
+
+ARGUMENTS
+  ENTITY  Github org, repo, or url to add
+
+FLAGS
+  --method=<option>  [default: ssh] Method to use for cloning.
+                     <options: ssh|https>
+
+DESCRIPTION
+  Add a github org or repo. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  Add a github org
+
+    $ multi add my-github-org
+
+  Add a github org by url
+
+    $ multi add https://github.com/my-github-org
+
+  Add a github repo by name
+
+    $ multi add my-github-org/my-repo
+
+  Add a github repo by url
+
+    $ multi add https://github.com/my-github-org/my-repo
+```
+
+_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/add.ts)_
+
+## `multi alias KEYVALUE`
+
+Set or unset an alias
+
+```
+USAGE
+  $ multi alias KEYVALUE
+
+ARGUMENTS
+  KEYVALUE  alias=value
+
+DESCRIPTION
+  Set or unset an alias
+
+  Provide an empty to value to unset the alias
+
+EXAMPLES
+  Set an alias
+
+    $ multi alias myrepo=my-org/my-repo
+
+  Unset an alias
+
+    $ multi alias myrepo=
+```
+
+_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/alias.ts)_
 
 ## `multi cd REPO`
 
@@ -75,7 +157,7 @@ cd into a repository.
 
 ```
 USAGE
-  $ multi cd [REPO]
+  $ multi cd REPO
 
 ARGUMENTS
   REPO  Name of repository.
@@ -84,7 +166,241 @@ DESCRIPTION
   cd into a repository.
 ```
 
-_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/cd.ts)_
+_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/cd.ts)_
+
+## `multi diff ORG`
+
+Show repositories in an org that are not cloned locally. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi diff ORG
+
+ARGUMENTS
+  ORG  Github org
+
+DESCRIPTION
+  Show repositories in an org that are not cloned locally. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi diff my-github-org
+```
+
+_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/diff.ts)_
+
+## `multi exec REPO`
+
+Execute a command or script in a repository.
+
+```
+USAGE
+  $ multi exec REPO
+
+ARGUMENTS
+  REPO  Name of repository to execute in. Use "." to specify the current working directory.
+
+DESCRIPTION
+  Execute a command or script in a repository.
+
+ALIASES
+  $ multi x
+
+EXAMPLES
+  Execute a script in a different repository
+
+    $ multi exec my-repo -- yarn compile
+
+  Execute a script in the current working directory
+
+    $ multi exec . -- yarn compile
+
+  Interpolate values into command execution
+
+    $ multi exec . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
+```
+
+_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/exec.ts)_
+
+## `multi list`
+
+List all repositories.
+
+```
+USAGE
+  $ multi list
+
+DESCRIPTION
+  List all repositories.
+
+ALIASES
+  $ multi ls
+```
+
+_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/list.ts)_
+
+## `multi list org ORG`
+
+Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi list org ORG
+
+ARGUMENTS
+  ORG  Github org
+
+DESCRIPTION
+  Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi list org my-github-org
+```
+
+_See code: [src/commands/list/org.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/list/org.ts)_
+
+## `multi ls`
+
+List all repositories.
+
+```
+USAGE
+  $ multi ls
+
+DESCRIPTION
+  List all repositories.
+
+ALIASES
+  $ multi ls
+```
+
+## `multi o REPO`
+
+Open a repository in github.
+
+```
+USAGE
+  $ multi o REPO [-f <value> | -t actins|discussions|issues|pulls|pulse|security|settings|wiki]
+
+ARGUMENTS
+  REPO  [default: .] Name of repository.
+
+FLAGS
+  -f, --file=<value>  File to open in github.
+  -t, --tab=<option>  Tab to open in github.
+                      <options: actions|discussions|issues|pulls|pulse|security|settings|wiki>
+
+DESCRIPTION
+  Open a repository in github.
+
+ALIASES
+  $ multi o
+
+EXAMPLES
+  Open the main page of a github repository
+
+    $ multi o my-repo
+
+  Open the issues tab of a github repository
+
+    $ multi o my-repo --tab issues
+
+  Open a specific file in a github repository
+
+    $ multi o my-repo --file path/to/my/code.ts
+```
+
+## `multi open REPO`
+
+Open a repository in github.
+
+```
+USAGE
+  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
+
+ARGUMENTS
+  REPO  [default: .] Name of repository.
+
+FLAGS
+  -f, --file=<value>  File to open in github.
+  -t, --tab=<option>  Tab to open in github.
+                      <options: actions|discussions|issues|pulls|pulse|security|settings|wiki>
+
+DESCRIPTION
+  Open a repository in github.
+
+ALIASES
+  $ multi o
+
+EXAMPLES
+  Open the main page of a github repository
+
+    $ multi open my-repo
+
+  Open the issues tab of a github repository
+
+    $ multi open my-repo --tab issues
+
+  Open a specific file in a github repository
+
+    $ multi open my-repo --file path/to/my/code.ts
+```
+
+_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/open.ts)_
+
+## `multi pulls`
+
+List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi pulls
+
+DESCRIPTION
+  List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi pulls
+```
+
+_See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/pulls.ts)_
+
+## `multi remove REPO`
+
+Remove a repository from your local file system.
+
+```
+USAGE
+  $ multi remove REPO
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  Remove a repository from your local file system.
+
+ALIASES
+  $ multi rm
+```
+
+_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/remove.ts)_
+
+## `multi rm REPO`
+
+Remove a repository from your local file system.
+
+```
+USAGE
+  $ multi rm REPO
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  Remove a repository from your local file system.
+
+ALIASES
+  $ multi rm
+```
 
 ## `multi setup`
 
@@ -98,7 +414,7 @@ DESCRIPTION
   Setup multi
 ```
 
-_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/setup.ts)_
+_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/setup.ts)_
 
 ## `multi task KEYVALUE`
 
@@ -106,7 +422,7 @@ Set or unset an executable task.
 
 ```
 USAGE
-  $ multi task [KEYVALUE] [--interactive]
+  $ multi task KEYVALUE [--interactive]
 
 ARGUMENTS
   KEYVALUE  task=value
@@ -137,7 +453,7 @@ EXAMPLES
     $ multi task build --interactive
 ```
 
-_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v2.4.0/src/commands/task.ts)_
+_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/task.ts)_
 
 ## `multi task get TASK`
 
@@ -145,12 +461,103 @@ Return the value of a task.
 
 ```
 USAGE
-  $ multi task get [TASK]
+  $ multi task get TASK
 
 ARGUMENTS
-  TASK  Name of task to get.
+  TASK  Name of task to get
 
 DESCRIPTION
   Return the value of a task.
+```
+
+_See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/task/get.ts)_
+
+## `multi v REPO`
+
+View a repository.
+
+```
+USAGE
+  $ multi v REPO
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  View a repository.
+
+ALIASES
+  $ multi v
+```
+
+## `multi view REPO`
+
+View a repository.
+
+```
+USAGE
+  $ multi view REPO
+
+ARGUMENTS
+  REPO  Name of repository.
+
+DESCRIPTION
+  View a repository.
+
+ALIASES
+  $ multi v
+```
+
+_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/view.ts)_
+
+## `multi where REPO`
+
+Print location of a repository.
+
+```
+USAGE
+  $ multi where REPO [--remote]
+
+ARGUMENTS
+  REPO  Name of repository.
+
+FLAGS
+  --remote  Return url of repository.
+
+DESCRIPTION
+  Print location of a repository.
+```
+
+_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.0-beta.1/src/commands/where.ts)_
+
+## `multi x REPO`
+
+Execute a command or script in a repository.
+
+```
+USAGE
+  $ multi x REPO
+
+ARGUMENTS
+  REPO  Name of repository to execute in. Use "." to specify the current working directory.
+
+DESCRIPTION
+  Execute a command or script in a repository.
+
+ALIASES
+  $ multi x
+
+EXAMPLES
+  Execute a script in a different repository
+
+    $ multi x my-repo -- yarn compile
+
+  Execute a script in the current working directory
+
+    $ multi x . -- yarn compile
+
+  Interpolate values into command execution
+
+    $ multi x . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 <!-- commandsstop -->

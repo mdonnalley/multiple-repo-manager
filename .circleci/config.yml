@@ -5,23 +5,22 @@ jobs:
   release:
     executor:
       name: node/default
-      tag: 14.15.0
+      tag: 20.11.0
     steps:
       - checkout
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: npm
       - run: npx semantic-release
 
 workflows:
   test_and_release:
     jobs:
       - node/test:
-          pkg-manager: yarn
+          pkg-manager: npm
           matrix:
             parameters:
               version:
-                - 16.1.0
-                - 14.15.0
+                - 20.11.0
       - release:
           requires:
             - node/test
