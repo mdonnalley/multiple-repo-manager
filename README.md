@@ -71,19 +71,14 @@ done-with-branch: |
 * [`multi exec REPO`](#multi-exec-repo)
 * [`multi list`](#multi-list)
 * [`multi list org ORG`](#multi-list-org-org)
-* [`multi ls`](#multi-ls)
-* [`multi o REPO`](#multi-o-repo)
 * [`multi open REPO`](#multi-open-repo)
 * [`multi pulls`](#multi-pulls)
 * [`multi remove REPO`](#multi-remove-repo)
-* [`multi rm REPO`](#multi-rm-repo)
 * [`multi setup`](#multi-setup)
 * [`multi task KEYVALUE`](#multi-task-keyvalue)
 * [`multi task get TASK`](#multi-task-get-task)
-* [`multi v REPO`](#multi-v-repo)
 * [`multi view REPO`](#multi-view-repo)
 * [`multi where REPO`](#multi-where-repo)
-* [`multi x REPO`](#multi-x-repo)
 
 ## `multi add ENTITY`
 
@@ -258,57 +253,6 @@ EXAMPLES
 
 _See code: [src/commands/list/org.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.1/src/commands/list/org.ts)_
 
-## `multi ls`
-
-List all repositories.
-
-```
-USAGE
-  $ multi ls
-
-DESCRIPTION
-  List all repositories.
-
-ALIASES
-  $ multi ls
-```
-
-## `multi o REPO`
-
-Open a repository in github.
-
-```
-USAGE
-  $ multi o REPO [-f <value> | -t actins|discussions|issues|pulls|pulse|security|settings|wiki]
-
-ARGUMENTS
-  REPO  [default: .] Name of repository.
-
-FLAGS
-  -f, --file=<value>  File to open in github.
-  -t, --tab=<option>  Tab to open in github.
-                      <options: actions|discussions|issues|pulls|pulse|security|settings|wiki>
-
-DESCRIPTION
-  Open a repository in github.
-
-ALIASES
-  $ multi o
-
-EXAMPLES
-  Open the main page of a github repository
-
-    $ multi o my-repo
-
-  Open the issues tab of a github repository
-
-    $ multi o my-repo --tab issues
-
-  Open a specific file in a github repository
-
-    $ multi o my-repo --file path/to/my/code.ts
-```
-
 ## `multi open REPO`
 
 Open a repository in github.
@@ -384,24 +328,6 @@ ALIASES
 
 _See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.1/src/commands/remove.ts)_
 
-## `multi rm REPO`
-
-Remove a repository from your local file system.
-
-```
-USAGE
-  $ multi rm REPO
-
-ARGUMENTS
-  REPO  Name of repository.
-
-DESCRIPTION
-  Remove a repository from your local file system.
-
-ALIASES
-  $ multi rm
-```
-
 ## `multi setup`
 
 Setup multi
@@ -472,24 +398,6 @@ DESCRIPTION
 
 _See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.1/src/commands/task/get.ts)_
 
-## `multi v REPO`
-
-View a repository.
-
-```
-USAGE
-  $ multi v REPO
-
-ARGUMENTS
-  REPO  Name of repository.
-
-DESCRIPTION
-  View a repository.
-
-ALIASES
-  $ multi v
-```
-
 ## `multi view REPO`
 
 View a repository.
@@ -529,35 +437,4 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.0.1/src/commands/where.ts)_
-
-## `multi x REPO`
-
-Execute a command or script in a repository.
-
-```
-USAGE
-  $ multi x REPO
-
-ARGUMENTS
-  REPO  Name of repository to execute in. Use "." to specify the current working directory.
-
-DESCRIPTION
-  Execute a command or script in a repository.
-
-ALIASES
-  $ multi x
-
-EXAMPLES
-  Execute a script in a different repository
-
-    $ multi x my-repo -- yarn compile
-
-  Execute a script in the current working directory
-
-    $ multi x . -- yarn compile
-
-  Interpolate values into command execution
-
-    $ multi x . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
-```
 <!-- commandsstop -->

@@ -64,7 +64,7 @@
     "posttest": "npm run lint",
     "prepack": "rm -rf lib && tsc && oclif manifest && npm shrinkwrap",
     "prepare": "husky && npm run build",
-    "readme": "oclif readme && git add README.md",
+    "readme": "oclif readme --no-aliases && git add README.md",
     "semantic-release": "semantic-release",
     "test": "mocha \"test/**/*.test.ts\" --forbid-only"
   },
