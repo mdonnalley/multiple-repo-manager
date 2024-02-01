@@ -24,8 +24,7 @@
     "lodash.isempty": "^4.4.0",
     "lodash.sortby": "^4.7.0",
     "octokit": "^3",
-    "open": "^10.0.3",
-    "shelljs": "^0.8.4"
+    "open": "^10.0.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^18",
@@ -37,10 +36,9 @@
     "@types/lodash.groupby": "^4.6.9",
     "@types/lodash.isempty": "^4.4.9",
     "@types/lodash.sortby": "^4.7.9",
-    "@types/node": "^16.6.2",
-    "@types/shelljs": "^0.8.9",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
     "chai": "^4.3.4",
     "commitlint": "^18",
     "eslint": "^8.55.0",

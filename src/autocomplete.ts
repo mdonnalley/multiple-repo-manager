@@ -1,10 +1,11 @@
-import path from 'node:path';
-import { writeFile } from 'node:fs/promises';
-import { AsyncCreatable } from '@salesforce/kit';
-import { ConfigFile } from './configFile.js';
-import { Tasks } from './tasks.js';
-import { Aliases } from './aliases.js';
-import { ZshRc } from './zshRc.js';
+import {AsyncCreatable} from '@salesforce/kit'
+import {writeFile} from 'node:fs/promises'
+import path from 'node:path'
+
+import {Aliases} from './aliases.js'
+import {ConfigFile} from './config-file.js'
+import {Tasks} from './tasks.js'
+import {ZshRc} from './zsh-rc.js'
 
 const AUTO_COMPLETE = `#!/usr/bin/env bash
 
@@ -46,11 +47,9 @@ _multi_autocomplete()
 }
 
 complete -F _multi_autocomplete _multi
-`;
+`
 
 export class AutoComplete extends AsyncCreatable<string> {
-  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash');
-  public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where'];
   public static COMMANDS = [
     'add',
     'alias',
@@ -65,25 +64,28 @@ export class AutoComplete extends AsyncCreatable<string> {
     'tasks',
     'view',
     'where',
-  ];
+  ]
+
+  public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash')
+  public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where']
 
   public constructor(private directory: string) {
-    super(directory);
+    super(directory)
   }
 
   protected async init(): Promise<void> {
-    if (process.platform === 'win32') return;
-    const zshRc = await ZshRc.create();
+    if (process.platform === 'win32') return
+    const zshRc = await ZshRc.create()
 
     const contents = AUTO_COMPLETE.replace('@CODE_DIRECTORY@', this.directory)
       .replace('@COMMANDS@', AutoComplete.COMMANDS.join(' '))
       .replace('@REPO_COMMANDS@', AutoComplete.REPO_COMMANDS.join(' | '))
       .replace('@TASKS_PATH@', Tasks.FILE_PATH)
-      .replace('@ALIASES_PATH@', Aliases.FILE_PATH);
+      .replace('@ALIASES_PATH@', Aliases.FILE_PATH)
 
-    await writeFile(AutoComplete.FILE_PATH, contents);
-    zshRc.append('source autoload -Uz bashcompinit && bashcompinit');
-    zshRc.append(`[[ -r ${AutoComplete.FILE_PATH}]] && source ${AutoComplete.FILE_PATH}`);
-    await zshRc.write();
+    await writeFile(AutoComplete.FILE_PATH, contents)
+    zshRc.append('source autoload -Uz bashcompinit && bashcompinit')
+    zshRc.append(`[[ -r ${AutoComplete.FILE_PATH}]] && source ${AutoComplete.FILE_PATH}`)
+    await zshRc.write()
   }
 }

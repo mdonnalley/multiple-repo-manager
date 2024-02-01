@@ -1,13 +1,14 @@
-import path from 'node:path';
+import path from 'node:path'
 
 export function getToken(): string {
-  const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
+  const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN
   if (!token) {
-    throw new Error('GH_TOKEN or GITHUB_TOKEN must be set in the environment');
+    throw new Error('GH_TOKEN or GITHUB_TOKEN must be set in the environment')
   }
-  return token;
+
+  return token
 }
 
 export function parseRepoNameFromPath(): string {
-  return process.cwd().split(path.sep).reverse().slice(0, 2).reverse().join(path.sep);
+  return process.cwd().split(path.sep).reverse().slice(0, 2).reverse().join(path.sep)
 }

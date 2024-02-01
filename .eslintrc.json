@@ -1,3 +1,8 @@
 {
-  "extends": ["oclif", "oclif-typescript", "prettier"]
+  "extends": ["oclif", "oclif-typescript", "prettier"],
+  "rules": {
+    "no-await-in-loop": "off",
+    "no-useless-escape": "off",
+    "unicorn/no-await-expression-member": "off"
+  }
 }

@@ -287,7 +287,7 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi o REPO [-f <value> | -t issues|pulls|discussins|actions|wiki|security|pulse|settings]
+  $ multi o REPO [-f <value> | -t actins|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -295,7 +295,7 @@ ARGUMENTS
 FLAGS
   -f, --file=<value>  File to open in github.
   -t, --tab=<option>  Tab to open in github.
-                      <options: issues|pulls|discussions|actions|wiki|security|pulse|settings>
+                      <options: actions|discussions|issues|pulls|pulse|security|settings|wiki>
 
 DESCRIPTION
   Open a repository in github.
@@ -323,7 +323,7 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t issues|pulls|discussions|actions|wiki|security|pulse|settings]
+  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -331,7 +331,7 @@ ARGUMENTS
 FLAGS
   -f, --file=<value>  File to open in github.
   -t, --tab=<option>  Tab to open in github.
-                      <options: issues|pulls|discussions|actions|wiki|security|pulse|settings>
+                      <options: actions|discussions|issues|pulls|pulse|security|settings|wiki>
 
 DESCRIPTION
   Open a repository in github.
