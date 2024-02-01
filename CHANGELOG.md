@@ -1,3 +1,31 @@
+# [4.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v3.0.0...v4.0.0) (2024-02-01)
+
+- feat!: 4.0.0 (#187) ([cf48ebf](https://github.com/mdonnalley/multiple-repo-manager/commit/cf48ebfa1aa3a085ef4d1484d766ebf15787b5d6)), closes [#187](https://github.com/mdonnalley/multiple-repo-manager/issues/187)
+
+### BREAKING CHANGES
+
+- ESM and node 18
+
+- chore: use npm instead of yarn
+
+- chore: test/tsconfig
+
+- chore: bump ocktokit
+
+- chore: repo clean up
+
+- chore: make everything pretty
+
+- fix: add untracked files
+
+- ci: attempt to get passing build
+
+- ci: change release commit
+
+- chore(release): 4.0.0-beta.1 [skip ci]
+
+- fix: no wrapping in yml files
+
 # [4.0.0-beta.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v3.0.0...v4.0.0-beta.1) (2024-02-01)
 
 ### Bug Fixes
