@@ -1,19 +1,28 @@
-# [3.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.4.0...v3.0.0) (2022-06-10)
+# [4.0.0-beta.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v3.0.0...v4.0.0-beta.1) (2024-02-01)
 
+### Bug Fixes
 
-* feat!: release version 3 ([cf68096](https://github.com/mdonnalley/multiple-repo-manager/commit/cf68096cdd605f76771494f221311b89790c9640))
+- add untracked files ([2a92696](https://github.com/mdonnalley/multiple-repo-manager/commit/2a926961e54ca8021965ec45b9767c1bcf84a145))
 
+- feat!: update deps, ESM, node 18 ([2347f9a](https://github.com/mdonnalley/multiple-repo-manager/commit/2347f9a018b70d8b0e882f827cce41a54a1ff92b))
 
 ### BREAKING CHANGES
 
-* use zsh instead of bash
+- ESM and node 18
+
+# [3.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.4.0...v3.0.0) (2022-06-10)
+
+- feat!: release version 3 ([cf68096](https://github.com/mdonnalley/multiple-repo-manager/commit/cf68096cdd605f76771494f221311b89790c9640))
+
+### BREAKING CHANGES
+
+- use zsh instead of bash
 
 # [2.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.3.0...v2.4.0) (2022-01-26)
 
-
 ### Features
 
-* remove cli-ux ([15438fa](https://github.com/mdonnalley/multiple-repo-manager/commit/15438fa2907970162e2acf24b94031fdd7176831))
+- remove cli-ux ([15438fa](https://github.com/mdonnalley/multiple-repo-manager/commit/15438fa2907970162e2acf24b94031fdd7176831))
 
 # [2.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v2.2.4...v2.3.0) (2021-12-06)
 
