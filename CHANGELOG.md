@@ -1,3 +1,9 @@
+## [4.0.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.1...v4.0.2) (2024-02-01)
+
+### Bug Fixes
+
+- remove aliases from README ([c539c8b](https://github.com/mdonnalley/multiple-repo-manager/commit/c539c8bc23ea77853fc4b508d4c7e45d931cad88))
+
 ## [4.0.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.0...v4.0.1) (2024-02-01)
 
 ### Bug Fixes
