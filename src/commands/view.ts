@@ -1,18 +1,14 @@
-import { CliUx, Command } from '@oclif/core';
-import { sortBy } from 'lodash';
-import * as chalk from 'chalk';
-import { Repos, Repository } from '../repos';
+import { Args, Command, ux } from '@oclif/core';
+import sortBy from 'lodash.sortby';
+import chalk from 'chalk';
+import { Repos, Repository } from '../repos.js';
 
 export default class View extends Command {
   public static description = 'View a repository.';
   public static flags = {};
-  public static args = [
-    {
-      name: 'repo',
-      description: 'Name of repository.',
-      required: true,
-    },
-  ];
+  public static args = {
+    repo: Args.string({ description: 'Name of repository.', required: true }),
+  };
   public static aliases = ['v'];
 
   public async run(): Promise<void> {
@@ -21,7 +17,7 @@ export default class View extends Command {
     const matches = repos.getMatches(args.repo);
     if (matches.length === 0) {
       process.exitCode = 1;
-      throw new Error(`${args.repo as string} has not been added yet.`);
+      throw new Error(`${args.repo} has not been added yet.`);
     } else if (matches.length === 1) {
       const columns = { key: {}, value: {} };
       const data = [
@@ -30,7 +26,7 @@ export default class View extends Command {
         { key: 'url', value: matches[0].urls.html },
         { key: 'location', value: matches[0].location },
       ];
-      CliUx.ux.table(data, columns);
+      ux.table(data, columns);
     } else {
       const columns = {
         name: { header: 'Name' },
@@ -39,7 +35,7 @@ export default class View extends Command {
         location: { header: 'Location', get: (r: Repository): string => r.location },
       };
       const sorted = sortBy(Object.values(matches), 'name');
-      CliUx.ux.table(sorted, columns, { title: chalk.cyan.bold('Found Multiple Respositories:') });
+      ux.table(sorted, columns, { title: chalk.cyan.bold('Found Multiple Respositories:') });
     }
   }
 }

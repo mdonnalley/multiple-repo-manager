@@ -1,7 +1,7 @@
-import * as path from 'path';
-import * as os from 'os';
-import { writeFile, readFile } from 'fs/promises';
-import { exec } from 'shelljs';
+import path from 'node:path';
+import os from 'node:os';
+import { writeFile, readFile } from 'node:fs/promises';
+import shelljs from 'shelljs';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
 
 export class ZshRc extends AsyncOptionalCreatable {
@@ -33,7 +33,7 @@ export class ZshRc extends AsyncOptionalCreatable {
   }
 
   public source(): void {
-    exec(`source ${ZshRc.LOCATION}`);
+    shelljs.exec(`source ${ZshRc.LOCATION}`);
   }
 
   protected async init(): Promise<void> {

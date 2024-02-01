@@ -1,7 +1,8 @@
-import { CliUx, Command } from '@oclif/core';
-import * as chalk from 'chalk';
-import { groupBy, sortBy } from 'lodash';
-import { Repos, Repository } from '../repos';
+import { ux, Command } from '@oclif/core';
+import chalk from 'chalk';
+import groupBy from 'lodash.groupby';
+import sortBy from 'lodash.sortby';
+import { Repos, Repository } from '../repos.js';
 
 export default class List extends Command {
   public static description = 'List all repositories.';
@@ -22,7 +23,7 @@ export default class List extends Command {
         location: { header: 'Location', get: (r: Repository): string => r.location },
       };
       const sorted = sortBy(Object.values(repos), 'name');
-      CliUx.ux.table(sorted, columns, { title: chalk.cyan.bold(`${org} Respositories`) });
+      ux.table(sorted, columns, { title: chalk.cyan.bold(`${org} Repositories`) });
       this.log();
     }
   }

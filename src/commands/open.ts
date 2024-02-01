@@ -1,8 +1,8 @@
-import { Command, Flags } from '@oclif/core';
-import * as open from 'open';
-import { exec } from 'shelljs';
-import { Repos } from '../repos';
-import { parseRepoNameFromPath } from '../util';
+import { Args, Command, Flags } from '@oclif/core';
+import open from 'open';
+import shelljs from 'shelljs';
+import { Repos } from '../repos.js';
+import { parseRepoNameFromPath } from '../util.js';
 
 enum GithubTab {
   ISSUES = 'issues',
@@ -44,19 +44,20 @@ export default class Open extends Command {
       exclusive: ['file'],
     }),
   };
-  public static args = [
-    {
-      name: 'repo',
+
+  public static args = {
+    repo: Args.string({
       description: 'Name of repository.',
       required: true,
       default: '.',
-    },
-  ];
+    }),
+  };
+
   public static aliases = ['o'];
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Open);
-    const repoName = (args.repo === '.' ? parseRepoNameFromPath() : args.repo) as string;
+    const repoName = args.repo === '.' ? parseRepoNameFromPath() : args.repo;
     const repo = (await Repos.create()).getOne(repoName);
     if (!flags.file && !flags.tab) {
       await open(repo.urls.html, { wait: false });
@@ -65,7 +66,8 @@ export default class Open extends Command {
 
     if (flags.file) {
       const branch =
-        exec(`git -C ${repo.location} rev-parse --abbrev-ref HEAD`, { silent: true }).stdout ?? repo.defaultBranch;
+        shelljs.exec(`git -C ${repo.location} rev-parse --abbrev-ref HEAD`, { silent: true }).stdout ??
+        repo.defaultBranch;
       const url = `${repo.urls.html}/blob/${branch.trim()}/${flags.file}`;
       await open(url, { wait: false });
       return;

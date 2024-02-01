@@ -1,11 +1,11 @@
-import * as os from 'os';
-import * as path from 'path';
-import { ConfigFile } from './configFile';
+import os from 'node:os';
+import path from 'node:path';
+import { ConfigFile } from './configFile.js';
 
-export interface Configuration {
+export type Configuration = {
   directory: string;
   username: string;
-}
+};
 
 export class Config extends ConfigFile<Configuration> {
   public static DEFAULT_DIRECTORY = path.join(os.homedir(), 'repos');

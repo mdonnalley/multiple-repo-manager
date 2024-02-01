@@ -1,11 +1,11 @@
-import * as os from 'os';
-import * as path from 'path';
+import os from 'node:os';
+import path from 'node:path';
 import { Command, Flags } from '@oclif/core';
-import { prompt } from 'inquirer';
-import { Config } from '../config';
-import { AutoComplete } from '../autocomplete';
-import { MultiWrapper } from '../multiWrapper';
-import { ZshRc } from '../zshRc';
+import input from '@inquirer/input';
+import { Config } from '../config.js';
+import { AutoComplete } from '../autocomplete.js';
+import { MultiWrapper } from '../multiWrapper.js';
+import { ZshRc } from '../zshRc.js';
 
 export default class Setup extends Command {
   public static description = 'Setup multi';
@@ -28,21 +28,16 @@ export default class Setup extends Command {
     const { flags } = await this.parse(Setup);
     const config = await Config.create();
     if (!flags.directory || !flags.username) {
-      const answers = await prompt<{ directory: string; username: string }>([
-        {
-          name: 'directory',
-          type: 'input',
-          message: 'Where would you link to clone your repositories?',
-          default: Config.DEFAULT_DIRECTORY,
-        },
-        {
-          name: 'username',
-          type: 'input',
-          message: 'What is your github username?',
-        },
-      ]);
-      config.set('directory', path.resolve(answers.directory.replace('~', os.homedir())));
-      config.set('username', answers.username);
+      const directory = await input({
+        message: 'Where would you link to clone your repositories?',
+        default: Config.DEFAULT_DIRECTORY,
+      });
+      const username = await input({
+        message: 'What is your github username?',
+      });
+
+      config.set('directory', path.resolve(directory.replace('~', os.homedir())));
+      config.set('username', username);
     } else {
       config.set('directory', flags.directory);
       config.set('username', flags.username);

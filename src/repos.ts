@@ -1,17 +1,17 @@
 /* eslint-disable camelcase */
 
-import * as path from 'path';
-import { mkdir } from 'fs/promises';
+import path from 'node:path';
+import { mkdir } from 'node:fs/promises';
 import { Octokit } from 'octokit';
 import { Duration } from '@salesforce/kit';
-import { CliUx } from '@oclif/core';
-import { exec } from 'shelljs';
-import * as chalk from 'chalk';
-import { ConfigFile } from './configFile';
-import { getToken } from './util';
-import { Config } from './config';
-import { Directory } from './directory';
-import { Aliases } from './aliases';
+import { ux } from '@oclif/core';
+import shelljs from 'shelljs';
+import chalk from 'chalk';
+import { ConfigFile } from './configFile.js';
+import { getToken } from './util.js';
+import { Config } from './config.js';
+import { Directory } from './directory.js';
+import { Aliases } from './aliases.js';
 
 export type CloneMethod = 'ssh' | 'https';
 
@@ -44,9 +44,7 @@ export type RepositoryResponse = {
   default_branch: string;
 };
 
-export interface RepoIndex {
-  [key: string]: Repository;
-}
+export type RepoIndex = Record<string, Repository>;
 
 export type Pull = {
   url: string;
@@ -124,7 +122,7 @@ export class Repos extends ConfigFile<RepoIndex> {
           url: r.html_url,
           number: r.number,
           title: r.title,
-          user: r.user.login,
+          user: r.user?.login,
           repo: r.repository_url.split('/').slice(-2).join('/'),
         } as Pull;
       })
@@ -136,7 +134,7 @@ export class Repos extends ConfigFile<RepoIndex> {
     const orgDir = path.join(this.directory.name, repo.org);
     await mkdir(orgDir, { recursive: true });
     const url = method === 'ssh' ? repo.urls.ssh : repo.urls.clone;
-    exec(`git -C ${orgDir} clone ${url}`, { silent: true });
+    shelljs.exec(`git -C ${orgDir} clone ${url}`, { silent: true });
 
     try {
       this.set(repo.fullName, repo);
@@ -168,7 +166,7 @@ export class Repos extends ConfigFile<RepoIndex> {
           if (originalRepos.includes(repo.fullName)) this.update(repo.fullName, repo);
         });
       } catch {
-        CliUx.ux.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
+        ux.debug(`${chalk.yellow('Warning')}: Failed to refresh ${org}`);
       }
     }
     await this.write();

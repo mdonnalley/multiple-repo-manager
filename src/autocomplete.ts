@@ -1,10 +1,10 @@
-import * as path from 'path';
-import { writeFile } from 'fs/promises';
+import path from 'node:path';
+import { writeFile } from 'node:fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
-import { ConfigFile } from './configFile';
-import { Tasks } from './tasks';
-import { Aliases } from './aliases';
-import { ZshRc } from './zshRc';
+import { ConfigFile } from './configFile.js';
+import { Tasks } from './tasks.js';
+import { Aliases } from './aliases.js';
+import { ZshRc } from './zshRc.js';
 
 const AUTO_COMPLETE = `#!/usr/bin/env bash
 

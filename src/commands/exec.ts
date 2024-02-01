@@ -1,8 +1,8 @@
-import { Command } from '@oclif/core';
-import { exec } from 'shelljs';
-import { get } from 'lodash';
-import { Repos } from '../repos';
-import { parseRepoNameFromPath } from '../util';
+import { Args, Command } from '@oclif/core';
+import shelljs from 'shelljs';
+import get from 'lodash.get';
+import { Repos } from '../repos.js';
+import { parseRepoNameFromPath } from '../util.js';
 
 export default class Exec extends Command {
   public static description = 'Execute a command or script in a repository.';
@@ -21,19 +21,19 @@ export default class Exec extends Command {
     },
   ];
   public static flags = {};
-  public static args = [
-    {
-      name: 'repo',
+
+  public static args = {
+    repo: Args.string({
       description: 'Name of repository to execute in. Use "." to specify the current working directory.',
       required: true,
-    },
-  ];
+    }),
+  };
   public static strict = false;
   public static aliases = ['x'];
 
   public async run(): Promise<void> {
     const { args, argv } = await this.parse(Exec);
-    const repoName = (args.repo === '.' ? parseRepoNameFromPath() : args.repo) as string;
+    const repoName = args.repo === '.' ? parseRepoNameFromPath() : args.repo;
 
     let executable = argv.splice(argv.indexOf(args.repo) + 1).join(' ');
 
@@ -45,6 +45,6 @@ export default class Exec extends Command {
       executable = executable.replace(t, value);
     });
 
-    exec(`(cd ${repo.location} && ${executable})`);
+    shelljs.exec(`(cd ${repo.location} && ${executable})`);
   }
 }

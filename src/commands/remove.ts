@@ -1,17 +1,15 @@
-import { rm } from 'fs/promises';
-import { Command } from '@oclif/core';
-import { Repos } from '../repos';
+import { rm } from 'node:fs/promises';
+import { Args, Command } from '@oclif/core';
+import { Repos } from '../repos.js';
 
 export default class Remove extends Command {
   public static description = 'Remove a repository from your local file system.';
   public static flags = {};
-  public static args = [
-    {
-      name: 'repo',
-      description: 'Name of repository.',
-      required: true,
-    },
-  ];
+
+  public static args = {
+    repo: Args.string({ description: 'Name of repository.', required: true }),
+  };
+
   public static aliases = ['rm'];
 
   public async run(): Promise<void> {

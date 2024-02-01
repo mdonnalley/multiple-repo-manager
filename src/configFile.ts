@@ -1,18 +1,18 @@
-import { access, readFile, stat, writeFile } from 'fs/promises';
-import * as os from 'os';
-import * as path from 'path';
-import { Stats } from 'fs';
+import { access, readFile, stat, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { Stats } from 'node:fs';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
-import { Directory } from './directory';
+import { Directory } from './directory.js';
 
-export abstract class ConfigFile<T> extends AsyncOptionalCreatable<string> {
+export abstract class ConfigFile<T extends Record<string, unknown>> extends AsyncOptionalCreatable<string> {
   public static MPM_DIR_NAME = '.multi';
   public static MPM_DIR = path.join(os.homedir(), ConfigFile.MPM_DIR_NAME);
 
-  public stats: Stats;
+  public stats!: Stats;
   public filepath: string;
 
-  private contents: T;
+  private contents!: T;
 
   public constructor(filename: string) {
     super(filename);

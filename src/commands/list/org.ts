@@ -1,6 +1,6 @@
-import { CliUx, Command } from '@oclif/core';
-import { sortBy } from 'lodash';
-import { Repos, Repository } from '../../repos';
+import { Args, Command, ux } from '@oclif/core';
+import sortBy from 'lodash.sortby';
+import { Repos, Repository } from '../../repos.js';
 
 export default class ListOrg extends Command {
   public static description = 'Show all repositories in the org. Requires GH_TOKEN to be set in the environment.';
@@ -8,13 +8,9 @@ export default class ListOrg extends Command {
 
   public static flags = {};
 
-  public static args = [
-    {
-      name: 'org',
-      description: 'Github org',
-      required: true,
-    },
-  ];
+  public static args = {
+    org: Args.string({ description: 'Github org', required: true }),
+  };
 
   public static strict = false;
 
@@ -22,7 +18,7 @@ export default class ListOrg extends Command {
     const { argv } = await this.parse(ListOrg);
     const repos = await Repos.create();
     const all: Repository[] = [];
-    for (const org of argv) {
+    for (const org of argv as string[]) {
       all.push(...(await repos.fetch(org)));
     }
 
@@ -33,6 +29,6 @@ export default class ListOrg extends Command {
       archived: { header: 'Archived' },
     };
     const sorted = sortBy(Object.values(all), ['org', 'name']);
-    CliUx.ux.table(sorted, columns, { title: 'Repositories' });
+    ux.table(sorted, columns, { title: 'Repositories' });
   }
 }

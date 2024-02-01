@@ -1,6 +1,6 @@
-import { CliUx, Command } from '@oclif/core';
-import { sortBy } from 'lodash';
-import { Pull, Repos } from '../repos';
+import { ux, Command } from '@oclif/core';
+import sortBy from 'lodash.sortby';
+import { Pull, Repos } from '../repos.js';
 
 export default class Pulls extends Command {
   public static description =
@@ -18,6 +18,6 @@ export default class Pulls extends Command {
       url: { header: 'URL', get: (p: Pull): string => p.url },
     };
     const sorted = sortBy(Object.values(pulls), 'repo');
-    CliUx.ux.table(sorted, columns, { title: 'Pull Requests' });
+    ux.table(sorted, columns, { title: 'Pull Requests' });
   }
 }

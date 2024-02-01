@@ -1,8 +1,8 @@
-import * as path from 'path';
+import path from 'node:path';
 import * as yml from 'js-yaml';
-import { isEmpty } from 'lodash';
-import { Config } from './config';
-import { ConfigFile } from './configFile';
+import isEmpty from 'lodash.isempty';
+import { Config } from './config.js';
+import { ConfigFile } from './configFile.js';
 
 export type TasksMap = Record<string, string>;
 

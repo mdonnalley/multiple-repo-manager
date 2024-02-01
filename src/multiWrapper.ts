@@ -1,9 +1,9 @@
-import * as path from 'path';
-import { writeFile } from 'fs/promises';
+import path from 'node:path';
+import { writeFile } from 'node:fs/promises';
 import { AsyncOptionalCreatable } from '@salesforce/kit';
-import { ConfigFile } from './configFile';
-import { Tasks } from './tasks';
-import { ZshRc } from './zshRc';
+import { ConfigFile } from './configFile.js';
+import { Tasks } from './tasks.js';
+import { ZshRc } from './zshRc.js';
 
 const TEMPLATE = `#!/usr/bin/env bash
 

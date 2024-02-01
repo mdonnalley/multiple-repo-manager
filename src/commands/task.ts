@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
-import { Command, Flags } from '@oclif/core';
-import { Tasks } from '../tasks';
+import { Args, Command, Flags } from '@oclif/core';
+import { Tasks } from '../tasks.js';
 
 export default class Task extends Command {
   public static summary = 'Set or unset an executable task.';
@@ -32,21 +32,21 @@ export default class Task extends Command {
       default: false,
     }),
   };
-  public static args = [
-    {
-      name: 'keyValue',
+
+  public static args = {
+    keyValue: Args.string({
       description: 'task=value',
       required: true,
-    },
-  ];
+    }),
+  };
 
   public async run(): Promise<void> {
     const { args, argv, flags } = await this.parse(Task);
-    const keyValue = args.keyValue as string;
+    const keyValue = args.keyValue;
 
     if (!flags.interactive && !keyValue.includes('=')) {
       process.exitCode = 1;
-      throw new Error(`The provided argument ${args.keyValue as string} is not a valid key=value pair.`);
+      throw new Error(`The provided argument ${args.keyValue} is not a valid key=value pair.`);
     }
 
     const tasks = await Tasks.create();

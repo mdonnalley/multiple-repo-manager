@@ -1,4 +1,4 @@
-import { access, mkdir } from 'fs/promises';
+import { access, mkdir } from 'node:fs/promises';
 import { AsyncCreatable } from '@salesforce/kit';
 
 export class Directory extends AsyncCreatable {

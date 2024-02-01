@@ -1,5 +1,5 @@
-import { Command } from '@oclif/core';
-import { Aliases } from '../aliases';
+import { Args, Command } from '@oclif/core';
+import { Aliases } from '../aliases.js';
 
 export default class Alias extends Command {
   public static summary = 'Set or unset an alias';
@@ -16,17 +16,17 @@ export default class Alias extends Command {
   ];
   public static strict = false;
   public static flags = {};
-  public static args = [
-    {
-      name: 'keyValue',
+
+  public static args = {
+    keyValue: Args.string({
       description: 'alias=value',
       required: true,
-    },
-  ];
+    }),
+  };
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Alias);
-    const keyValue = args.keyValue as string;
+    const keyValue = args.keyValue;
 
     const aliases = await Aliases.create();
     const [alias, value] = keyValue.split('=');

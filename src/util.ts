@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'node:path';
 
 export function getToken(): string {
   const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;

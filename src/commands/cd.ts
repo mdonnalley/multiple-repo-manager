@@ -1,15 +1,12 @@
-import { Command } from '@oclif/core';
+import { Args, Command } from '@oclif/core';
 
 export default class Cd extends Command {
   public static description = 'cd into a repository.';
   public static flags = {};
-  public static args = [
-    {
-      name: 'repo',
-      description: 'Name of repository.',
-      required: true,
-    },
-  ];
+
+  public static args = {
+    repo: Args.string({ description: 'Name of repository.', required: true }),
+  };
 
   public async run(): Promise<void> {
     /**

@@ -1,8 +1,8 @@
-import * as path from 'path';
+import path from 'node:path';
 import { URL } from 'url';
-import * as chalk from 'chalk';
-import { Command, Flags } from '@oclif/core';
-import { CloneMethod, Repos } from '../repos';
+import chalk from 'chalk';
+import { Args, Command, Flags } from '@oclif/core';
+import { CloneMethod, Repos } from '../repos.js';
 
 function parseOrgAndRepo(entity: string): { org: string; repo: string | null } {
   if (entity.startsWith('https://')) {
@@ -53,13 +53,12 @@ export default class Add extends Command {
     }),
   };
 
-  public static args = [
-    {
-      name: 'entity',
+  public static args = {
+    entity: Args.string({
       description: 'Github org, repo, or url to add',
       required: true,
-    },
-  ];
+    }),
+  };
 
   public async run(): Promise<void> {
     const { flags, args } = await this.parse(Add);

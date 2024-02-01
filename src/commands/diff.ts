@@ -1,6 +1,6 @@
-import { CliUx, Command } from '@oclif/core';
-import { sortBy } from 'lodash';
-import { Repos, Repository } from '../repos';
+import { Args, Command, ux } from '@oclif/core';
+import sortBy from 'lodash.sortby';
+import { Repos, Repository } from '../repos.js';
 
 export default class Diff extends Command {
   public static description =
@@ -9,13 +9,9 @@ export default class Diff extends Command {
 
   public static flags = {};
 
-  public static args = [
-    {
-      name: 'org',
-      description: 'Github org',
-      required: true,
-    },
-  ];
+  public static args = {
+    org: Args.string({ description: 'Github org', required: true }),
+  };
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Diff);
@@ -26,6 +22,6 @@ export default class Diff extends Command {
       url: { header: 'URL', get: (r: Repository): string => r.urls.html },
     };
     const sorted = sortBy(Object.values(remote), 'name');
-    CliUx.ux.table(sorted, columns, { title: `${args.org as string} Diff` });
+    ux.table(sorted, columns, { title: `${args.org} Diff` });
   }
 }
