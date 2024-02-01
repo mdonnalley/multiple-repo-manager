@@ -1,3 +1,9 @@
+## [4.0.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.0...v4.0.1) (2024-02-01)
+
+### Bug Fixes
+
+- task example in README ([e67ec4b](https://github.com/mdonnalley/multiple-repo-manager/commit/e67ec4b4a9b04a031e8c94b01b2a467ee5030091))
+
 # [4.0.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v3.0.0...v4.0.0) (2024-02-01)
 
 - feat!: 4.0.0 (#187) ([cf48ebf](https://github.com/mdonnalley/multiple-repo-manager/commit/cf48ebfa1aa3a085ef4d1484d766ebf15787b5d6)), closes [#187](https://github.com/mdonnalley/multiple-repo-manager/issues/187)
