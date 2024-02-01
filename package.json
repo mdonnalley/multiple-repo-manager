@@ -28,7 +28,8 @@
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/config-conventional": "^18",
+    "@oclif/prettier-config": "^0.2.1",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/js-yaml": "^4.0.3",
@@ -41,19 +42,16 @@
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "chai": "^4.3.4",
-    "commitlint": "^13.1.0",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsdoc": "^35.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6",
-    "lint-staged": "^11.0.0",
+    "commitlint": "^18",
+    "eslint": "^8.55.0",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9",
+    "lint-staged": "^15",
     "mocha": "^10",
     "oclif": "^4",
-    "prettier": "^2.3.2",
-    "pretty-quick": "^3.1.0",
+    "prettier": "^3",
     "semantic-release": "^17.4.5",
     "sinon": "^17",
     "ts-node": "^10",
@@ -61,16 +59,16 @@
   },
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "commitlint": "commitlint",
+    "commitlint": "commitlint --edit $1",
+    "lint": "eslint . --ext .ts",
     "lint-staged": "lint-staged",
-    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
     "postpack": "rm oclif.manifest.json",
     "posttest": "npm run lint",
-    "prepack": "rm -rf lib && tsc && oclif manifest .",
+    "prepack": "rm -rf lib && tsc && oclif manifest && npm shrinkwrap",
     "readme": "oclif readme && git add README.md",
-    "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
     "semantic-release": "semantic-release",
-    "test": "mocha \"test/**/*.test.ts\" --forbid-only"
+    "test": "mocha \"test/**/*.test.ts\" --forbid-only",
+    "prepare": "husky"
   },
   "bin": {
     "multi": "bin/run.js"
@@ -84,7 +82,8 @@
   },
   "files": [
     "/lib",
-    "/oclif.manifest.json"
+    "/oclif.manifest.json",
+    "/npm-shrinkwrap.json"
   ],
   "oclif": {
     "commands": "./lib/commands",
