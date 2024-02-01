@@ -65,7 +65,7 @@
     "lint-staged": "lint-staged",
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
     "postpack": "rm oclif.manifest.json",
-    "posttest": "yarn run lint",
+    "posttest": "npm run lint",
     "prepack": "rm -rf lib && tsc && oclif manifest .",
     "readme": "oclif readme && git add README.md",
     "reformat": "prettier --config .prettierrc.json --write './*.{js,json,md}' './**/*.{ts,json,md}'",
