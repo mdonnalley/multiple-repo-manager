@@ -49,13 +49,13 @@ multi add my-github-org/my-repo
 
 One the main advantages of using `multi` is that you can define your own tasks. Theses tasks are stored at `~/.mutli/tasks.yml` and can set be set and unset using the `multi task` command.
 
-### Examles
+### Examples
 
 ```yaml
-open-circle: multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
+open-circle: multi exec . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
 done-with-branch: |
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
-  multi exec . git checkout {repo.defaultBranch}
+  multi exec . -- git checkout {repo.defaultBranch}
   git pull
   git remote prune origin
   git branch -D $current_branch
