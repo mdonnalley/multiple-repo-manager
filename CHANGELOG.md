@@ -1,3 +1,9 @@
+# [4.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.1.0...v4.2.0) (2024-02-02)
+
+### Features
+
+- add refresh command ([7cf4e9c](https://github.com/mdonnalley/multiple-repo-manager/commit/7cf4e9c3a359c2e4db06f286a4ec4fab9ad0d4b2))
+
 # [4.1.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.0.2...v4.1.0) (2024-02-01)
 
 ### Features
