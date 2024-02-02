@@ -73,6 +73,7 @@ done-with-branch: |
 * [`multi list org ORG`](#multi-list-org-org)
 * [`multi open REPO`](#multi-open-repo)
 * [`multi pulls`](#multi-pulls)
+* [`multi refresh`](#multi-refresh)
 * [`multi remove REPO`](#multi-remove-repo)
 * [`multi setup`](#multi-setup)
 * [`multi task KEYVALUE`](#multi-task-keyvalue)
@@ -307,6 +308,23 @@ EXAMPLES
 ```
 
 _See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.1.0/src/commands/pulls.ts)_
+
+## `multi refresh`
+
+Refresh the list of repositories and corresponding metadata.
+
+```
+USAGE
+  $ multi refresh [-o <value>]
+
+FLAGS
+  -o, --org=<value>...  Github org to refresh.
+
+DESCRIPTION
+  Refresh the list of repositories and corresponding metadata.
+```
+
+_See code: [src/commands/refresh.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.1.0/src/commands/refresh.ts)_
 
 ## `multi remove REPO`
 
