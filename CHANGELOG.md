@@ -1,3 +1,9 @@
+# [4.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.2.0...v4.3.0) (2024-02-05)
+
+### Features
+
+- add org issue|pulls commands ([1991cd7](https://github.com/mdonnalley/multiple-repo-manager/commit/1991cd7f03050cab93e136530342e7cf343777ba))
+
 # [4.2.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.1.0...v4.2.0) (2024-02-02)
 
 ### Features
