@@ -152,6 +152,7 @@ export class Repos extends ConfigFile<RepoIndex> {
 
     const all = await Promise.all(
       reposOfOrg.map(async (repo) => {
+        debug(`GET /repos/{owner}/{repo}/pulls`, {owner: org, repo: repo.name})
         const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/pulls', {
           owner: org,
           repo: repo.name,
