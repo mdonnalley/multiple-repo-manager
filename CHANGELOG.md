@@ -1,3 +1,9 @@
+## [4.3.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.0...v4.3.1) (2024-02-05)
+
+### Bug Fixes
+
+- list repos belonging to user ([ee1384a](https://github.com/mdonnalley/multiple-repo-manager/commit/ee1384a368ef8090693e3dc3d6d55ee2dc252a59))
+
 # [4.3.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.2.0...v4.3.0) (2024-02-05)
 
 ### Features
