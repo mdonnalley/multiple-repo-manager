@@ -55,6 +55,9 @@ export default class OrgIssues extends Command {
     }
     const sorted = sortBy(Object.values(all), flags['sort-by'])
 
-    ux.table(flags['sort-by'] === 'created' ? sorted.reverse() : sorted, columns, {title: 'Issues'})
+    ux.table(flags['sort-by'] === 'created' ? sorted.reverse() : sorted, columns, {
+      title: 'Issues',
+      'no-truncate': true,
+    })
   }
 }
