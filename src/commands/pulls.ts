@@ -5,7 +5,7 @@ import {Pull, Repos} from '../repos.js'
 
 export default class Pulls extends Command {
   public static description =
-    'List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.'
+    'List all your pull requests for added repositories. Requires GH_TOKEN to be set in the environment.'
 
   public static examples = ['<%= config.bin %> <%= command.id %>']
 
@@ -13,7 +13,7 @@ export default class Pulls extends Command {
 
   public async run(): Promise<void> {
     const repos = await new Repos().init()
-    const pulls = await repos.fetchPulls()
+    const pulls = await repos.fetchPulls({author: 'default'})
     const columns = {
       repo: {get: (p: Pull): string => p.repo.split('/')[1], header: 'Repo'},
       title: {},

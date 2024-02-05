@@ -3,7 +3,8 @@ import sortBy from 'lodash.sortby'
 
 import {Repos, Repository} from '../../repos.js'
 
-export default class ListOrg extends Command {
+export default class OrgList extends Command {
+  public static aliases = ['list:org']
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }
@@ -17,12 +18,9 @@ export default class ListOrg extends Command {
   public static strict = false
 
   public async run(): Promise<void> {
-    const {argv} = await this.parse(ListOrg)
+    const {argv} = await this.parse(OrgList)
     const repos = await new Repos().init()
-    const all: Repository[] = []
-    for (const org of argv as string[]) {
-      all.push(...(await repos.fetch(org)))
-    }
+    const all = (await Promise.all((argv as string[]).map(async (org) => repos.fetch(org)))).flat()
 
     const columns = {
       archived: {header: 'Archived'},

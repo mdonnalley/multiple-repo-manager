@@ -7,6 +7,7 @@ import {Octokit} from 'octokit'
 import {Aliases} from './aliases.js'
 import {Config} from './config.js'
 import {ConfigFile} from './config-file.js'
+import {weeksToMs} from './date-utils.js'
 import {Directory} from './directory.js'
 import execSync from './exec-sync.js'
 import {getToken} from './util.js'
@@ -47,6 +48,8 @@ export type RepositoryResponse = {
 export type RepoIndex = Record<string, Repository>
 
 export type Pull = {
+  created: string
+  labels: string[]
   number: number
   repo: string
   title: string
@@ -54,8 +57,15 @@ export type Pull = {
   user: string
 }
 
-function weeksToMs(weeks: number): number {
-  return weeks * 7 * 24 * 60 * 60 * 1000
+export type Issue = {
+  created: string
+  labels: string[]
+  number: number
+  repo: string
+  title: string
+  updated: string
+  url: string
+  user: string
 }
 
 export class Repos extends ConfigFile<RepoIndex> {
@@ -93,15 +103,82 @@ export class Repos extends ConfigFile<RepoIndex> {
     return response.map((r) => this.transform(r as RepositoryResponse))
   }
 
-  public async fetchPulls(): Promise<Pull[]> {
+  public async fetchOrgIssues(org: string, opts?: {since?: string}): Promise<Issue[]> {
+    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
+
+    const all = await Promise.all(
+      reposOfOrg.map(async (repo) => {
+        const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/issues', {
+          owner: org,
+          repo: repo.name,
+          since: opts?.since,
+          state: 'open',
+        })
+        const issues = response
+          .filter((r) => !r.pull_request)
+          .map(
+            (r) =>
+              ({
+                created: r.created_at,
+                labels: r.labels.map((l) => (typeof l === 'string' ? l : l.name)),
+                number: r.number,
+                repo: repo.name,
+                title: r.title,
+                updated: r.updated_at,
+                url: r.html_url,
+                user: r.user?.login,
+              }) as Issue,
+          )
+        return issues
+      }),
+    )
+
+    return all.filter((r) => r.length > 0).flat()
+  }
+
+  public async fetchOrgPulls(org: string): Promise<Pull[]> {
+    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
+
+    const all = await Promise.all(
+      reposOfOrg.map(async (repo) => {
+        const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/pulls', {
+          owner: org,
+          repo: repo.name,
+          state: 'open',
+        })
+        const pulls = response
+          // eslint-disable-next-line arrow-body-style
+          .map((r) => {
+            return {
+              created: r.created_at,
+              labels: r.labels.map((l) => l.name),
+              number: r.number,
+              repo: repo.name,
+              title: r.title,
+              url: r.html_url,
+              user: r.user?.login,
+            } as Pull
+          })
+        return pulls
+      }),
+    )
+
+    return all.filter((r) => r.length > 0).flat()
+  }
+
+  public async fetchPulls(options?: {author?: 'default' | string}): Promise<Pull[]> {
     const config = await new Config().init()
+    const theAuthor = options?.author === 'default' ? config.get('username') : options?.author
+    const author = theAuthor ? `author:${theAuthor}` : ''
     const response = await this.octokit.paginate('GET /search/issues', {
-      q: `is:pr is:open author:${config.get('username')}`,
+      q: `is:pr is:open ${author}`,
     })
     const pulls = response
       // eslint-disable-next-line arrow-body-style
       .map((r) => {
         return {
+          created: r.created_at,
+          labels: r.labels.map((l) => l.name),
           number: r.number,
           repo: r.repository_url.split('/').slice(-2).join('/'),
           title: r.title,
