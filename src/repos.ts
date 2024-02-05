@@ -23,6 +23,7 @@ export type Repository = {
   location: string
   name: string
   org: string
+  private: boolean
   updated: string
   urls: {
     clone: string
@@ -41,6 +42,7 @@ export type RepositoryResponse = {
   owner: {
     login: string
   }
+  private: boolean
   ssh_url: string
   updated_at: string
 }
@@ -72,6 +74,7 @@ export class Repos extends ConfigFile<RepoIndex> {
   public static REFRESH_TIME = weeksToMs(1)
   public directory!: Directory
   private aliases!: Aliases
+  private config!: Config
   private octokit!: Octokit
 
   public constructor() {
@@ -98,7 +101,15 @@ export class Repos extends ConfigFile<RepoIndex> {
       return [this.transform(response.data)]
     }
 
-    debug(`GET /orgs/${org}/repos`)
+    if (org === this.config.get('username')) {
+      debug('GET /user/repos')
+      const response = await this.octokit.paginate('GET /user/repos', {
+        affiliation: 'owner',
+      })
+      return response.map((r) => this.transform(r as RepositoryResponse))
+    }
+
+    debug('GET /orgs/{org}/repos')
     const response = await this.octokit.paginate('GET /orgs/{org}/repos', {org})
     return response.map((r) => this.transform(r as RepositoryResponse))
   }
@@ -167,8 +178,7 @@ export class Repos extends ConfigFile<RepoIndex> {
   }
 
   public async fetchPulls(options?: {author?: 'default' | string}): Promise<Pull[]> {
-    const config = await new Config().init()
-    const theAuthor = options?.author === 'default' ? config.get('username') : options?.author
+    const theAuthor = options?.author === 'default' ? this.config.get('username') : options?.author
     const author = theAuthor ? `author:${theAuthor}` : ''
     const response = await this.octokit.paginate('GET /search/issues', {
       q: `is:pr is:open ${author}`,
@@ -230,8 +240,8 @@ export class Repos extends ConfigFile<RepoIndex> {
   public async init() {
     await super.init()
     this.octokit = new Octokit({auth: getToken()})
-    const config = await new Config().init()
-    this.directory = await new Directory({name: config.get('directory')}).init()
+    this.config = await new Config().init()
+    this.directory = await new Directory({name: this.config.get('directory')}).init()
     this.aliases = await new Aliases().init()
 
     if (this.needsRefresh()) await this.refresh()
@@ -267,13 +277,14 @@ export class Repos extends ConfigFile<RepoIndex> {
   }
 
   private transform(repo: RepositoryResponse): Repository {
-    const transformed = {
+    return {
       archived: repo.archived,
       defaultBranch: repo.default_branch,
       fullName: repo.full_name,
       location: path.join(this.directory.name, repo.owner.login, repo.name),
       name: repo.name,
       org: repo.owner.login,
+      private: repo.private,
       updated: repo.updated_at,
       urls: {
         clone: repo.clone_url,
@@ -281,6 +292,5 @@ export class Repos extends ConfigFile<RepoIndex> {
         ssh: repo.ssh_url,
       },
     }
-    return transformed
   }
 }

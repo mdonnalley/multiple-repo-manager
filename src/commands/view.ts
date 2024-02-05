@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 import {Args, Command, Errors, ux} from '@oclif/core'
 import chalk from 'chalk'
 import sortBy from 'lodash.sortby'
@@ -18,7 +19,6 @@ export default class View extends Command {
     const repos = await new Repos().init()
     const matches = repos.getMatches(args.repo)
     if (matches.length === 0) {
-      process.exitCode = 1
       throw new Errors.CLIError(`${args.repo} has not been added yet.`)
     } else if (matches.length === 1) {
       const columns = {key: {}, value: {}}
@@ -31,9 +31,9 @@ export default class View extends Command {
       ux.table(data, columns)
     } else {
       const columns = {
-        location: {get: (r: Repository): string => r.location, header: 'Location'},
         name: {header: 'Name'},
         organization: {get: (r: Repository): string => r.org, header: 'Organization'},
+        location: {get: (r: Repository): string => r.location, header: 'Location'},
         url: {get: (r: Repository): string => r.urls.html, header: 'URL'},
       }
       const sorted = sortBy(Object.values(matches), 'name')
