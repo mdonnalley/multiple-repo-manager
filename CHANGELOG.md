@@ -1,3 +1,9 @@
+## [4.3.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.2...v4.3.3) (2024-02-05)
+
+### Bug Fixes
+
+- add updated option ([0af4f93](https://github.com/mdonnalley/multiple-repo-manager/commit/0af4f93b9d7e61972df66c5df61abd30e7be37d7))
+
 ## [4.3.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.1...v4.3.2) (2024-02-05)
 
 ### Bug Fixes
