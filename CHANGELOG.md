@@ -1,3 +1,9 @@
+## [4.3.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.3...v4.3.4) (2024-02-05)
+
+### Bug Fixes
+
+- add debug logs ([7ddb357](https://github.com/mdonnalley/multiple-repo-manager/commit/7ddb357c0608948fa8877ed65f930cfeb735c27d))
+
 ## [4.3.3](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.2...v4.3.3) (2024-02-05)
 
 ### Bug Fixes
