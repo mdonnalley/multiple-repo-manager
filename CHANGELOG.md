@@ -1,3 +1,9 @@
+## [4.3.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.1...v4.3.2) (2024-02-05)
+
+### Bug Fixes
+
+- no-truncate issues ([e0e07d4](https://github.com/mdonnalley/multiple-repo-manager/commit/e0e07d4542df865c596cd48d46dccdffe3be85a0))
+
 ## [4.3.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.0...v4.3.1) (2024-02-05)
 
 ### Bug Fixes
