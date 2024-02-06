@@ -6,6 +6,7 @@ import sortBy from 'lodash.sortby'
 
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
 import {Pull, Repos} from '../../repos.js'
+import {startRandomSpinner} from '../../util.js'
 
 function applyFilters<Pull>(items: Pull[], filters: ((item: Pull) => boolean)[]): Pull[] {
   // eslint-disable-next-line unicorn/no-array-reduce
@@ -53,6 +54,7 @@ export default class OrgPulls extends Command {
   }
 
   public async run(): Promise<void> {
+    startRandomSpinner('Looking for pull requests')
     const {args, flags} = await this.parse(OrgPulls)
 
     const repos = await new Repos().init()
@@ -88,6 +90,12 @@ export default class OrgPulls extends Command {
       labels: {get: (r: Pull): string => r.labels.join(', '), header: 'Labels'},
     }
     const sorted = sortBy(Object.values(filtered), flags['sort-by'])
+    ux.action.stop(`Found ${sorted.length} pull request${sorted.length === 1 ? '' : 's'}`)
+
+    if (sorted.length === 0) {
+      this.log('No pull requests found')
+      return
+    }
 
     ux.table(flags['sort-by'] === 'created' ? sorted.reverse() : sorted, columns, {title: 'Pull Requests'})
   }

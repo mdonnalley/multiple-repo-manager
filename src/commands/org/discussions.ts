@@ -6,6 +6,7 @@ import sortBy from 'lodash.sortby'
 
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
 import {Discussion, Repos} from '../../repos.js'
+import {startRandomSpinner} from '../../util.js'
 
 export default class OrgDiscussions extends Command {
   public static args = {
@@ -34,6 +35,7 @@ export default class OrgDiscussions extends Command {
   }
 
   public async run(): Promise<void> {
+    startRandomSpinner('Looking for discussions')
     const {args, flags} = await this.parse(OrgDiscussions)
 
     const repos = await new Repos().init()
@@ -57,6 +59,12 @@ export default class OrgDiscussions extends Command {
       },
     }
     const sorted = sortBy(Object.values(filtered), flags['sort-by'])
+
+    ux.action.stop(`Found ${sorted.length} discussion${sorted.length === 1 ? '' : 's'}`)
+    if (sorted.length === 0) {
+      this.log('No discussions found')
+      return
+    }
 
     ux.table(flags['sort-by'] === 'created' || flags['sort-by'] === 'updated' ? sorted.reverse() : sorted, columns, {
       title: 'Discussions',

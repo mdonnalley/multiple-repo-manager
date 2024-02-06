@@ -277,7 +277,7 @@ _See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi org discussions ORG`
 
-List all open discussions for added repos in an org. Requires GH_TOKEN to be set in the environment.
+List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
@@ -289,10 +289,10 @@ ARGUMENTS
 FLAGS
   -b, --sort-by=<option>  [default: repo] Sort by
                           <options: created|repo|author|updated>
-  -s, --since=<value>     Only show discussions updated after this date
+  -s, --since=<value>     Only show issues updated after this date
 
 DESCRIPTION
-  List all open discussions for added repos in an org. Requires GH_TOKEN to be set in the environment.
+  List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 EXAMPLES
   $ multi org discussions my-github-org --since 1/1/24
@@ -304,7 +304,7 @@ _See code: [src/commands/org/discussions.ts](https://github.com/mdonnalley/multi
 
 ## `multi org issues ORG`
 
-List all open issues for added repos in an org. Requires GH_TOKEN to be set in the environment.
+List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
@@ -319,7 +319,7 @@ FLAGS
   -s, --since=<value>     (required) Only show issues updated after this date
 
 DESCRIPTION
-  List all open issues for added repos in an org. Requires GH_TOKEN to be set in the environment.
+  List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 EXAMPLES
   $ multi org issues my-github-org --since 1/1/24
@@ -354,7 +354,7 @@ _See code: [src/commands/org/list.ts](https://github.com/mdonnalley/multiple-rep
 
 ## `multi org pulls ORG`
 
-List all open pull requests for added repos in an org. Requires GH_TOKEN to be set in the environment.
+List all pull requests in the org. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
@@ -371,7 +371,7 @@ FLAGS
   -s, --since=<value>           Only show pull requests created after this date
 
 DESCRIPTION
-  List all open pull requests for added repos in an org. Requires GH_TOKEN to be set in the environment.
+  List all pull requests in the org. Requires GH_TOKEN to be set in the environment.
 
 EXAMPLES
   $ multi org pulls my-github-org
