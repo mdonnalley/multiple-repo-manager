@@ -1,3 +1,9 @@
+## [4.4.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.0...v4.4.1) (2024-02-06)
+
+### Bug Fixes
+
+- better command descriptions ([6925b9f](https://github.com/mdonnalley/multiple-repo-manager/commit/6925b9f42f753b6e00b87836245bfd3b479668fc))
+
 # [4.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.4...v4.4.0) (2024-02-06)
 
 ### Features
