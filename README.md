@@ -277,7 +277,7 @@ _See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi org discussions ORG`
 
-List all open discussions in the org. Requires GH_TOKEN to be set in the environment.
+List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
@@ -289,10 +289,10 @@ ARGUMENTS
 FLAGS
   -b, --sort-by=<option>  [default: repo] Sort by
                           <options: created|repo|author|updated>
-  -s, --since=<value>     Only show discussions updated after this date
+  -s, --since=<value>     Only show issues updated after this date
 
 DESCRIPTION
-  List all open discussions in the org. Requires GH_TOKEN to be set in the environment.
+  List all issues in the org. Requires GH_TOKEN to be set in the environment.
 
 EXAMPLES
   $ multi org discussions my-github-org --since 1/1/24

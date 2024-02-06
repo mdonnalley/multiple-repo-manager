@@ -17,7 +17,8 @@ export default class OrgPulls extends Command {
     org: Args.string({description: 'Github org', required: true}),
   }
 
-  public static description = 'List all pull requests in the org. Requires GH_TOKEN to be set in the environment.'
+  public static description =
+    'List all open pull requests for added repos in an org. Requires GH_TOKEN to be set in the environment.'
 
   public static examples = [
     '<%= config.bin %> <%= command.id %> my-github-org',

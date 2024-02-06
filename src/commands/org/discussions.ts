@@ -12,7 +12,8 @@ export default class OrgDiscussions extends Command {
     org: Args.string({description: 'Github org', required: true}),
   }
 
-  public static description = 'List all open discussions in the org. Requires GH_TOKEN to be set in the environment.'
+  public static description =
+    'List all open discussions for added repos in an org. Requires GH_TOKEN to be set in the environment.'
 
   public static examples = [
     '<%= config.bin %> <%= command.id %> my-github-org --since 1/1/24',
