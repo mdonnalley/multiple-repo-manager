@@ -1,4 +1,5 @@
 import {Errors, ux} from '@oclif/core'
+import {paginateGraphql} from '@octokit/plugin-paginate-graphql'
 import makeDebug from 'debug'
 import {mkdir} from 'node:fs/promises'
 import path from 'node:path'
@@ -70,6 +71,39 @@ export type Issue = {
   user: string
 }
 
+type DiscussionResponse = {
+  author: {login: string}
+  category: {name: string}
+  closed: boolean
+  createdAt: string
+  id: string
+  number: number
+  repository: {name: string}
+  title: string
+  updatedAt: string
+  url: string
+}
+
+export type Discussion = {
+  category: string
+  created: string
+  id: string
+  number: number
+  repo: string
+  title: string
+  updated: string
+  url: string
+  user: string
+}
+
+type GraphQLResponse<T> = {
+  [key: string]: {
+    [key: string]: {
+      nodes: T[]
+    }
+  }
+}
+
 export class Repos extends ConfigFile<RepoIndex> {
   public static REFRESH_TIME = weeksToMs(1)
   public directory!: Directory
@@ -112,6 +146,64 @@ export class Repos extends ConfigFile<RepoIndex> {
     debug('GET /orgs/{org}/repos')
     const response = await this.octokit.paginate('GET /orgs/{org}/repos', {org})
     return response.map((r) => this.transform(r as RepositoryResponse))
+  }
+
+  public async fetchOrgDiscussions(org: string): Promise<Discussion[]> {
+    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
+
+    const query = `query paginate($cursor: String) {
+      ${reposOfOrg
+        .map(
+          ({name, org}, index) => `repo${index + 1}: repository(owner: "${org}", name: "${name}") {
+            discussions(first: 20, after: $cursor) {
+              # type: DiscussionConnection
+              totalCount # Int!
+
+              pageInfo {
+                # type: PageInfo (from the public schema)
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+              }
+
+              nodes {
+                # type: Discussion
+                author { login }
+                category { name }
+                createdAt
+                id
+                number
+                repository { name }
+                title
+                updatedAt
+                url
+                closed
+              }
+            }
+          }`,
+        )
+        .join('\n')}
+        }`
+
+    const response = await this.octokit.graphql.paginate<GraphQLResponse<DiscussionResponse>>(query)
+    return Object.values(response).flatMap((r) =>
+      Object.values(r).flatMap((r) =>
+        r.nodes
+          .filter((n) => !n.closed)
+          .map((n) => ({
+            category: n.category.name,
+            created: n.createdAt,
+            id: n.id,
+            number: n.number,
+            repo: n.repository.name,
+            title: n.title,
+            updated: n.updatedAt,
+            url: n.url,
+            user: n.author.login,
+          })),
+      ),
+    )
   }
 
   public async fetchOrgIssues(org: string, opts?: {since?: string}): Promise<Issue[]> {
@@ -240,6 +332,7 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   public async init() {
     await super.init()
+    Octokit.plugin(paginateGraphql)
     this.octokit = new Octokit({auth: getToken()})
     this.config = await new Config().init()
     this.directory = await new Directory({name: this.config.get('directory')}).init()

@@ -70,8 +70,11 @@ done-with-branch: |
 * [`multi diff ORG`](#multi-diff-org)
 * [`multi exec REPO`](#multi-exec-repo)
 * [`multi list`](#multi-list)
-* [`multi list org ORG`](#multi-list-org-org)
 * [`multi open REPO`](#multi-open-repo)
+* [`multi org discussions ORG`](#multi-org-discussions-org)
+* [`multi org issues ORG`](#multi-org-issues-org)
+* [`multi org list ORGS`](#multi-org-list-orgs)
+* [`multi org pulls ORG`](#multi-org-pulls-org)
 * [`multi pulls`](#multi-pulls)
 * [`multi refresh`](#multi-refresh)
 * [`multi remove REPO`](#multi-remove-repo)
@@ -234,26 +237,6 @@ ALIASES
 
 _See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/list.ts)_
 
-## `multi list org ORG`
-
-Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
-
-```
-USAGE
-  $ multi list org ORG
-
-ARGUMENTS
-  ORG  Github org
-
-DESCRIPTION
-  Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
-
-EXAMPLES
-  $ multi list org my-github-org
-```
-
-_See code: [src/commands/list/org.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/list/org.ts)_
-
 ## `multi open REPO`
 
 Open a repository in github.
@@ -292,16 +275,128 @@ EXAMPLES
 
 _See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/open.ts)_
 
+## `multi org discussions ORG`
+
+List all issues in the org. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi org discussions ORG [-b created|repo|author|updated] [-s <value>]
+
+ARGUMENTS
+  ORG  Github org
+
+FLAGS
+  -b, --sort-by=<option>  [default: repo] Sort by
+                          <options: created|repo|author|updated>
+  -s, --since=<value>     Only show issues updated after this date
+
+DESCRIPTION
+  List all issues in the org. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi org discussions my-github-org --since 1/1/24
+
+  $ multi org discussions my-github-org --since friday
+```
+
+_See code: [src/commands/org/discussions.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/org/discussions.ts)_
+
+## `multi org issues ORG`
+
+List all issues in the org. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi org issues ORG -s <value> [-b created|repo|author|updated]
+
+ARGUMENTS
+  ORG  Github org
+
+FLAGS
+  -b, --sort-by=<option>  [default: repo] Sort by
+                          <options: created|repo|author|updated>
+  -s, --since=<value>     (required) Only show issues updated after this date
+
+DESCRIPTION
+  List all issues in the org. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi org issues my-github-org --since 1/1/24
+
+  $ multi org issues my-github-org --since friday
+```
+
+_See code: [src/commands/org/issues.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/org/issues.ts)_
+
+## `multi org list ORGS`
+
+Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi org list ORGS
+
+ARGUMENTS
+  ORGS  Github org
+
+DESCRIPTION
+  Show all repositories in the org. Requires GH_TOKEN to be set in the environment.
+
+ALIASES
+  $ multi list org
+
+EXAMPLES
+  $ multi org list my-github-org
+```
+
+_See code: [src/commands/org/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/org/list.ts)_
+
+## `multi org pulls ORG`
+
+List all pull requests in the org. Requires GH_TOKEN to be set in the environment.
+
+```
+USAGE
+  $ multi org pulls ORG [-i | -d] [-b created|repo|author] [-s <value>]
+
+ARGUMENTS
+  ORG  Github org
+
+FLAGS
+  -b, --sort-by=<option>        [default: repo] Sort by
+                                <options: created|repo|author>
+  -d, --only-dependabot         Only show dependabot
+  -i, --[no-]ignore-dependabot  Ignore dependabot
+  -s, --since=<value>           Only show pull requests created after this date
+
+DESCRIPTION
+  List all pull requests in the org. Requires GH_TOKEN to be set in the environment.
+
+EXAMPLES
+  $ multi org pulls my-github-org
+
+  $ multi org pulls my-github-org --ignore-dependabot
+
+  $ multi org pulls my-github-org --only-dependabot
+
+  $ multi org pulls my-github-org --since 1/1/24
+
+  $ multi org pulls my-github-org --since friday
+```
+
+_See code: [src/commands/org/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.3.3/src/commands/org/pulls.ts)_
+
 ## `multi pulls`
 
-List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
+List all your pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
   $ multi pulls
 
 DESCRIPTION
-  List all pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
+  List all your pull requests for added repositories. Requires GH_TOKEN to be set in the environment.
 
 EXAMPLES
   $ multi pulls
