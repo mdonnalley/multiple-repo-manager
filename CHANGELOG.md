@@ -1,3 +1,9 @@
+# [4.4.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.4...v4.4.0) (2024-02-06)
+
+### Features
+
+- add org discussions command ([44354ca](https://github.com/mdonnalley/multiple-repo-manager/commit/44354ca4e3a35087dc79e91b9dc6d3dcc459b1b8))
+
 ## [4.3.4](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.3.3...v4.3.4) (2024-02-05)
 
 ### Bug Fixes
