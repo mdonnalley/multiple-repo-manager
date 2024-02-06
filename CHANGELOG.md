@@ -1,3 +1,9 @@
+## [4.4.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.1...v4.4.2) (2024-02-06)
+
+### Bug Fixes
+
+- ux improvements ([f80bdde](https://github.com/mdonnalley/multiple-repo-manager/commit/f80bddea42889ef3d91791851f9bb6450d64ec8c))
+
 ## [4.4.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.0...v4.4.1) (2024-02-06)
 
 ### Bug Fixes
