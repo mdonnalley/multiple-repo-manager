@@ -1,3 +1,9 @@
+# [4.5.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.2...v4.5.0) (2024-02-12)
+
+### Features
+
+- refactor Repos ([eaf4e29](https://github.com/mdonnalley/multiple-repo-manager/commit/eaf4e293e4213892d0bf10b07679c3801b65d6b7))
+
 ## [4.4.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.1...v4.4.2) (2024-02-06)
 
 ### Bug Fixes
