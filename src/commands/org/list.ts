@@ -2,7 +2,7 @@
 import {Args, Command, ux} from '@oclif/core'
 import sortBy from 'lodash.sortby'
 
-import {Repos, Repository} from '../../repos.js'
+import {Github, Repository} from '../../github.js'
 
 export default class OrgList extends Command {
   public static aliases = ['list:org']
@@ -20,9 +20,9 @@ export default class OrgList extends Command {
 
   public async run(): Promise<void> {
     const {argv} = await this.parse(OrgList)
-    const repos = await new Repos().init()
+    const github = new Github()
 
-    const all = (await Promise.all((argv as string[]).map(async (org) => repos.fetch(org)))).flat()
+    const all = (await Promise.all((argv as string[]).map(async (org) => github.orgRepositories(org)))).flat()
 
     const columns = {
       name: {header: 'Name'},

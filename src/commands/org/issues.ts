@@ -5,7 +5,8 @@ import hyperlinker from 'hyperlinker'
 import sortBy from 'lodash.sortby'
 
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
-import {Issue, Repos} from '../../repos.js'
+import {Github, Issue} from '../../github.js'
+import {Repos} from '../../repos.js'
 import {startRandomSpinner} from '../../util.js'
 
 export default class OrgIssues extends Command {
@@ -40,7 +41,8 @@ export default class OrgIssues extends Command {
     const {args, flags} = await this.parse(OrgIssues)
 
     const repos = await new Repos().init()
-    const all = await repos.fetchOrgIssues(args.org, {since: flags.since?.toISOString()})
+    const github = new Github()
+    const all = await github.repoIssues(repos.getReposOfOrg(args.org), {since: flags.since?.toISOString()})
 
     const columns = {
       title: {header: 'Title', minWidth: 80},

@@ -3,6 +3,7 @@ import chalk from 'chalk'
 import path from 'node:path'
 import {URL} from 'node:url'
 
+import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
 function parseOrgAndRepo(entity: string): {org: string; repo: null | string} {
@@ -65,9 +66,11 @@ export default class Add extends Command {
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Add)
     const repos = await new Repos().init()
-
+    const github = new Github()
     const info = parseOrgAndRepo(args.entity)
-    const repositories = await repos.fetch(info.org, info.repo)
+    const repositories = info.repo
+      ? [await github.repository(info.org, info.repo)]
+      : await github.orgRepositories(info.org)
     this.log(`Cloning repositories into ${path.join(repos.directory.name, info.org)}`)
     for (const repo of repositories) {
       this.log(`  * ${chalk.bold(repo.name)}`)

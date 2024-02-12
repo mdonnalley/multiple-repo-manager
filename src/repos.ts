@@ -1,9 +1,7 @@
 import {Errors, ux} from '@oclif/core'
-import {paginateGraphql} from '@octokit/plugin-paginate-graphql'
 import makeDebug from 'debug'
 import {mkdir} from 'node:fs/promises'
 import path from 'node:path'
-import {Octokit} from 'octokit'
 
 import {Aliases} from './aliases.js'
 import {Config} from './config.js'
@@ -11,105 +9,19 @@ import {ConfigFile} from './config-file.js'
 import {weeksToMs} from './date-utils.js'
 import {Directory} from './directory.js'
 import execSync from './exec-sync.js'
-import {getToken} from './util.js'
+import {Github, Repository} from './github.js'
 
 const debug = makeDebug('repos')
 
 export type CloneMethod = 'https' | 'ssh'
 
-export type Repository = {
-  archived: boolean
-  defaultBranch: string
-  fullName: string
-  location: string
-  name: string
-  org: string
-  private: boolean
-  updated: string
-  urls: {
-    clone: string
-    html: string
-    ssh: string
-  }
-}
-
-export type RepositoryResponse = {
-  archived: boolean
-  clone_url: string
-  default_branch: string
-  full_name: string
-  html_url: string
-  name: string
-  owner: {
-    login: string
-  }
-  private: boolean
-  ssh_url: string
-  updated_at: string
-}
-
 export type RepoIndex = Record<string, Repository>
-
-export type Pull = {
-  created: string
-  labels: string[]
-  number: number
-  repo: string
-  title: string
-  url: string
-  user: string
-}
-
-export type Issue = {
-  created: string
-  labels: string[]
-  number: number
-  repo: string
-  title: string
-  updated: string
-  url: string
-  user: string
-}
-
-type DiscussionResponse = {
-  author: {login: string}
-  category: {name: string}
-  closed: boolean
-  createdAt: string
-  id: string
-  number: number
-  repository: {name: string}
-  title: string
-  updatedAt: string
-  url: string
-}
-
-export type Discussion = {
-  category: string
-  created: string
-  id: string
-  number: number
-  repo: string
-  title: string
-  updated: string
-  url: string
-  user: string
-}
-
-type GraphQLResponse<T> = {
-  [key: string]: {
-    [key: string]: {
-      nodes: T[]
-    }
-  }
-}
 
 export class Repos extends ConfigFile<RepoIndex> {
   public static REFRESH_TIME = weeksToMs(1)
   public directory!: Directory
   private aliases!: Aliases
   private config!: Config
-  private octokit!: Octokit
 
   public constructor() {
     super('repos.json')
@@ -126,171 +38,6 @@ export class Repos extends ConfigFile<RepoIndex> {
     } catch {
       // do nothing
     }
-  }
-
-  public async fetch(org: string, repo?: null | string): Promise<Repository[]> {
-    if (repo) {
-      debug(`GET /repos/${org}/${repo}`)
-      const response = await this.octokit.request('GET /repos/{owner}/{repo}', {owner: org, repo})
-      return [this.transform(response.data)]
-    }
-
-    if (org === this.config.get('username')) {
-      debug('GET /user/repos')
-      const response = await this.octokit.paginate('GET /user/repos', {
-        affiliation: 'owner',
-      })
-      return response.map((r) => this.transform(r as RepositoryResponse))
-    }
-
-    debug('GET /orgs/{org}/repos')
-    const response = await this.octokit.paginate('GET /orgs/{org}/repos', {org})
-    return response.map((r) => this.transform(r as RepositoryResponse))
-  }
-
-  public async fetchOrgDiscussions(org: string): Promise<Discussion[]> {
-    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
-
-    const query = `query paginate($cursor: String) {
-      ${reposOfOrg
-        .map(
-          ({name, org}, index) => `repo${index + 1}: repository(owner: "${org}", name: "${name}") {
-            discussions(first: 20, after: $cursor) {
-              # type: DiscussionConnection
-              totalCount # Int!
-
-              pageInfo {
-                # type: PageInfo (from the public schema)
-                startCursor
-                endCursor
-                hasNextPage
-                hasPreviousPage
-              }
-
-              nodes {
-                # type: Discussion
-                author { login }
-                category { name }
-                createdAt
-                id
-                number
-                repository { name }
-                title
-                updatedAt
-                url
-                closed
-              }
-            }
-          }`,
-        )
-        .join('\n')}
-        }`
-
-    const response = await this.octokit.graphql.paginate<GraphQLResponse<DiscussionResponse>>(query)
-    return Object.values(response).flatMap((r) =>
-      Object.values(r).flatMap((r) =>
-        r.nodes
-          .filter((n) => !n.closed)
-          .map((n) => ({
-            category: n.category.name,
-            created: n.createdAt,
-            id: n.id,
-            number: n.number,
-            repo: n.repository.name,
-            title: n.title,
-            updated: n.updatedAt,
-            url: n.url,
-            user: n.author.login,
-          })),
-      ),
-    )
-  }
-
-  public async fetchOrgIssues(org: string, opts?: {since?: string}): Promise<Issue[]> {
-    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
-
-    const all = await Promise.all(
-      reposOfOrg.map(async (repo) => {
-        const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/issues', {
-          owner: org,
-          repo: repo.name,
-          since: opts?.since,
-          state: 'open',
-        })
-        const issues = response
-          .filter((r) => !r.pull_request)
-          .map(
-            (r) =>
-              ({
-                created: r.created_at,
-                labels: r.labels.map((l) => (typeof l === 'string' ? l : l.name)),
-                number: r.number,
-                repo: repo.name,
-                title: r.title,
-                updated: r.updated_at,
-                url: r.html_url,
-                user: r.user?.login,
-              }) as Issue,
-          )
-        return issues
-      }),
-    )
-
-    return all.filter((r) => r.length > 0).flat()
-  }
-
-  public async fetchOrgPulls(org: string): Promise<Pull[]> {
-    const reposOfOrg = Object.values(this.getContents()).filter((r) => r.org === org && !r.archived)
-
-    const all = await Promise.all(
-      reposOfOrg.map(async (repo) => {
-        debug(`GET /repos/{owner}/{repo}/pulls`, {owner: org, repo: repo.name})
-        const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/pulls', {
-          owner: org,
-          repo: repo.name,
-          state: 'open',
-        })
-        const pulls = response
-          // eslint-disable-next-line arrow-body-style
-          .map((r) => {
-            return {
-              created: r.created_at,
-              labels: r.labels.map((l) => l.name),
-              number: r.number,
-              repo: repo.name,
-              title: r.title,
-              url: r.html_url,
-              user: r.user?.login,
-            } as Pull
-          })
-        return pulls
-      }),
-    )
-
-    return all.filter((r) => r.length > 0).flat()
-  }
-
-  public async fetchPulls(options?: {author?: 'default' | string}): Promise<Pull[]> {
-    const theAuthor = options?.author === 'default' ? this.config.get('username') : options?.author
-    const author = theAuthor ? `author:${theAuthor}` : ''
-    const response = await this.octokit.paginate('GET /search/issues', {
-      q: `is:pr is:open ${author}`,
-    })
-    const pulls = response
-      // eslint-disable-next-line arrow-body-style
-      .map((r) => {
-        return {
-          created: r.created_at,
-          labels: r.labels.map((l) => l.name),
-          number: r.number,
-          repo: r.repository_url.split('/').slice(-2).join('/'),
-          title: r.title,
-          url: r.html_url,
-          user: r.user?.login,
-        } as Pull
-      })
-      .filter((r) => this.has(r.repo))
-    return pulls
   }
 
   public getMatches(nameOrFullNameOrAlias: string): Repository[] {
@@ -330,10 +77,12 @@ export class Repos extends ConfigFile<RepoIndex> {
     return [...new Set(Object.values(this.getContents()).map((r) => r.org))]
   }
 
+  public getReposOfOrg(org: string): Repository[] {
+    return Object.values(this.getContents()).filter((r) => r.org === org)
+  }
+
   public async init() {
     await super.init()
-    Octokit.plugin(paginateGraphql)
-    this.octokit = new Octokit({auth: getToken()})
     this.config = await new Config().init()
     this.directory = await new Directory({name: this.config.get('directory')}).init()
     this.aliases = await new Aliases().init()
@@ -345,12 +94,13 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   public async refresh(orgs?: string[]): Promise<void> {
     debug('Repos JSON file', this.filepath)
+    const github = new Github()
     const originalRepos = Object.keys(this.getContents())
     const orgsToRefresh = orgs ?? this.getOrgs()
     for (const org of orgsToRefresh) {
       try {
         debug(`Refreshing org ${org}`)
-        const orgRepos = await this.fetch(org)
+        const orgRepos = await github.orgRepositories(org)
         for (const repo of orgRepos) {
           if (originalRepos.includes(repo.fullName)) {
             this.update(repo.fullName, repo)
@@ -368,23 +118,5 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   private needsRefresh(): boolean {
     return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME
-  }
-
-  private transform(repo: RepositoryResponse): Repository {
-    return {
-      archived: repo.archived,
-      defaultBranch: repo.default_branch,
-      fullName: repo.full_name,
-      location: path.join(this.directory.name, repo.owner.login, repo.name),
-      name: repo.name,
-      org: repo.owner.login,
-      private: repo.private,
-      updated: repo.updated_at,
-      urls: {
-        clone: repo.clone_url,
-        html: repo.html_url,
-        ssh: repo.ssh_url,
-      },
-    }
   }
 }

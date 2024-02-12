@@ -5,7 +5,8 @@ import hyperlinker from 'hyperlinker'
 import sortBy from 'lodash.sortby'
 
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
-import {Pull, Repos} from '../../repos.js'
+import {Github, Pull} from '../../github.js'
+import {Repos} from '../../repos.js'
 import {startRandomSpinner} from '../../util.js'
 
 function applyFilters<Pull>(items: Pull[], filters: ((item: Pull) => boolean)[]): Pull[] {
@@ -58,7 +59,8 @@ export default class OrgPulls extends Command {
     const {args, flags} = await this.parse(OrgPulls)
 
     const repos = await new Repos().init()
-    const all = await repos.fetchOrgPulls(args.org)
+    const github = new Github()
+    const all = await github.repoPulls(repos.getReposOfOrg(args.org))
 
     const filtered = applyFilters(all, [
       ...(flags.since ? [(r: Pull) => new Date(r.created) > flags.since!] : []),
@@ -82,7 +84,7 @@ export default class OrgPulls extends Command {
     const columns = {
       title: {header: 'Title', minWidth: 80},
       PR: {get: (r: Pull): string => hyperlinker(`${r.repo}#${r.number}`, r.url), header: 'Pull Request'},
-      author: {get: (r: Pull): string => r.user, header: 'Author'},
+      author: {get: (r: Pull): string => r.user ?? '', header: 'Author'},
       created: {
         get: (r: Pull): string => `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
         header: 'Created',

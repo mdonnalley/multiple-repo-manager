@@ -1,7 +1,8 @@
 import {Command, ux} from '@oclif/core'
 import sortBy from 'lodash.sortby'
 
-import {Pull, Repos} from '../repos.js'
+import {Github, Pull} from '../github.js'
+import {Repos} from '../repos.js'
 
 export default class Pulls extends Command {
   public static description =
@@ -9,11 +10,10 @@ export default class Pulls extends Command {
 
   public static examples = ['<%= config.bin %> <%= command.id %>']
 
-  public static flags = {}
-
   public async run(): Promise<void> {
     const repos = await new Repos().init()
-    const pulls = await repos.fetchPulls({author: 'default'})
+    const pulls = await new Github().userPulls({repos: repos.values()})
+
     const columns = {
       repo: {get: (p: Pull): string => p.repo.split('/')[1], header: 'Repo'},
       title: {},

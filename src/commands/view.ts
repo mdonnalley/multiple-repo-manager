@@ -3,7 +3,8 @@ import {Args, Command, Errors, ux} from '@oclif/core'
 import chalk from 'chalk'
 import sortBy from 'lodash.sortby'
 
-import {Repos, Repository} from '../repos.js'
+import {Repository} from '../github.js'
+import {Repos} from '../repos.js'
 
 export default class View extends Command {
   public static aliases = ['v']

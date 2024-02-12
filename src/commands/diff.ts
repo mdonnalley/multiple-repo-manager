@@ -1,7 +1,8 @@
 import {Args, Command, ux} from '@oclif/core'
 import sortBy from 'lodash.sortby'
 
-import {Repos, Repository} from '../repos.js'
+import {Github, Repository} from '../github.js'
+import {Repos} from '../repos.js'
 
 export default class Diff extends Command {
   public static args = {
@@ -18,7 +19,8 @@ export default class Diff extends Command {
   public async run(): Promise<void> {
     const {args} = await this.parse(Diff)
     const repos = await new Repos().init()
-    const remote = (await repos.fetch(args.org)).filter((r) => !repos.has(r.fullName))
+    const github = new Github()
+    const remote = (await github.orgRepositories(args.org)).filter((r) => !repos.has(r.fullName))
     const columns = {
       name: {header: 'Name'},
       url: {get: (r: Repository): string => r.urls.html, header: 'URL'},

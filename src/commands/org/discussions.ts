@@ -5,7 +5,8 @@ import hyperlinker from 'hyperlinker'
 import sortBy from 'lodash.sortby'
 
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
-import {Discussion, Repos} from '../../repos.js'
+import {Discussion, Github} from '../../github.js'
+import {Repos} from '../../repos.js'
 import {startRandomSpinner} from '../../util.js'
 
 export default class OrgDiscussions extends Command {
@@ -39,7 +40,8 @@ export default class OrgDiscussions extends Command {
     const {args, flags} = await this.parse(OrgDiscussions)
 
     const repos = await new Repos().init()
-    const discussions = await repos.fetchOrgDiscussions(args.org)
+    const github = new Github()
+    const discussions = await github.repoDiscussions(repos.getReposOfOrg(args.org))
 
     const filtered = flags.since
       ? Object.values(discussions).filter((d) => new Date(d.updated) > flags.since!)

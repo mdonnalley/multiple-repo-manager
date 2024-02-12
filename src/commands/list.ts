@@ -3,7 +3,8 @@ import chalk from 'chalk'
 import groupBy from 'lodash.groupby'
 import sortBy from 'lodash.sortby'
 
-import {Repos, Repository} from '../repos.js'
+import {Repository} from '../github.js'
+import {Repos} from '../repos.js'
 
 export default class List extends Command {
   public static aliases = ['ls']
