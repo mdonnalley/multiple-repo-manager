@@ -77,8 +77,8 @@ export class Repos extends ConfigFile<RepoIndex> {
     return [...new Set(Object.values(this.getContents()).map((r) => r.org))]
   }
 
-  public getReposOfOrg(org: string): Repository[] {
-    return Object.values(this.getContents()).filter((r) => r.org === org)
+  public getReposOfOrg(org: string, includeArchived?: boolean): Repository[] {
+    return Object.values(this.getContents()).filter((r) => r.org === org && (includeArchived ? true : !r.archived))
   }
 
   public async init() {
