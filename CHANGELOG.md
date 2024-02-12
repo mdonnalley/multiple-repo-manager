@@ -1,3 +1,9 @@
+## [4.5.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.5.0...v4.5.1) (2024-02-12)
+
+### Bug Fixes
+
+- ignore archived repos by default ([70b38d0](https://github.com/mdonnalley/multiple-repo-manager/commit/70b38d0650a0fa2f40f2f0ef719e78d30ed286bf))
+
 # [4.5.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.4.2...v4.5.0) (2024-02-12)
 
 ### Features
