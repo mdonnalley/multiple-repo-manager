@@ -70,6 +70,7 @@ done-with-branch: |
 * [`multi diff ORG`](#multi-diff-org)
 * [`multi exec REPO`](#multi-exec-repo)
 * [`multi list`](#multi-list)
+* [`multi meta overview`](#multi-meta-overview)
 * [`multi open REPO`](#multi-open-repo)
 * [`multi org discussions ORG`](#multi-org-discussions-org)
 * [`multi org issues ORG`](#multi-org-issues-org)
@@ -236,6 +237,26 @@ ALIASES
 ```
 
 _See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.5.1/src/commands/list.ts)_
+
+## `multi meta overview`
+
+Provides issue, pull request, and discussion counts for the request repositories.
+
+```
+USAGE
+  $ multi meta overview -r <value> [--json]
+
+FLAGS
+  -r, --repository=<value>...  (required) Repository to query
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Provides issue, pull request, and discussion counts for the request repositories.
+```
+
+_See code: [src/commands/meta/overview.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.5.1/src/commands/meta/overview.ts)_
 
 ## `multi open REPO`
 
