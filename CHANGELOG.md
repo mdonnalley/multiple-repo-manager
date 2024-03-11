@@ -1,3 +1,9 @@
+## [4.6.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.6.0...v4.6.1) (2024-03-11)
+
+### Bug Fixes
+
+- add title to table ([2fe45ab](https://github.com/mdonnalley/multiple-repo-manager/commit/2fe45ab5ea52829dcf2990955e8bdd6e971395c7))
+
 # [4.6.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.5.1...v4.6.0) (2024-03-11)
 
 ### Features
