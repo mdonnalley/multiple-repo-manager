@@ -240,24 +240,20 @@ _See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-ma
 
 ## `multi meta overview`
 
-Provides issue, pull request, and discussion counts for the request repositories. Requires GH_TOKEN to be set in the environment.
+Provides issue, pull request, and discussion counts for the request repositories.
 
 ```
 USAGE
-  $ multi meta overview -r <value> [--json] [-d] [-b repo|issues|pulls]
+  $ multi meta overview -r <value> [--json]
 
 FLAGS
-  -b, --sort-by=<option>       [default: repo] Sort by
-                               <options: repo|issues|pulls>
-  -d, --discussions            Include discussions
   -r, --repository=<value>...  (required) Repository to query
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  Provides issue, pull request, and discussion counts for the request repositories. Requires GH_TOKEN to be set in the
-  environment.
+  Provides issue, pull request, and discussion counts for the request repositories.
 ```
 
 _See code: [src/commands/meta/overview.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.6.0/src/commands/meta/overview.ts)_

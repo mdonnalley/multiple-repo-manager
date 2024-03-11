@@ -79,6 +79,9 @@ export default class MetaOverview extends Command {
           pulls: {header: 'PRs'},
           ...(flags.discussions ? {discussions: {header: 'Discussions'}} : {}),
         },
+        {
+          title: 'Overview',
+        },
       )
     }
 
