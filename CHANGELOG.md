@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.5.1...v4.6.0) (2024-03-11)
+
+### Features
+
+- add meta topic ([55f6e39](https://github.com/mdonnalley/multiple-repo-manager/commit/55f6e39e819984afea34d045a848c629e1b578fc))
+- improve ux ([a954116](https://github.com/mdonnalley/multiple-repo-manager/commit/a9541169e7c0a42ab9acad48ee6a6dbec9385c7f))
+
 ## [4.5.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.5.0...v4.5.1) (2024-02-12)
 
 ### Bug Fixes
