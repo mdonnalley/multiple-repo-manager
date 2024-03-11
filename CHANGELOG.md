@@ -1,3 +1,9 @@
+# [4.7.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.6.1...v4.7.0) (2024-03-11)
+
+### Features
+
+- add org overview command ([9e5e8ca](https://github.com/mdonnalley/multiple-repo-manager/commit/9e5e8cacfb66729d395037f392a313fa149e2c2a))
+
 ## [4.6.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.6.0...v4.6.1) (2024-03-11)
 
 ### Bug Fixes
