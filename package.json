@@ -26,6 +26,7 @@
     "lodash.groupby": "^4.6.0",
     "lodash.isempty": "^4.4.0",
     "lodash.sortby": "^4.7.0",
+    "minimatch": "^9.0.3",
     "octokit": "^3",
     "open": "^10.0.3"
   },
