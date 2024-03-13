@@ -1,3 +1,10 @@
+# [4.9.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.8.0...v4.9.0) (2024-03-13)
+
+### Features
+
+- add version command ([e5ad588](https://github.com/mdonnalley/multiple-repo-manager/commit/e5ad588429b4c8329e40a161b75c2ed1a29e0948))
+- add version command ([bfee50e](https://github.com/mdonnalley/multiple-repo-manager/commit/bfee50e9c948908bde288dbcff9894532c5dbd67))
+
 # [4.8.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.7.0...v4.8.0) (2024-03-13)
 
 ### Features
