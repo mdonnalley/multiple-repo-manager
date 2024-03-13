@@ -568,7 +568,7 @@ DESCRIPTION
   Print the version of multi
 ```
 
-_See code: [src/commands/version.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.7.0/src/commands/version.ts)_
+_See code: [src/commands/version.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.8.0/src/commands/version.ts)_
 
 ## `multi view REPO`
 
