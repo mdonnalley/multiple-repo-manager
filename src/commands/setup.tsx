@@ -1,9 +1,12 @@
 import input from '@inquirer/input'
 import {Command, Flags} from '@oclif/core'
+import {Box, render} from 'ink'
 import os from 'node:os'
 import path from 'node:path'
+import React from 'react'
 
 import {AutoComplete} from '../autocomplete.js'
+import {SimpleMessage} from '../components/index.js'
 import {Config} from '../config.js'
 import {MultiWrapper} from '../multi-wrapper.js'
 import {ZshRc} from '../zsh-rc.js'
@@ -45,11 +48,15 @@ export default class Setup extends Command {
     }
 
     await config.write()
-
-    this.log(`All repositories will be cloned into ${config.get('directory')}`)
     await new MultiWrapper().init()
     await new AutoComplete(config.get('directory')).init()
 
-    this.log(`Open a new terminal or run "source ${ZshRc.LOCATION}" for autocomplete to work.`)
+    render(
+      <Box flexDirection="column">
+        <SimpleMessage message="Setup complete" />
+        <SimpleMessage message={`All repositories will be cloned into ${config.get('directory')}`} />
+        <SimpleMessage message={`Open a new terminal or run "source ${ZshRc.LOCATION}" for autocomplete to work.`} />
+      </Box>,
+    )
   }
 }

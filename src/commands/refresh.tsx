@@ -1,5 +1,8 @@
-import {Command, Flags, ux} from '@oclif/core'
+import {Command, Flags} from '@oclif/core'
+import {render} from 'ink'
+import React from 'react'
 
+import {SimpleMessage, Spinner} from '../components/index.js'
 import {Repos} from '../repos.js'
 
 export class Refresh extends Command {
@@ -13,10 +16,10 @@ export class Refresh extends Command {
   }
 
   public async run(): Promise<void> {
+    render(<Spinner label="Refreshing repositories" />)
     const {flags} = await this.parse(Refresh)
-    ux.action.start('Refreshing')
     const repos = await new Repos().init()
     await repos.refresh(flags.org)
-    ux.action.stop()
+    render(<SimpleMessage message="Done." />)
   }
 }

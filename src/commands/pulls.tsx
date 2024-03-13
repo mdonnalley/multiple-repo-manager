@@ -1,7 +1,11 @@
-import {Command, ux} from '@oclif/core'
+/* eslint-disable perfectionist/sort-objects */
+import {Command} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
-import {Github, Pull} from '../github.js'
+import {LinkTable} from '../components/index.js'
+import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
 export default class Pulls extends Command {
@@ -14,12 +18,12 @@ export default class Pulls extends Command {
     const repos = await new Repos().init()
     const pulls = await new Github().userPulls({repos: repos.values()})
 
-    const columns = {
-      repo: {get: (p: Pull): string => p.repo.split('/')[1], header: 'Repo'},
-      title: {},
-      url: {get: (p: Pull): string => p.url, header: 'URL'},
-    }
-    const sorted = sortBy(Object.values(pulls), 'repo')
-    ux.table(sorted, columns, {title: 'Pull Requests'})
+    const data = sortBy(Object.values(pulls), 'repo').map((p) => ({
+      Repo: p.repo,
+      Title: p.title,
+      PR: `#${p.number}`,
+      url: p.url,
+    }))
+    render(<LinkTable config={{PR: 'url'}} data={data} title="Pull Requests" />)
   }
 }

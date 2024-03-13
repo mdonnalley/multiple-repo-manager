@@ -1,13 +1,14 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Flags, ux} from '@oclif/core'
-// @ts-expect-error because no types exist
-import hyperlinker from 'hyperlinker'
+import {Args, Command, Flags} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
+import {LinkTable, SimpleMessage, Spinner} from '../../components/index.js'
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
-import {Github, Issue} from '../../github.js'
+import {Github} from '../../github.js'
 import {Repos} from '../../repos.js'
-import {startRandomSpinner} from '../../util.js'
+import {truncate} from '../../util.js'
 
 export default class OrgIssues extends Command {
   public static args = {
@@ -37,37 +38,32 @@ export default class OrgIssues extends Command {
   }
 
   public async run(): Promise<void> {
-    startRandomSpinner('Looking for issues')
+    render(<Spinner label="Looking for issues" />)
     const {args, flags} = await this.parse(OrgIssues)
 
     const repos = await new Repos().init()
     const github = new Github()
     const all = await github.repoIssues(repos.getReposOfOrg(args.org), {since: flags.since?.toISOString()})
 
-    const columns = {
-      title: {header: 'Title', minWidth: 80},
-      issue: {get: (r: Issue): string => hyperlinker(`${r.repo}#${r.number}`, r.url), header: 'Issue'},
-      author: {get: (r: Issue): string => r.user, header: 'Author'},
-      updated: {
-        get: (r: Issue): string => `${readableDate(r.updated)} (${convertDateStringToDaysAgo(r.updated)})`,
-        header: 'Updated',
-      },
-      created: {
-        get: (r: Issue): string => `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
-        header: 'Created',
-      },
-      labels: {get: (r: Issue): string => r.labels.join(', '), header: 'Labels'},
-    }
     const sorted = sortBy(Object.values(all), flags['sort-by'])
-    ux.action.stop(`Found ${sorted.length} issue${sorted.length === 1 ? '' : 's'}`)
+
     if (sorted.length === 0) {
-      this.log('No issues found')
+      render(<SimpleMessage message="No issues found" />)
       return
     }
 
-    ux.table(flags['sort-by'] === 'created' || flags['sort-by'] === 'updated' ? sorted.reverse() : sorted, columns, {
-      title: 'Issues',
-      'no-truncate': true,
-    })
+    const data = (flags['sort-by'] === 'created' || flags['sort-by'] === 'updated' ? sorted.reverse() : sorted).map(
+      (r) => ({
+        Title: truncate(r.title, 40),
+        Issue: `${r.repo}#${r.number}`,
+        url: r.url,
+        Author: r.user,
+        Created: `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
+        Updated: `${readableDate(r.updated)} (${convertDateStringToDaysAgo(r.updated)})`,
+        Labels: r.labels.join(', '),
+      }),
+    )
+
+    render(<LinkTable config={{Issue: 'url'}} data={data} title="Issues" />)
   }
 }

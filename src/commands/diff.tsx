@@ -1,7 +1,10 @@
-import {Args, Command, ux} from '@oclif/core'
+import {Args, Command} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
-import {Github, Repository} from '../github.js'
+import {Table} from '../components/index.js'
+import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
 export default class Diff extends Command {
@@ -21,11 +24,8 @@ export default class Diff extends Command {
     const repos = await new Repos().init()
     const github = new Github()
     const remote = (await github.orgRepositories(args.org)).filter((r) => !repos.has(r.fullName))
-    const columns = {
-      name: {header: 'Name'},
-      url: {get: (r: Repository): string => r.urls.html, header: 'URL'},
-    }
-    const sorted = sortBy(Object.values(remote), 'name')
-    ux.table(sorted, columns, {title: `${args.org} Diff`})
+
+    const sorted = sortBy(Object.values(remote), 'name').map((r) => ({Name: r.name, URL: r.urls.html}))
+    render(<Table data={sorted} title={`${args.org} Diff`} />)
   }
 }

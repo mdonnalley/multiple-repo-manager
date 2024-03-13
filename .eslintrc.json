@@ -1,6 +1,7 @@
 {
-  "extends": ["oclif", "oclif-typescript", "prettier"],
+  "extends": ["xo", "xo-react", "oclif", "oclif-typescript", "prettier"],
   "rules": {
+    "import/default": "off",
     "no-await-in-loop": "off",
     "no-useless-escape": "off",
     "unicorn/no-await-expression-member": "off"

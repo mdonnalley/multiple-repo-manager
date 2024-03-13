@@ -1,13 +1,14 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Flags, ux} from '@oclif/core'
-// @ts-expect-error because no types exist
-import hyperlinker from 'hyperlinker'
+import {Args, Command, Flags} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
+import {LinkTable, SimpleMessage, Spinner} from '../../components/index.js'
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
-import {Discussion, Github} from '../../github.js'
+import {Github} from '../../github.js'
 import {Repos} from '../../repos.js'
-import {startRandomSpinner} from '../../util.js'
+import {truncate} from '../../util.js'
 
 export default class OrgDiscussions extends Command {
   public static args = {
@@ -36,7 +37,7 @@ export default class OrgDiscussions extends Command {
   }
 
   public async run(): Promise<void> {
-    startRandomSpinner('Looking for discussions')
+    render(<Spinner label="Looking for discussions" />)
     const {args, flags} = await this.parse(OrgDiscussions)
 
     const repos = await new Repos().init()
@@ -47,30 +48,23 @@ export default class OrgDiscussions extends Command {
       ? Object.values(discussions).filter((d) => new Date(d.updated) > flags.since!)
       : Object.values(discussions)
 
-    const columns = {
-      title: {header: 'Title', minWidth: 80},
-      issue: {get: (r: Discussion): string => hyperlinker(`${r.repo}#${r.number}`, r.url), header: 'Issue'},
-      author: {get: (r: Discussion): string => r.user, header: 'Author'},
-      updated: {
-        get: (r: Discussion): string => `${readableDate(r.updated)} (${convertDateStringToDaysAgo(r.updated)})`,
-        header: 'Updated',
-      },
-      created: {
-        get: (r: Discussion): string => `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
-        header: 'Created',
-      },
-    }
     const sorted = sortBy(Object.values(filtered), flags['sort-by'])
 
-    ux.action.stop(`Found ${sorted.length} discussion${sorted.length === 1 ? '' : 's'}`)
     if (sorted.length === 0) {
-      this.log('No discussions found')
+      render(<SimpleMessage message="No discussions found" />)
       return
     }
 
-    ux.table(flags['sort-by'] === 'created' || flags['sort-by'] === 'updated' ? sorted.reverse() : sorted, columns, {
-      title: 'Discussions',
-      'no-truncate': true,
-    })
+    const data = (flags['sort-by'] === 'created' || flags['sort-by'] === 'updated' ? sorted.reverse() : sorted).map(
+      (r) => ({
+        Title: truncate(r.title, 40),
+        Discussion: `${r.repo}#${r.number}`,
+        url: r.url,
+        Author: r.user,
+        Created: `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
+      }),
+    )
+
+    render(<LinkTable config={{Discussion: 'url'}} data={data} title="Pull Requests" />)
   }
 }

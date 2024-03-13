@@ -1,9 +1,11 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Flags, ux} from '@oclif/core'
-import chalk from 'chalk'
+import {Args, Command, Flags} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import {match} from 'minimatch'
+import React from 'react'
 
+import {Table} from '../../components/index.js'
 import {Github} from '../../github.js'
 import {Repos} from '../../repos.js'
 
@@ -90,32 +92,25 @@ export default class Overview extends Command {
     }
 
     if (!this.jsonEnabled()) {
-      ux.table(
-        [
-          ...sortBy(
-            Object.entries(results).map(([repo, {discussions, issues, pulls}]) => ({
-              discussions,
-              issues,
-              pulls,
-              repo,
-            })),
-            flags['sort-by'],
-          ).reverse(),
-          totals,
-        ],
-        {
-          repository: {
-            header: 'Repository',
-            get: (row) => (row.repo === 'totals' ? chalk.bold('totals') : row.repo),
-          },
-          issues: {header: 'Issues'},
-          pulls: {header: 'PRs'},
-          ...(flags.discussions ? {discussions: {header: 'Discussions'}} : {}),
-        },
-        {
-          title: 'Overview',
-        },
-      )
+      const sorted = [
+        ...sortBy(
+          Object.entries(results).map(([repo, {discussions, issues, pulls}]) => ({
+            discussions,
+            issues,
+            pulls,
+            repo,
+          })),
+          flags['sort-by'],
+        ).reverse(),
+        totals,
+      ]
+      const data = sorted.map(({repo, discussions, issues, pulls}) => ({
+        Repository: repo,
+        Issues: issues,
+        Pulls: pulls,
+        ...(flags.discussions ? {Discussions: discussions} : {}),
+      }))
+      render(<Table data={data} title="Overview" />)
     }
 
     return results

@@ -1,6 +1,9 @@
 import {Args, Command, Errors, Flags} from '@oclif/core'
+import {render} from 'ink'
 import {spawn} from 'node:child_process'
+import React from 'react'
 
+import {SimpleMessage} from '../components/index.js'
 import {Tasks} from '../tasks.js'
 
 export default class Task extends Command {
@@ -70,11 +73,7 @@ export default class Task extends Command {
       }
 
       await tasks.write()
-      if (executable) {
-        this.log(`${task} was successfully created.`)
-      } else {
-        this.log(`${task} was successfully removed.`)
-      }
+      render(<SimpleMessage message={`${task} was successfully ${executable ? 'created' : 'removed'}.`} />)
     }
   }
 }

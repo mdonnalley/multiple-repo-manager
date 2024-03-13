@@ -1,13 +1,14 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Flags, ux} from '@oclif/core'
-// @ts-expect-error because no types exist
-import hyperlinker from 'hyperlinker'
+import {Args, Command, Flags} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
+import {LinkTable, SimpleMessage, Spinner} from '../../components/index.js'
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
 import {Github, Pull} from '../../github.js'
 import {Repos} from '../../repos.js'
-import {startRandomSpinner} from '../../util.js'
+import {truncate} from '../../util.js'
 
 function applyFilters<Pull>(items: Pull[], filters: ((item: Pull) => boolean)[]): Pull[] {
   // eslint-disable-next-line unicorn/no-array-reduce
@@ -55,7 +56,7 @@ export default class OrgPulls extends Command {
   }
 
   public async run(): Promise<void> {
-    startRandomSpinner('Looking for pull requests')
+    render(<Spinner label="Looking for pull requests" />)
     const {args, flags} = await this.parse(OrgPulls)
 
     const repos = await new Repos().init()
@@ -81,24 +82,21 @@ export default class OrgPulls extends Command {
         : []),
     ])
 
-    const columns = {
-      title: {header: 'Title', minWidth: 80},
-      PR: {get: (r: Pull): string => hyperlinker(`${r.repo}#${r.number}`, r.url), header: 'Pull Request'},
-      author: {get: (r: Pull): string => r.user ?? '', header: 'Author'},
-      created: {
-        get: (r: Pull): string => `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
-        header: 'Created',
-      },
-      labels: {get: (r: Pull): string => r.labels.join(', '), header: 'Labels'},
-    }
     const sorted = sortBy(Object.values(filtered), flags['sort-by'])
-    ux.action.stop(`Found ${sorted.length} pull request${sorted.length === 1 ? '' : 's'}`)
 
     if (sorted.length === 0) {
-      this.log('No pull requests found')
+      render(<SimpleMessage message="No pull requests found" />)
       return
     }
 
-    ux.table(flags['sort-by'] === 'created' ? sorted.reverse() : sorted, columns, {title: 'Pull Requests'})
+    const data = (flags['sort-by'] === 'created' ? sorted.reverse() : sorted).map((r) => ({
+      Title: truncate(r.title, 40),
+      PR: `${r.repo}#${r.number}`,
+      url: r.url,
+      Author: r.user ?? '',
+      Created: `${readableDate(r.created)} (${convertDateStringToDaysAgo(r.created)})`,
+    }))
+
+    render(<LinkTable config={{PR: 'url'}} data={data} title="Pull Requests" />)
   }
 }

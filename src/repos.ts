@@ -1,6 +1,6 @@
 import {Errors, ux} from '@oclif/core'
 import makeDebug from 'debug'
-import {mkdir} from 'node:fs/promises'
+import {mkdir, rm} from 'node:fs/promises'
 import path from 'node:path'
 
 import {Aliases} from './aliases.js'
@@ -27,8 +27,12 @@ export class Repos extends ConfigFile<RepoIndex> {
     super('repos.json')
   }
 
-  public async clone(repo: Repository, method: CloneMethod = 'ssh'): Promise<void> {
+  public async clone(repo: Repository, method: CloneMethod = 'ssh', force = false): Promise<void> {
     const orgDir = path.join(this.directory.name, repo.org)
+    if (force) {
+      await rm(orgDir, {force: true, recursive: true})
+    }
+
     await mkdir(orgDir, {recursive: true})
     const url = method === 'ssh' ? repo.urls.ssh : repo.urls.clone
     execSync(`git -C ${orgDir} clone ${url}`, {silent: true})

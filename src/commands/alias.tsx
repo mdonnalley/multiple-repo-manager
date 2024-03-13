@@ -1,6 +1,9 @@
 import {Args, Command} from '@oclif/core'
+import {render} from 'ink'
+import React from 'react'
 
 import {Aliases} from '../aliases.js'
+import SimpleMessage from '../components/simple-message.js'
 
 export default class Alias extends Command {
   public static args = {
@@ -40,10 +43,9 @@ export default class Alias extends Command {
     }
 
     await aliases.write()
-    if (value) {
-      this.log(`${alias} was successfully created.`)
-    } else {
-      this.log(`${alias} was successfully removed.`)
-    }
+
+    render(
+      <SimpleMessage message={value ? `${alias} was successfully created.` : `${alias} was successfully removed.`} />,
+    )
   }
 }

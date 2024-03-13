@@ -215,7 +215,7 @@ export class Github {
     )
   }
 
-  public async repoIssues(repos: Repository[], opts?: {since?: string}): Promise<Pull[]> {
+  public async repoIssues(repos: Repository[], opts?: {since?: string}): Promise<Issue[]> {
     const all = await Promise.all(
       repos.map(async (repo) => {
         const response = await this.octokit.paginate('GET /repos/{owner}/{repo}/issues', {

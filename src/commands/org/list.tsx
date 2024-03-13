@@ -1,8 +1,11 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, ux} from '@oclif/core'
+import {Args, Command} from '@oclif/core'
+import {render} from 'ink'
 import sortBy from 'lodash.sortby'
+import React from 'react'
 
-import {Github, Repository} from '../../github.js'
+import {LinkTable} from '../../components/index.js'
+import {Github} from '../../github.js'
 
 export default class OrgList extends Command {
   public static aliases = ['list:org']
@@ -24,14 +27,13 @@ export default class OrgList extends Command {
 
     const all = (await Promise.all((argv as string[]).map(async (org) => github.orgRepositories(org)))).flat()
 
-    const columns = {
-      name: {header: 'Name'},
-      org: {header: 'Org'},
-      url: {get: (r: Repository): string => r.urls.html, header: 'URL'},
-      archived: {get: (r: Repository): string => (r.archived ? 'true' : ''), header: 'Archived'},
-      private: {get: (r: Repository): string => (r.private ? 'true' : ''), header: 'Private'},
-    }
-    const sorted = sortBy(Object.values(all), ['org', 'name'])
-    ux.table(sorted, columns, {title: 'Repositories'})
+    const data = sortBy(Object.values(all), ['org', 'name']).map((r) => ({
+      Name: r.name,
+      url: r.urls.html,
+      Archived: r.archived ? 'true' : '',
+      Private: r.private ? 'true' : '',
+    }))
+
+    render(<LinkTable config={{Name: 'url'}} data={data} title="Repositories" />)
   }
 }
