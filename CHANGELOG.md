@@ -1,3 +1,9 @@
+# [4.8.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.7.0...v4.8.0) (2024-03-13)
+
+### Features
+
+- use ink ([b3672e3](https://github.com/mdonnalley/multiple-repo-manager/commit/b3672e3c5199a3f187e2259f3e1c54e2b322f09a))
+
 # [4.7.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.6.1...v4.7.0) (2024-03-11)
 
 ### Features
