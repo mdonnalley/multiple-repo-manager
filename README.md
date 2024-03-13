@@ -82,6 +82,7 @@ done-with-branch: |
 * [`multi setup`](#multi-setup)
 * [`multi task KEYVALUE`](#multi-task-keyvalue)
 * [`multi task get TASK`](#multi-task-get-task)
+* [`multi version`](#multi-version)
 * [`multi view REPO`](#multi-view-repo)
 * [`multi where REPO`](#multi-where-repo)
 
@@ -91,14 +92,17 @@ Add a github org or repo. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
-  $ multi add ENTITY [--method ssh|https]
+  $ multi add ENTITY [-c <value>] [-d] [-f] [--method ssh|https]
 
 ARGUMENTS
   ENTITY  Github org, repo, or url to add
 
 FLAGS
-  --method=<option>  [default: ssh] Method to use for cloning.
-                     <options: ssh|https>
+  -c, --concurrency=<value>  [default: 4] Number of concurrent clones.
+  -d, --dry-run              Print what would be done without doing it.
+  -f, --force                Force overwrite of existing repos.
+      --method=<option>      [default: ssh] Method to use for cloning.
+                             <options: ssh|https>
 
 DESCRIPTION
   Add a github org or repo. Requires GH_TOKEN to be set in the environment.
@@ -551,6 +555,20 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.7.0/src/commands/task/get.ts)_
+
+## `multi version`
+
+Print the version of multi
+
+```
+USAGE
+  $ multi version
+
+DESCRIPTION
+  Print the version of multi
+```
+
+_See code: [src/commands/version.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.7.0/src/commands/version.ts)_
 
 ## `multi view REPO`
 
