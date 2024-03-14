@@ -1,9 +1,9 @@
-import {Args, Command, Errors, Flags} from '@oclif/core'
+import {Args, Command, Flags} from '@oclif/core'
 import {render} from 'ink'
 import {spawn} from 'node:child_process'
 import React from 'react'
 
-import {SimpleMessage} from '../../components/index.js'
+import {Error, SimpleMessage} from '../../components/index.js'
 import {Tasks} from '../../tasks.js'
 
 export default class Task extends Command {
@@ -51,7 +51,8 @@ export default class Task extends Command {
     const {keyValue} = args
 
     if (!flags.interactive && !keyValue.includes('=')) {
-      throw new Errors.CLIError(`The provided argument ${keyValue} is not a valid key=value pair.`)
+      render(<Error message={`InvalidArg: The provided argument "${keyValue}" is not a valid key=value pair.`} />)
+      this.exit(1)
     }
 
     const tasks = await new Tasks().init()

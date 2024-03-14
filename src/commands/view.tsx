@@ -1,10 +1,10 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Errors} from '@oclif/core'
+import {Args, Command} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
-import {Table} from '../components/index.js'
+import {Error, Table} from '../components/index.js'
 import {Repos} from '../repos.js'
 
 export default class View extends Command {
@@ -21,7 +21,8 @@ export default class View extends Command {
     const repos = await new Repos().init()
     const matches = repos.getMatches(args.repo)
     if (matches.length === 0) {
-      throw new Errors.CLIError(`${args.repo} has not been added yet.`)
+      render(<Error message={`${args.repo} has not been added yet.`} />)
+      this.exit(1)
     } else if (matches.length === 1) {
       const data = [
         {Key: 'name', Value: matches[0].name},
