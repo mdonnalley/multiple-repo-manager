@@ -1,5 +1,5 @@
 import {Args, Command} from '@oclif/core'
-import {render} from 'ink'
+import {Box, render} from 'ink'
 import React from 'react'
 
 import {SimpleMessage} from '../../components/index.js'
