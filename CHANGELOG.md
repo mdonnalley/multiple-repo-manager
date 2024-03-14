@@ -1,3 +1,14 @@
+# [4.10.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.9.1...v4.10.0) (2024-03-14)
+
+### Bug Fixes
+
+- bump oclif/core ([a17ca38](https://github.com/mdonnalley/multiple-repo-manager/commit/a17ca38840c09978c1a3a7f88811964118b2a932))
+- show all tasks as pending ([0071cc5](https://github.com/mdonnalley/multiple-repo-manager/commit/0071cc586a27b998d00bf56ffd24225ca6101f0c))
+
+### Features
+
+- more ux improvements ([47d6f60](https://github.com/mdonnalley/multiple-repo-manager/commit/47d6f60bceaba9a177ccbbd74f19b2748a85bbc4))
+
 ## [4.9.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.9.0...v4.9.1) (2024-03-14)
 
 ### Bug Fixes
