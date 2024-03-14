@@ -1,3 +1,11 @@
+## [4.9.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.9.0...v4.9.1) (2024-03-14)
+
+### Bug Fixes
+
+- remove Snippet entirely ([4ed9c8f](https://github.com/mdonnalley/multiple-repo-manager/commit/4ed9c8f76f4354771d7cf9e0ca12d3f5184e6bff))
+- reorganize task topic ([c2f4906](https://github.com/mdonnalley/multiple-repo-manager/commit/c2f4906fb5b5484c65210b154cc5f8355750f33b))
+- use SimpleMessage for task get command ([c661d0e](https://github.com/mdonnalley/multiple-repo-manager/commit/c661d0e40689a4ddb3de08af9700fc17c9234b81))
+
 # [4.9.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.8.0...v4.9.0) (2024-03-13)
 
 ### Features
