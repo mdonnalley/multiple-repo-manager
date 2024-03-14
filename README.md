@@ -455,10 +455,13 @@ Refresh the list of repositories and corresponding metadata.
 
 ```
 USAGE
-  $ multi refresh [-o <value>]
+  $ multi refresh [-a | -o <value>] [-c <value>] [-d]
 
 FLAGS
-  -o, --org=<value>...  Github org to refresh.
+  -a, --all                  Refresh all orgs.
+  -c, --concurrency=<value>  Number of concurrent refreshes. Defaults to the number of orgs.
+  -d, --dry-run              Show what would be done without doing it.
+  -o, --org=<value>...       Github org to refresh.
 
 DESCRIPTION
   Refresh the list of repositories and corresponding metadata.

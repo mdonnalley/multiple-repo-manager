@@ -17,7 +17,7 @@
     "@alcalzone/ink-table": "^1.1.1",
     "@inkjs/ui": "^1.0.0",
     "@inquirer/input": "^1.2.16",
-    "@oclif/core": "^3",
+    "@oclif/core": "^3.25.1",
     "@octokit/plugin-paginate-graphql": "^4.0.0",
     "@octokit/plugin-request-log": "^4.0.0",
     "cli-spinners": "^2.9.2",
