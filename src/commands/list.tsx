@@ -1,13 +1,14 @@
-import {Command} from '@oclif/core'
+import {Errors} from '@oclif/core'
 import {render} from 'ink'
 import groupBy from 'lodash.groupby'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
-import {Error, MultiLinkTable} from '../components/index.js'
+import BaseCommand from '../base-command.js'
+import {MultiLinkTable} from '../components/index.js'
 import {Repos} from '../repos.js'
 
-export default class List extends Command {
+export default class List extends BaseCommand {
   public static aliases = ['ls']
   public static description = 'List all repositories.'
   public static flags = {}
@@ -15,8 +16,7 @@ export default class List extends Command {
   public async run(): Promise<void> {
     const repositories = (await new Repos().init()).getContents()
     if (Object.keys(repositories).length === 0) {
-      render(<Error message="No repositories have been added yet.." />)
-      this.exit(1)
+      throw new Errors.CLIError('No repositories have been added yet.')
     }
 
     const tables = Object.entries(groupBy(repositories, 'org')).map(([org, repos]) => ({

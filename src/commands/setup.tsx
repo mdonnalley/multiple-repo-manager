@@ -1,17 +1,18 @@
 import input from '@inquirer/input'
-import {Command, Flags} from '@oclif/core'
+import {Flags} from '@oclif/core'
 import {Box, render} from 'ink'
 import os from 'node:os'
 import path from 'node:path'
 import React from 'react'
 
 import {AutoComplete} from '../autocomplete.js'
+import BaseCommand from '../base-command.js'
 import {SimpleMessage} from '../components/index.js'
 import {Config} from '../config.js'
 import {MultiWrapper} from '../multi-wrapper.js'
 import {ZshRc} from '../zsh-rc.js'
 
-export default class Setup extends Command {
+export default class Setup extends BaseCommand {
   public static description = 'Setup multi'
   public static flags = {
     directory: Flags.string({

@@ -1,12 +1,13 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Args, Flags} from '@oclif/core'
 import {render} from 'ink'
 import React from 'react'
 
+import BaseCommand from '../base-command.js'
 import {SimpleMessage} from '../components/index.js'
 import {Repos} from '../repos.js'
 import {parseRepoNameFromPath} from '../util.js'
 
-export default class View extends Command {
+export default class View extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }

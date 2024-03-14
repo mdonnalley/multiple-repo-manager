@@ -1,11 +1,12 @@
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 import {render} from 'ink'
 import React from 'react'
 
 import {Aliases} from '../aliases.js'
+import BaseCommand from '../base-command.js'
 import SimpleMessage from '../components/simple-message.js'
 
-export default class Alias extends Command {
+export default class Alias extends BaseCommand {
   public static args = {
     keyValue: Args.string({
       description: 'alias=value',

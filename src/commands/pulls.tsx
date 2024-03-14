@@ -1,14 +1,14 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Command} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
+import BaseCommand from '../base-command.js'
 import {LinkTable} from '../components/index.js'
 import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
-export default class Pulls extends Command {
+export default class Pulls extends BaseCommand {
   public static description =
     'List all your pull requests for added repositories. Requires GH_TOKEN to be set in the environment.'
 

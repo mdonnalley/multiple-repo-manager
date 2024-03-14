@@ -1,13 +1,14 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
+import BaseCommand from '../../base-command.js'
 import {LinkTable} from '../../components/index.js'
 import {Github} from '../../github.js'
 
-export default class OrgList extends Command {
+export default class OrgList extends BaseCommand {
   public static aliases = ['list:org']
   public static args = {
     orgs: Args.string({description: 'Github org', required: true}),

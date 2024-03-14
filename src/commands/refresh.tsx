@@ -1,9 +1,10 @@
-import {Command, Flags} from '@oclif/core'
+import {Flags} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import PQueue from 'p-queue'
 import React from 'react'
 
+import BaseCommand from '../base-command.js'
 import {TaskTracker} from '../components/index.js'
 import {Repos} from '../repos.js'
 
@@ -58,7 +59,7 @@ class RefreshTaskTracker extends TaskTracker<Props> {
   }
 }
 
-export class Refresh extends Command {
+export class Refresh extends BaseCommand {
   public static description = 'Refresh the list of repositories and corresponding metadata.'
   public static flags = {
     all: Flags.boolean({

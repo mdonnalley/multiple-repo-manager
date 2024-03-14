@@ -1,6 +1,8 @@
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 
-export default class Cd extends Command {
+import BaseCommand from '../base-command.js'
+
+export default class Cd extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }

@@ -1,10 +1,11 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Args, Flags} from '@oclif/core'
 import {render} from 'ink'
 import path from 'node:path'
 import {URL} from 'node:url'
 import PQueue from 'p-queue'
 import React from 'react'
 
+import BaseCommand from '../base-command.js'
 import {TaskTracker} from '../components/index.js'
 import {Github} from '../github.js'
 import {Repos} from '../repos.js'
@@ -82,7 +83,7 @@ class CloneTaskTracker extends TaskTracker<Props> {
   }
 }
 
-export default class Add extends Command {
+export default class Add extends BaseCommand {
   public static args = {
     entity: Args.string({
       description: 'Github org, repo, or url to add',

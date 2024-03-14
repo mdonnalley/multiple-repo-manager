@@ -1,6 +1,7 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Args, Flags} from '@oclif/core'
 import open from 'open'
 
+import BaseCommand from '../base-command.js'
 import execSync from '../exec-sync.js'
 import {Repos} from '../repos.js'
 import {parseRepoNameFromPath} from '../util.js'
@@ -16,7 +17,7 @@ enum GithubTab {
   WIKI = 'wiki',
 }
 
-export default class Open extends Command {
+export default class Open extends BaseCommand {
   public static aliases = ['o']
   public static args = {
     repo: Args.string({

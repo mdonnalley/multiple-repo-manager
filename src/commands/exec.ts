@@ -1,11 +1,12 @@
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 import get from 'lodash.get'
 
+import BaseCommand from '../base-command.js'
 import execSync from '../exec-sync.js'
 import {Repos} from '../repos.js'
 import {parseRepoNameFromPath} from '../util.js'
 
-export default class Exec extends Command {
+export default class Exec extends BaseCommand {
   public static aliases = ['x']
   public static args = {
     repo: Args.string({

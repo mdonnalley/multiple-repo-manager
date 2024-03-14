@@ -1,16 +1,17 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args, Command, Flags} from '@oclif/core'
+import {Args, Flags} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
+import BaseCommand from '../../base-command.js'
 import {LinkTable, SimpleMessage, Spinner} from '../../components/index.js'
 import {convertDateStringToDaysAgo, dateFlag, readableDate} from '../../date-utils.js'
 import {Github} from '../../github.js'
 import {Repos} from '../../repos.js'
 import {truncate} from '../../util.js'
 
-export default class OrgDiscussions extends Command {
+export default class OrgDiscussions extends BaseCommand {
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }

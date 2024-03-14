@@ -1,9 +1,10 @@
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 import {rm} from 'node:fs/promises'
 
+import BaseCommand from '../base-command.js'
 import {Repos} from '../repos.js'
 
-export default class Remove extends Command {
+export default class Remove extends BaseCommand {
   public static aliases = ['rm']
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),

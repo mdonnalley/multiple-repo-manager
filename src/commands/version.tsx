@@ -1,11 +1,12 @@
-import {Command} from '@oclif/core'
 import {Box, Newline, Text, render} from 'ink'
 import BigText from 'ink-big-text'
 import Gradient from 'ink-gradient'
 import Link from 'ink-link'
 import React from 'react'
 
-export default class Version extends Command {
+import BaseCommand from '../base-command.js'
+
+export default class Version extends BaseCommand {
   public static description = 'Print the version of <%= config.bin %>'
 
   public async run(): Promise<void> {

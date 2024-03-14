@@ -1,4 +1,4 @@
-import {Errors, Flags} from '@oclif/core'
+import {Flags} from '@oclif/core'
 
 const WEEK_DAY_OPTIONS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -15,7 +15,7 @@ export const dateFlag = Flags.custom<Date>({
 
     const date = new Date(input)
     if (Number.isNaN(date.getTime())) {
-      throw new Errors.CLIError('Invalid date')
+      throw new TypeError('Invalid date')
     }
 
     return date

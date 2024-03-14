@@ -1,13 +1,14 @@
-import {Args, Command} from '@oclif/core'
+import {Args} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
 
+import BaseCommand from '../base-command.js'
 import {Table} from '../components/index.js'
 import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
-export default class Diff extends Command {
+export default class Diff extends BaseCommand {
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }
