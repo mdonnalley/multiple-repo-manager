@@ -3,8 +3,8 @@ import {render} from 'ink'
 import {spawn} from 'node:child_process'
 import React from 'react'
 
-import {SimpleMessage} from '../components/index.js'
-import {Tasks} from '../tasks.js'
+import {SimpleMessage} from '../../components/index.js'
+import {Tasks} from '../../tasks.js'
 
 export default class Task extends Command {
   public static args = {

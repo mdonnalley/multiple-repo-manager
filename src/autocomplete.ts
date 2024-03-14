@@ -68,7 +68,6 @@ export class AutoComplete {
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash')
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where']
 
-  // eslint-disable-next-line no-useless-constructor
   public constructor(private directory: string) {}
 
   public async init(): Promise<void> {

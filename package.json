@@ -109,7 +109,18 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "multi",
-    "topicSeparator": " "
+    "topicSeparator": " ",
+    "helpOptions": {
+      "hideAliasesFromRoot": true
+    },
+    "topics": {
+      "org": {
+        "description": "View information at the org level."
+      },
+      "task": {
+        "description": "Manage local tasks."
+      }
+    }
   },
   "publishConfig": {
     "access": "public"
