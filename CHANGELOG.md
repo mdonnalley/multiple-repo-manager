@@ -1,3 +1,9 @@
+## [4.10.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.10.0...v4.10.1) (2024-03-14)
+
+### Bug Fixes
+
+- use ink for command errors ([bc18c84](https://github.com/mdonnalley/multiple-repo-manager/commit/bc18c84099278b79062a974bdc82b7eff45d1eb7))
+
 # [4.10.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.9.1...v4.10.0) (2024-03-14)
 
 ### Bug Fixes
