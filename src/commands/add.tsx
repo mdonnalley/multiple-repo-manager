@@ -103,14 +103,15 @@ export class CloneTasks extends Component<Props, State> {
 
     this.setState((state) => ({
       header: `${state.header} into ${path.join(repos.directory.name, info.org)}`,
+      tasks: repositories.map((repo) => ({name: repo.name, status: 'pending'})),
     }))
-    const queue = new PQueue({concurrency: this.props.flags.concurrency})
+    const queue = new PQueue({concurrency: this.props.flags.concurrency ?? repositories.length})
 
     for (const repo of repositories) {
       // eslint-disable-next-line no-void
       void queue.add(async () => {
         this.setState((state) => ({
-          tasks: [...state.tasks, {name: repo.name, status: 'loading'}],
+          tasks: state.tasks.map((c) => (c.name === repo.name ? {...c, status: 'loading'} : c)),
         }))
 
         await (this.props.flags['dry-run']
@@ -171,8 +172,7 @@ export default class Add extends Command {
   public static flags = {
     concurrency: Flags.integer({
       char: 'c',
-      default: 4,
-      description: 'Number of concurrent clones.',
+      description: 'Number of concurrent clones. Defaults to the number of repositories.',
       min: 1,
     }),
     'dry-run': Flags.boolean({
