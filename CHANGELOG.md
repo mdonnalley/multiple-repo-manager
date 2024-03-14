@@ -1,3 +1,9 @@
+# [4.11.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.10.1...v4.11.0) (2024-03-14)
+
+### Features
+
+- standardize error messages ([19f7703](https://github.com/mdonnalley/multiple-repo-manager/commit/19f7703cfdbed29458141c787b2e49efe3f7e2bf))
+
 ## [4.10.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.10.0...v4.10.1) (2024-03-14)
 
 ### Bug Fixes
