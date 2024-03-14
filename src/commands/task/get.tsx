@@ -2,7 +2,7 @@ import {Args, Command} from '@oclif/core'
 import {render} from 'ink'
 import React from 'react'
 
-import {Snippet} from '../../components/index.js'
+import {SimpleMessage} from '../../components/index.js'
 import {Tasks} from '../../tasks.js'
 
 export default class Get extends Command {
@@ -17,6 +17,6 @@ export default class Get extends Command {
   public async run(): Promise<void> {
     const {args} = await this.parse(Get)
     const tasks = await new Tasks().init()
-    render(<Snippet str={tasks.get(args.task)} />)
+    render(<SimpleMessage message={tasks.get(args.task)} />)
   }
 }
