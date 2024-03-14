@@ -1,36 +1,30 @@
-import {Args, Command, Flags, Interfaces} from '@oclif/core'
-import spinners from 'cli-spinners'
-import {Box, Newline, Text, render} from 'ink'
-import {Task, TaskList} from 'ink-task-list'
+import {Args, Command, Flags} from '@oclif/core'
+import {render} from 'ink'
 import path from 'node:path'
 import {URL} from 'node:url'
 import PQueue from 'p-queue'
-import React, {Component} from 'react'
+import React from 'react'
 
+import {TaskTracker} from '../components/index.js'
 import {Github} from '../github.js'
 import {Repos} from '../repos.js'
 
-type State = {
-  header: string
-  startTime: number
-  tasks: Array<{
-    name: string
-    status: 'error' | 'loading' | 'pending' | 'success' | 'warning'
-  }>
-  timeToComplete?: number
-}
-
 type Props = {
-  readonly args: Interfaces.InferredArgs<typeof Add.args>
-  readonly flags: Interfaces.InferredFlags<typeof Add.flags>
+  readonly concurrency?: number
+  readonly dryRun: boolean
+  readonly force: boolean
+  readonly header: string
+  readonly method: 'https' | 'ssh'
+  readonly org: string
+  readonly repo?: string
 }
 
-function parseOrgAndRepo(entity: string): {org: string; repo: null | string} {
+function parseOrgAndRepo(entity: string): {org: string; repo?: string} {
   if (entity.startsWith('https://')) {
     const url = new URL(entity)
     const pathParts = url.pathname.split('/').filter(Boolean)
     // ex: https://github.com/my-org
-    if (pathParts.length === 1) return {org: pathParts[0], repo: null}
+    if (pathParts.length === 1) return {org: pathParts[0]}
     // ex: https://github.com/my-org/my-repo
     return {org: pathParts[0], repo: pathParts[1]}
   }
@@ -38,105 +32,53 @@ function parseOrgAndRepo(entity: string): {org: string; repo: null | string} {
   const parts = entity.split('/').filter(Boolean)
   if (parts.length === 1) {
     // ex: my-org
-    return {org: entity, repo: null}
+    return {org: entity}
   }
 
   // ex: my-org/my-repo
   return {org: parts[0], repo: parts[1]}
 }
 
-function msToSeconds(ms: number, decimalPoints: number): number {
-  return Number.parseFloat((ms / 1000).toFixed(decimalPoints))
-}
-
-function Header(props: {readonly message: string}): JSX.Element {
-  return (
-    <Box>
-      <Text bold>{props.message}</Text>
-      <Newline />
-    </Box>
-  )
-}
-
-function Tasks({tasks}: {readonly tasks: State['tasks']}): JSX.Element | undefined {
-  if (tasks.length === 0) return
-  return (
-    <TaskList>
-      {tasks.map((task) => (
-        <Task key={task.name} label={task.name} spinner={spinners.arc} state={task.status} />
-      ))}
-    </TaskList>
-  )
-}
-
-function TimeToComplete({timeToComplete}: {readonly timeToComplete: number | undefined}): JSX.Element | undefined {
-  if (!timeToComplete) return
-  return (
-    <Box paddingTop={1}>
-      <Text>Time to complete: {msToSeconds(timeToComplete, 2)}s</Text>
-    </Box>
-  )
-}
-
-export class CloneTasks extends Component<Props, State> {
-  public state: State = {
-    header: 'Cloning repositories',
-    startTime: Date.now(),
-    tasks: [],
-    timeToComplete: undefined,
-  }
-
-  public constructor(props: Props) {
-    super(props)
-    if (props.flags['dry-run']) {
-      this.state.header = `[DRY RUN] ${this.state.header}`
-    }
-  }
-
+class CloneTaskTracker extends TaskTracker<Props> {
   async componentDidMount(): Promise<void> {
     const repos = await new Repos().init()
     const github = new Github()
-    const info = parseOrgAndRepo(this.props.args.entity)
-    const repositories = info.repo
-      ? [await github.repository(info.org, info.repo)]
-      : await github.orgRepositories(info.org)
+
+    if (!this.props.repo) this.setState(() => ({waiting: 'Finding repositories to clone'}))
+
+    const repositories = this.props.repo
+      ? [await github.repository(this.props.org, this.props.repo)]
+      : await github.orgRepositories(this.props.org)
 
     this.setState((state) => ({
-      header: `${state.header} into ${path.join(repos.directory.name, info.org)}`,
-      tasks: repositories.map((repo) => ({name: repo.name, status: 'pending'})),
+      header: `${state.header} into ${path.join(repos.directory.name, this.props.org)}`,
+      tasks: repositories.map((repo) => ({key: repo.name, name: repo.name, status: 'pending'})),
+      waiting: false,
     }))
-    const queue = new PQueue({concurrency: this.props.flags.concurrency ?? repositories.length})
-
+    const queue = new PQueue({concurrency: this.props.concurrency ?? repositories.length})
     for (const repo of repositories) {
       // eslint-disable-next-line no-void
       void queue.add(async () => {
         this.setState((state) => ({
-          tasks: state.tasks.map((c) => (c.name === repo.name ? {...c, status: 'loading'} : c)),
+          tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'loading'} : c)),
         }))
 
-        await (this.props.flags['dry-run']
-          ? Promise.resolve()
-          : repos.clone(repo, this.props.flags.method, this.props.flags.force))
-
-        this.setState((state) => ({
-          tasks: state.tasks.map((c) => (c.name === repo.name ? {...c, status: 'success'} : c)),
-        }))
+        try {
+          await (this.props.dryRun ? this.noop() : repos.clone(repo, this.props.method, this.props.force))
+          this.setState((state) => ({
+            tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'success'} : c)),
+          }))
+        } catch {
+          this.setState((state) => ({
+            tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'error'} : c)),
+          }))
+        }
       })
     }
 
     await queue.onIdle()
-    if (!this.props.flags['dry-run']) await repos.write()
-    this.setState((state) => ({timeToComplete: Date.now() - state.startTime}))
-  }
-
-  public render(): JSX.Element {
-    return (
-      <Box borderColor="cyan" borderStyle="round" flexDirection="column" padding={1}>
-        <Header message={this.state.header} />
-        <Tasks tasks={this.state.tasks} />
-        <TimeToComplete timeToComplete={this.state.timeToComplete} />
-      </Box>
-    )
+    if (!this.props.dryRun) await repos.write()
+    this.setState(() => ({timeToComplete: Date.now() - this.startTime}))
   }
 }
 
@@ -192,6 +134,17 @@ export default class Add extends Command {
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Add)
-    render(<CloneTasks args={args} flags={flags} />)
+    const {org, repo} = parseOrgAndRepo(args.entity)
+    render(
+      <CloneTaskTracker
+        concurrency={flags.concurrency}
+        dryRun={flags['dry-run']}
+        force={flags.force}
+        header="Cloning repositories"
+        method={flags.method}
+        org={org}
+        repo={repo}
+      />,
+    )
   }
 }

@@ -120,6 +120,9 @@
       "task": {
         "description": "Manage local tasks."
       }
+    },
+    "hooks": {
+      "init": "./lib/hooks/init"
     }
   },
   "publishConfig": {

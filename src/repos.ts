@@ -1,4 +1,4 @@
-import {Errors, ux} from '@oclif/core'
+import {Errors} from '@oclif/core'
 import makeDebug from 'debug'
 import {mkdir, rm} from 'node:fs/promises'
 import path from 'node:path'
@@ -25,6 +25,12 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   public constructor() {
     super('repos.json')
+  }
+
+  public static async needsRefresh(): Promise<boolean> {
+    const repos = new Repos()
+    await repos.initSuper()
+    return Date.now() - Repos.REFRESH_TIME > repos.stats.mtime.getTime()
   }
 
   public async clone(repo: Repository, method: CloneMethod = 'ssh', force = false): Promise<void> {
@@ -86,41 +92,35 @@ export class Repos extends ConfigFile<RepoIndex> {
   }
 
   public async init() {
-    await super.init()
+    await this.initSuper()
     this.config = await new Config().init()
     this.directory = await new Directory({name: this.config.get('directory')}).init()
     this.aliases = await new Aliases().init()
 
-    if (this.needsRefresh()) await this.refresh()
-
     return this
   }
 
-  public async refresh(orgs?: string[]): Promise<void> {
+  public async refresh(org: string, noWrite?: boolean): Promise<void> {
     debug('Repos JSON file', this.filepath)
     const github = new Github()
     const originalRepos = Object.keys(this.getContents())
-    const orgsToRefresh = orgs ?? this.getOrgs()
-    for (const org of orgsToRefresh) {
-      try {
-        debug(`Refreshing org ${org}`)
-        const orgRepos = await github.orgRepositories(org)
-        for (const repo of orgRepos) {
-          if (originalRepos.includes(repo.fullName)) {
-            this.update(repo.fullName, repo)
-            debug(`Updated ${org}/${repo.name}`)
-          }
+    try {
+      debug(`Refreshing org ${org}`)
+      const orgRepos = await github.orgRepositories(org)
+      for (const repo of orgRepos) {
+        if (originalRepos.includes(repo.fullName)) {
+          this.update(repo.fullName, repo)
+          debug(`Updated ${org}/${repo.name}`)
         }
-      } catch (error) {
-        ux.warn(`Failed to refresh org ${org}`)
-        debug(error)
       }
+    } catch (error) {
+      debug(error)
     }
 
-    await this.write()
+    if (!noWrite) await this.write()
   }
 
-  private needsRefresh(): boolean {
-    return Date.now() - this.stats.mtime.getTime() > Repos.REFRESH_TIME
+  private async initSuper() {
+    await super.init()
   }
 }

@@ -80,8 +80,8 @@ done-with-branch: |
 * [`multi refresh`](#multi-refresh)
 * [`multi remove REPO`](#multi-remove-repo)
 * [`multi setup`](#multi-setup)
-* [`multi task KEYVALUE`](#multi-task-keyvalue)
 * [`multi task get TASK`](#multi-task-get-task)
+* [`multi task set KEYVALUE`](#multi-task-set-keyvalue)
 * [`multi version`](#multi-version)
 * [`multi view REPO`](#multi-view-repo)
 * [`multi where REPO`](#multi-where-repo)
@@ -98,7 +98,7 @@ ARGUMENTS
   ENTITY  Github org, repo, or url to add
 
 FLAGS
-  -c, --concurrency=<value>  [default: 4] Number of concurrent clones.
+  -c, --concurrency=<value>  Number of concurrent clones. Defaults to the number of repositories.
   -d, --dry-run              Print what would be done without doing it.
   -f, --force                Force overwrite of existing repos.
       --method=<option>      [default: ssh] Method to use for cloning.
@@ -500,45 +500,6 @@ DESCRIPTION
 
 _See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.9.1/src/commands/setup.ts)_
 
-## `multi task KEYVALUE`
-
-Set or unset an executable task.
-
-```
-USAGE
-  $ multi task KEYVALUE... [--interactive]
-
-ARGUMENTS
-  KEYVALUE...  task=value
-
-FLAGS
-  --interactive  Open a vim editor to add your task
-
-DESCRIPTION
-  Set or unset an executable task.
-
-  Provide an empty to value to unset the task. This feature is not support on Windows.
-
-EXAMPLES
-  Set a task
-
-    $ multi task build=yarn build
-
-  Set a task that uses multi exec
-
-    $ multi task circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
-
-  Unset a task
-
-    $ multi task build=
-
-  Set a task interactively
-
-    $ multi task build --interactive
-```
-
-_See code: [src/commands/task.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.9.1/src/commands/task.ts)_
-
 ## `multi task get TASK`
 
 Return the value of a task.
@@ -555,6 +516,45 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.9.1/src/commands/task/get.ts)_
+
+## `multi task set KEYVALUE`
+
+Set or unset an executable task.
+
+```
+USAGE
+  $ multi task set KEYVALUE... [--interactive]
+
+ARGUMENTS
+  KEYVALUE...  task=value
+
+FLAGS
+  --interactive  Open a vim editor to add your task
+
+DESCRIPTION
+  Set or unset an executable task.
+
+  Provide an empty to value to unset the task. This feature is not support on Windows.
+
+EXAMPLES
+  Set a task
+
+    $ multi task set build=yarn build
+
+  Set a task that uses multi exec
+
+    $ multi task set circle=multi exec . open https://app.circleci.com/pipelines/github/{repo.fullName}
+
+  Unset a task
+
+    $ multi task set build=
+
+  Set a task interactively
+
+    $ multi task set build --interactive
+```
+
+_See code: [src/commands/task/set.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.9.1/src/commands/task/set.ts)_
 
 ## `multi version`
 

@@ -38,3 +38,13 @@ export function readableDate(dateString: string): string {
 export function weeksToMs(weeks: number): number {
   return weeks * 7 * 24 * 60 * 60 * 1000
 }
+
+export function msToSeconds(ms: number, decimalPoints: number): number {
+  return Number.parseFloat((ms / 1000).toFixed(decimalPoints))
+}
+
+export async function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
