@@ -53,7 +53,7 @@ class CloneTaskTracker extends TaskTracker<Props> {
 
     this.setState((state) => ({
       header: `${state.header} into ${path.join(repos.directory.name, this.props.org)}`,
-      tasks: repositories.map((repo) => ({key: repo.name, name: repo.name, status: 'pending'})),
+      tasks: repositories.map((repo) => ({key: repo.fullName, name: repo.fullName, status: 'pending'})),
       waiting: false,
     }))
     const queue = new PQueue({concurrency: this.props.concurrency ?? repositories.length})
@@ -61,17 +61,17 @@ class CloneTaskTracker extends TaskTracker<Props> {
       // eslint-disable-next-line no-void
       void queue.add(async () => {
         this.setState((state) => ({
-          tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'loading'} : c)),
+          tasks: state.tasks.map((c) => (c.key === repo.fullName ? {...c, status: 'loading'} : c)),
         }))
 
         try {
           await (this.props.dryRun ? this.noop() : repos.clone(repo, this.props.method, this.props.force))
           this.setState((state) => ({
-            tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'success'} : c)),
+            tasks: state.tasks.map((c) => (c.key === repo.fullName ? {...c, status: 'success'} : c)),
           }))
         } catch {
           this.setState((state) => ({
-            tasks: state.tasks.map((c) => (c.key === repo.name ? {...c, status: 'error'} : c)),
+            tasks: state.tasks.map((c) => (c.key === repo.fullName ? {...c, status: 'error'} : c)),
           }))
         }
       })
