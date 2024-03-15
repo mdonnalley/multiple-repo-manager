@@ -3,7 +3,6 @@ import React from 'react'
 
 function Suggestions({suggestions}: {readonly suggestions: string[]}) {
   if (suggestions.length === 0) return
-  console.log(suggestions)
   return (
     <Box flexDirection="column" marginLeft={2} marginTop={1}>
       {suggestions.map((s) => (
@@ -16,7 +15,24 @@ function Suggestions({suggestions}: {readonly suggestions: string[]}) {
   )
 }
 
-export default function Error({message, suggestions}: {readonly message: string; readonly suggestions?: string[]}) {
+function HelpOutput({helpOutput}: {readonly helpOutput: string[]}) {
+  if (helpOutput.length === 0) return
+  return (
+    <Box flexDirection="column" marginLeft={2} marginTop={1}>
+      {helpOutput.map((s) => (
+        <Text key={s}>{s}</Text>
+      ))}
+    </Box>
+  )
+}
+
+type Props = {
+  readonly helpOutput: string[]
+  readonly message: string
+  readonly suggestions?: string[]
+}
+
+export default function Error({helpOutput, message, suggestions}: Props) {
   return (
     <Box borderColor="red" borderStyle="single" flexDirection="column" padding={1}>
       <Box marginRight={1}>
@@ -24,6 +40,7 @@ export default function Error({message, suggestions}: {readonly message: string;
         <Text>{message}</Text>
       </Box>
       <Suggestions suggestions={suggestions ?? []} />
+      <HelpOutput helpOutput={helpOutput} />
     </Box>
   )
 }
