@@ -1,3 +1,9 @@
+# [4.12.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.11.0...v4.12.0) (2024-03-15)
+
+### Features
+
+- show help output for errors with showHelp prop ([b5d4865](https://github.com/mdonnalley/multiple-repo-manager/commit/b5d48659494ae28bfb41649cc354fbd269ad4e3e))
+
 # [4.11.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.10.1...v4.11.0) (2024-03-14)
 
 ### Features
