@@ -1,3 +1,9 @@
+# [4.13.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.12.0...v4.13.0) (2024-03-15)
+
+### Features
+
+- use custom help ([0fbe96c](https://github.com/mdonnalley/multiple-repo-manager/commit/0fbe96cb61f9c8956210852027af156dcb9c64d8))
+
 # [4.12.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.11.0...v4.12.0) (2024-03-15)
 
 ### Features

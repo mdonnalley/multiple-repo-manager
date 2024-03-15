@@ -125,7 +125,7 @@ EXAMPLES
     $ multi add https://github.com/my-github-org/my-repo
 ```
 
-_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/add.ts)_
 
 ## `multi alias KEYVALUE`
 
@@ -153,7 +153,7 @@ EXAMPLES
     $ multi alias myrepo=
 ```
 
-_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/alias.ts)_
+_See code: [src/commands/alias.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/alias.ts)_
 
 ## `multi cd REPO`
 
@@ -170,7 +170,7 @@ DESCRIPTION
   cd into a repository.
 ```
 
-_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/cd.ts)_
+_See code: [src/commands/cd.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/cd.ts)_
 
 ## `multi diff ORG`
 
@@ -190,7 +190,7 @@ EXAMPLES
   $ multi diff my-github-org
 ```
 
-_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/diff.ts)_
+_See code: [src/commands/diff.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/diff.ts)_
 
 ## `multi exec REPO`
 
@@ -223,7 +223,7 @@ EXAMPLES
     $ multi exec . -- open https://app.circleci.com/pipelines/github/{repo.fullName}
 ```
 
-_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/exec.ts)_
+_See code: [src/commands/exec.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/exec.ts)_
 
 ## `multi list`
 
@@ -240,7 +240,7 @@ ALIASES
   $ multi ls
 ```
 
-_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/list.ts)_
 
 ## `multi open REPO`
 
@@ -248,8 +248,7 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t
-    actions|discussions|issues|pulls|pulse|security|settings|wiki]
+  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -279,7 +278,7 @@ EXAMPLES
     $ multi open my-repo --file path/to/my/code.ts
 ```
 
-_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/open.ts)_
 
 ## `multi org discussions ORG`
 
@@ -306,7 +305,7 @@ EXAMPLES
   $ multi org discussions my-github-org --since friday
 ```
 
-_See code: [src/commands/org/discussions.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/org/discussions.ts)_
+_See code: [src/commands/org/discussions.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/org/discussions.ts)_
 
 ## `multi org issues ORG`
 
@@ -333,7 +332,7 @@ EXAMPLES
   $ multi org issues my-github-org --since friday
 ```
 
-_See code: [src/commands/org/issues.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/org/issues.ts)_
+_See code: [src/commands/org/issues.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/org/issues.ts)_
 
 ## `multi org list ORGS`
 
@@ -356,7 +355,7 @@ EXAMPLES
   $ multi org list my-github-org
 ```
 
-_See code: [src/commands/org/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/org/list.ts)_
+_See code: [src/commands/org/list.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/org/list.ts)_
 
 ## `multi org overview ORG`
 
@@ -396,7 +395,7 @@ EXAMPLES
     $ multi org overview my-github-org --filter "my-repo-*"
 ```
 
-_See code: [src/commands/org/overview.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/org/overview.ts)_
+_See code: [src/commands/org/overview.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/org/overview.ts)_
 
 ## `multi org pulls ORG`
 
@@ -431,7 +430,7 @@ EXAMPLES
   $ multi org pulls my-github-org --since friday
 ```
 
-_See code: [src/commands/org/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/org/pulls.ts)_
+_See code: [src/commands/org/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/org/pulls.ts)_
 
 ## `multi pulls`
 
@@ -448,7 +447,7 @@ EXAMPLES
   $ multi pulls
 ```
 
-_See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/pulls.ts)_
+_See code: [src/commands/pulls.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/pulls.ts)_
 
 ## `multi refresh`
 
@@ -468,7 +467,7 @@ DESCRIPTION
   Refresh the list of repositories and corresponding metadata.
 ```
 
-_See code: [src/commands/refresh.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/refresh.ts)_
+_See code: [src/commands/refresh.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/refresh.ts)_
 
 ## `multi remove REPO`
 
@@ -488,7 +487,7 @@ ALIASES
   $ multi rm
 ```
 
-_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/remove.ts)_
+_See code: [src/commands/remove.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/remove.ts)_
 
 ## `multi setup`
 
@@ -502,7 +501,7 @@ DESCRIPTION
   Setup multi
 ```
 
-_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/setup.ts)_
+_See code: [src/commands/setup.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/setup.ts)_
 
 ## `multi task get TASK`
 
@@ -519,7 +518,7 @@ DESCRIPTION
   Return the value of a task.
 ```
 
-_See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/task/get.ts)_
+_See code: [src/commands/task/get.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/task/get.ts)_
 
 ## `multi task set KEYVALUE`
 
@@ -558,7 +557,7 @@ EXAMPLES
     $ multi task set build --interactive
 ```
 
-_See code: [src/commands/task/set.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/task/set.ts)_
+_See code: [src/commands/task/set.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/task/set.ts)_
 
 ## `multi version`
 
@@ -572,7 +571,7 @@ DESCRIPTION
   Print the version of multi
 ```
 
-_See code: [src/commands/version.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/version.ts)_
+_See code: [src/commands/version.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/version.ts)_
 
 ## `multi view REPO`
 
@@ -592,7 +591,7 @@ ALIASES
   $ multi v
 ```
 
-_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/view.ts)_
+_See code: [src/commands/view.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/view.ts)_
 
 ## `multi where REPO`
 
@@ -612,5 +611,5 @@ DESCRIPTION
   Print location of a repository.
 ```
 
-_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.12.0/src/commands/where.ts)_
+_See code: [src/commands/where.ts](https://github.com/mdonnalley/multiple-repo-manager/blob/v4.13.0/src/commands/where.ts)_
 <!-- commandsstop -->
