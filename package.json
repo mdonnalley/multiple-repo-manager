@@ -17,7 +17,7 @@
     "@alcalzone/ink-table": "^1.1.1",
     "@inkjs/ui": "^1.0.0",
     "@inquirer/input": "^1.2.16",
-    "@oclif/core": "^3.25.1",
+    "@oclif/core": "^3.25.2",
     "@octokit/plugin-paginate-graphql": "^4.0.0",
     "@octokit/plugin-request-log": "^4.0.0",
     "cli-spinners": "^2.9.2",
@@ -104,7 +104,8 @@
     "/lib",
     "/oclif.manifest.json",
     "/npm-shrinkwrap.json",
-    "/bin/run.js"
+    "/bin/run.js",
+    "/theme.json"
   ],
   "oclif": {
     "commands": "./lib/commands",
@@ -113,6 +114,14 @@
     "helpOptions": {
       "hideAliasesFromRoot": true
     },
+    "additionalVersionFlags": [
+      "-v"
+    ],
+    "additionalHelpFlags": [
+      "-h"
+    ],
+    "helpClass": "./lib/help",
+    "theme": "theme.json",
     "topics": {
       "org": {
         "description": "View information at the org level."

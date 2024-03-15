@@ -5,7 +5,7 @@ import React from 'react'
 
 import {Error as ErrorComponent} from './components/index.js'
 
-class CustomHelp extends Help {
+class ErrorHelp extends Help {
   public output: string[] = []
   public async getHelpOutput(argv: string[]): Promise<string[]> {
     await super.showHelp(argv)
@@ -26,7 +26,7 @@ export default abstract class BaseCommand extends Command {
 
     const helpOutput: string[] = []
     if (err.showHelp) {
-      const help = new CustomHelp(this.config, {
+      const help = new ErrorHelp(this.config, {
         ...(this.config.pjson.oclif.helpOptions ?? this.config.pjson.helpOptions),
         sections: ['flags', 'usage', 'arguments'],
       })
