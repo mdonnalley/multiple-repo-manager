@@ -1,3 +1,9 @@
+## [4.13.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.1...v4.13.2) (2024-03-15)
+
+### Bug Fixes
+
+- show full name when cloning repos ([c994280](https://github.com/mdonnalley/multiple-repo-manager/commit/c99428065980fded1c4d10370df25b840d17fb5f))
+
 ## [4.13.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.0...v4.13.1) (2024-03-15)
 
 ### Bug Fixes
