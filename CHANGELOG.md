@@ -1,3 +1,9 @@
+## [4.13.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.0...v4.13.1) (2024-03-15)
+
+### Bug Fixes
+
+- unique keys for help output ([1b69852](https://github.com/mdonnalley/multiple-repo-manager/commit/1b69852e2c61188ce2a17c1c5cda1c3ca331afcc))
+
 # [4.13.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.12.0...v4.13.0) (2024-03-15)
 
 ### Features
