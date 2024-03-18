@@ -1,3 +1,9 @@
+# [4.14.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.2...v4.14.0) (2024-03-18)
+
+### Features
+
+- add flags to org list command ([933b91c](https://github.com/mdonnalley/multiple-repo-manager/commit/933b91cf91f8caea9586a3520056e576acedf281))
+
 ## [4.13.2](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.1...v4.13.2) (2024-03-15)
 
 ### Bug Fixes
