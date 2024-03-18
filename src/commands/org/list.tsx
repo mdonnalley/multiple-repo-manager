@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
-import {Args} from '@oclif/core'
+import {Args, Flags} from '@oclif/core'
 import {render} from 'ink'
 import sortBy from 'lodash.sortby'
 import React from 'react'
@@ -18,17 +18,24 @@ export default class OrgList extends BaseCommand {
 
   public static examples = ['<%= config.bin %> <%= command.id %> my-github-org']
 
-  public static flags = {}
+  public static flags = {
+    'no-archived': Flags.boolean({description: 'Do not include archived repositories'}),
+    'no-private': Flags.boolean({description: 'Do not include private repositories'}),
+  }
 
   public static strict = false
 
   public async run(): Promise<void> {
-    const {argv} = await this.parse(OrgList)
+    const {flags, argv} = await this.parse(OrgList)
     const github = new Github()
 
     const all = (await Promise.all((argv as string[]).map(async (org) => github.orgRepositories(org)))).flat()
-
-    const data = sortBy(Object.values(all), ['org', 'name']).map((r) => ({
+    const filtered = all.filter((r) => {
+      if (flags['no-archived'] && r.archived) return false
+      if (flags['no-private'] && r.private) return false
+      return true
+    })
+    const data = sortBy(Object.values(filtered), ['org', 'name']).map((r) => ({
       Name: r.name,
       url: r.urls.html,
       Archived: r.archived ? 'true' : '',
