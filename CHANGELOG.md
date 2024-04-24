@@ -1,3 +1,9 @@
+# [4.15.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.14.0...v4.15.0) (2024-04-24)
+
+### Features
+
+- add --no-cache flag to refresh command ([f943e55](https://github.com/mdonnalley/multiple-repo-manager/commit/f943e55b0f2de025e5a19385463caeb2101e09f9))
+
 # [4.14.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.13.2...v4.14.0) (2024-03-18)
 
 ### Features
