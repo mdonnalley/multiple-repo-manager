@@ -248,7 +248,8 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
+  $ multi open REPO [-f <value> | -t
+    actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -340,14 +341,10 @@ Show all repositories in the org. Requires GH_TOKEN to be set in the environment
 
 ```
 USAGE
-  $ multi org list ORGS... [--no-archived] [--no-private]
+  $ multi org list ORGS...
 
 ARGUMENTS
   ORGS...  Github org
-
-FLAGS
-  --no-archived  Do not include archived repositories
-  --no-private   Do not include private repositories
 
 DESCRIPTION
   Show all repositories in the org. Requires GH_TOKEN to be set in the environment.

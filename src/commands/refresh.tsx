@@ -13,12 +13,17 @@ type Props = {
   readonly concurrency?: number
   readonly dryRun: boolean
   readonly header: string
+  readonly noCache?: boolean
   readonly orgs: string[]
 }
 
 class RefreshTaskTracker extends TaskTracker<Props> {
   async componentDidMount(): Promise<void> {
     const repos = await new Repos().init()
+
+    if (this.props.noCache) {
+      await repos.hydrateCache()
+    }
 
     const orgs = this.props.all ? repos.getOrgs() : this.props.orgs
 
@@ -76,6 +81,9 @@ export class Refresh extends BaseCommand {
       char: 'd',
       description: 'Show what would be done without doing it.',
     }),
+    'no-cache': Flags.boolean({
+      description: 'Find repos by looking at configured repos directory instead of using the cached repos.json file.',
+    }),
     org: Flags.string({
       char: 'o',
       description: 'Github org to refresh.',
@@ -92,6 +100,7 @@ export class Refresh extends BaseCommand {
         concurrency={flags.concurrency}
         dryRun={flags['dry-run']}
         header="Refreshing repositories"
+        noCache={flags['no-cache']}
         orgs={[...new Set(flags.org ?? [])]}
       />,
     )

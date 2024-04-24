@@ -1,6 +1,6 @@
 import {Errors} from '@oclif/core'
 import makeDebug from 'debug'
-import {mkdir, rm} from 'node:fs/promises'
+import {mkdir, readdir, rm} from 'node:fs/promises'
 import path from 'node:path'
 
 import {Aliases} from './aliases.js'
@@ -89,6 +89,32 @@ export class Repos extends ConfigFile<RepoIndex> {
 
   public getReposOfOrg(org: string, includeArchived?: boolean): Repository[] {
     return Object.values(this.getContents()).filter((r) => r.org === org && (includeArchived ? true : !r.archived))
+  }
+
+  public async hydrateCache(): Promise<void> {
+    const directory = this.config.get('directory')
+    const dirContents = await readdir(directory, {withFileTypes: true})
+    const orgs = dirContents.filter((d) => d.isDirectory()).map((d) => d.name)
+
+    const repos = await Promise.all(
+      orgs.map(async (org) => {
+        const orgDir = path.join(directory, org)
+        return (await readdir(orgDir, {withFileTypes: true}))
+          .filter((r) => r.isDirectory())
+          .map((r) => ({
+            fullName: `${org}/${r.name}`,
+            location: path.join(orgDir, r.name),
+            name: r.name,
+            org,
+          }))
+      }),
+    )
+
+    for (const orgRepos of repos) {
+      for (const repo of orgRepos) {
+        this.set(repo.fullName, repo as Repository)
+      }
+    }
   }
 
   public async init() {
