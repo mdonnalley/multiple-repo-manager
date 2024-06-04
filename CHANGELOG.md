@@ -1,3 +1,9 @@
+## [4.15.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.15.0...v4.15.1) (2024-06-04)
+
+### Bug Fixes
+
+- bump oclif/core ([33e5c69](https://github.com/mdonnalley/multiple-repo-manager/commit/33e5c6984396039b1aaf7947630132fd98f5f81e))
+
 # [4.15.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.14.0...v4.15.0) (2024-04-24)
 
 ### Features
