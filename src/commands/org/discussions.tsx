@@ -66,6 +66,6 @@ export default class OrgDiscussions extends BaseCommand {
       }),
     )
 
-    render(<LinkTable config={{Discussion: 'url'}} data={data} title="Pull Requests" />)
+    render(<LinkTable config={{Discussion: 'url'}} data={data} title="Discussions" />)
   }
 }

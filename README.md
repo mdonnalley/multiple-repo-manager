@@ -248,7 +248,8 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
+  $ multi open REPO [-f <value> | -t
+    actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -367,7 +368,7 @@ Provides issue, pull request, and discussion counts for the request repositories
 
 ```
 USAGE
-  $ multi org overview ORG [--json] [-d] [-b repo|issues|pulls] [-f <value>]
+  $ multi org overview ORG [--json] [-d] [-b repo|issues|pulls] [-f <value>...]
 
 ARGUMENTS
   ORG  Github org
@@ -459,7 +460,7 @@ Refresh the list of repositories and corresponding metadata.
 
 ```
 USAGE
-  $ multi refresh [-a | -o <value>] [-c <value>] [-d] [--no-cache]
+  $ multi refresh [-a | -o <value>...] [-c <value>] [-d] [--no-cache]
 
 FLAGS
   -a, --all                  Refresh all orgs.
