@@ -1,5 +1,5 @@
 import {Args, Flags, ux} from '@oclif/core'
-import sortBy from 'lodash.sortby'
+import sortBy from 'lodash/sortBy.js'
 import terminalLink from 'terminal-link'
 
 import BaseCommand from '../../base-command.js'

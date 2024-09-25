@@ -1,5 +1,5 @@
 import {Errors} from '@oclif/core'
-import groupBy from 'lodash.groupby'
+import groupBy from 'lodash/groupBy.js'
 import terminalLink from 'terminal-link'
 
 import BaseCommand from '../base-command.js'

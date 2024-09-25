@@ -1,6 +1,6 @@
 import {Flags} from '@oclif/core'
 import {render} from 'ink'
-import sortBy from 'lodash.sortby'
+import sortBy from 'lodash/sortBy.js'
 import PQueue from 'p-queue'
 import React from 'react'
 

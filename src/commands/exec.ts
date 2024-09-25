@@ -1,5 +1,5 @@
 import {Args} from '@oclif/core'
-import get from 'lodash.get'
+import get from 'lodash/get.js'
 
 import BaseCommand from '../base-command.js'
 import execSync from '../exec-sync.js'

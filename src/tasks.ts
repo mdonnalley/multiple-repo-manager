@@ -1,5 +1,5 @@
 import * as yml from 'js-yaml'
-import isEmpty from 'lodash.isempty'
+import isEmpty from 'lodash/isEmpty.js'
 import path from 'node:path'
 
 import {Config} from './config.js'

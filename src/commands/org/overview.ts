@@ -1,5 +1,5 @@
 import {Args, Flags} from '@oclif/core'
-import sortBy from 'lodash.sortby'
+import sortBy from 'lodash/sortBy.js'
 import {match} from 'minimatch'
 
 import BaseCommand from '../../base-command.js'
