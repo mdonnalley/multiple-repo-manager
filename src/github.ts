@@ -1,7 +1,7 @@
 import type {Endpoints} from '@octokit/types'
 
 import {Errors} from '@oclif/core'
-import {paginateGraphql} from '@octokit/plugin-paginate-graphql'
+import {paginateGraphQL} from '@octokit/plugin-paginate-graphql'
 import {requestLog} from '@octokit/plugin-request-log'
 import makeDebug from 'debug'
 import {join} from 'node:path'
@@ -135,7 +135,7 @@ export class Github {
   private octokit!: Octokit
 
   constructor() {
-    this.octokit = new (Octokit.plugin(paginateGraphql).plugin(requestLog))({
+    this.octokit = new (Octokit.plugin(paginateGraphQL).plugin(requestLog))({
       auth: getToken(),
       log: {
         debug: debug.extend('debug'),
