@@ -1,7 +1,7 @@
 {
   "name": "multiple-repo-manager",
   "description": "CLI for managing multiple repositories",
-  "version": "4.15.1",
+  "version": "4.16.0",
   "author": "Mike Donnalley",
   "homepage": "https://github.com/mdonnalley/multiple-repo-manager",
   "repository": "mdonnalley/multiple-repo-manager",

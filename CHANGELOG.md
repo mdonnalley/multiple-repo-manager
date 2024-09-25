@@ -1,3 +1,15 @@
+# [4.16.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.15.1...v4.16.0) (2024-09-25)
+
+### Bug Fixes
+
+- bump dependencies ([1997395](https://github.com/mdonnalley/multiple-repo-manager/commit/19973952dbf8ad690bbd990047b989ac27b230cd))
+- upgrade to latest octokit ([2ee254c](https://github.com/mdonnalley/multiple-repo-manager/commit/2ee254ced4c1b4033a9a4e8e65de543664ed3318))
+- use main lodash lib ([22c0a3b](https://github.com/mdonnalley/multiple-repo-manager/commit/22c0a3b842e593fede48c28b1c32c7227d8d8c01))
+
+### Features
+
+- use @oclif/table ([9c01bfc](https://github.com/mdonnalley/multiple-repo-manager/commit/9c01bfc8bbc7d6d096d9021feca18458931b050e))
+
 ## [4.15.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.15.0...v4.15.1) (2024-06-04)
 
 ### Bug Fixes
