@@ -1,7 +1,5 @@
 export {default as Error} from './error.js'
 export {default as Help} from './help.js'
-export {MultiLinkTable, default as LinkTable} from './link-table.js'
 export {default as SimpleMessage} from './simple-message.js'
 export {default as Spinner} from './spinner.js'
-export {default as Table} from './table.js'
 export {default as TaskTracker} from './task-tracker.js'

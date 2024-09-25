@@ -248,7 +248,8 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
+  $ multi open REPO [-f <value> | -t
+    actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
@@ -286,7 +287,7 @@ List all open discussions for added repos in an org. Requires GH_TOKEN to be set
 
 ```
 USAGE
-  $ multi org discussions ORG [-b created|repo|author|updated] [-s <value>]
+  $ multi org discussions ORG [-s <value>] [-b created|repo|author|updated]
 
 ARGUMENTS
   ORG  Github org
@@ -313,7 +314,7 @@ List all open issues for added repos in an org. Requires GH_TOKEN to be set in t
 
 ```
 USAGE
-  $ multi org issues ORG -s <value> [-b created|repo|author|updated]
+  $ multi org issues ORG -s <value> [-b created|repo|author|updated] [--verbose]
 
 ARGUMENTS
   ORG  Github org
@@ -321,7 +322,8 @@ ARGUMENTS
 FLAGS
   -b, --sort-by=<option>  [default: repo] Sort by
                           <options: created|repo|author|updated>
-  -s, --since=<value>     (required) Only show issues updated after this date
+  -s, --since=<value>     (required) Only show issues updated after this date.
+      --verbose           Show verbose output.
 
 DESCRIPTION
   List all open issues for added repos in an org. Requires GH_TOKEN to be set in the environment.
@@ -367,7 +369,7 @@ Provides issue, pull request, and discussion counts for the request repositories
 
 ```
 USAGE
-  $ multi org overview ORG [--json] [-d] [-b repo|issues|pulls] [-f <value>...]
+  $ multi org overview ORG [--json] [-d] [-f <value>...] [-b repo|issues|pulls]
 
 ARGUMENTS
   ORG  Github org
@@ -407,7 +409,7 @@ List all open pull requests for added repos in an org. Requires GH_TOKEN to be s
 
 ```
 USAGE
-  $ multi org pulls ORG [-i | -d] [-b created|repo|author] [-s <value>]
+  $ multi org pulls ORG [-i | -d] [-s <value>] [-b created|repo|author]
 
 ARGUMENTS
   ORG  Github org
