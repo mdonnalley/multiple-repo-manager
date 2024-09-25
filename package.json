@@ -14,7 +14,7 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@inkjs/ui": "^2",
+    "@inkjs/ui": "^1",
     "@inquirer/input": "^3",
     "@oclif/core": "^4",
     "@oclif/table": "^0.1.9",
@@ -22,7 +22,7 @@
     "@octokit/plugin-request-log": "^5.0.0",
     "cli-spinners": "^2.9.2",
     "debug": "^4.3.4",
-    "ink": "^5",
+    "ink": "^4",
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",
     "ink-link": "^4.1.0",
