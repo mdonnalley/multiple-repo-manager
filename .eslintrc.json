@@ -5,6 +5,7 @@
     "no-await-in-loop": "off",
     "no-useless-escape": "off",
     "unicorn/no-await-expression-member": "off",
-    "lines-between-class-members": "off"
+    "lines-between-class-members": "off",
+    "react/jsx-tag-spacing": "off"
   }
 }

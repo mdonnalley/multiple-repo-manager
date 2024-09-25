@@ -248,7 +248,8 @@ Open a repository in github.
 
 ```
 USAGE
-  $ multi open REPO [-f <value> | -t actions|discussions|issues|pulls|pulse|security|settings|wiki]
+  $ multi open REPO [-f <value> | -t
+    actions|discussions|issues|pulls|pulse|security|settings|wiki]
 
 ARGUMENTS
   REPO  [default: .] Name of repository.
