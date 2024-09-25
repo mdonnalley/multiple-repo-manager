@@ -1,3 +1,9 @@
+## [4.16.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.16.0...v4.16.1) (2024-09-25)
+
+### Bug Fixes
+
+- downgrade ink ([55e572e](https://github.com/mdonnalley/multiple-repo-manager/commit/55e572e1a6211f77f6f6fa1fa296f534a9053864))
+
 # [4.16.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.15.1...v4.16.0) (2024-09-25)
 
 ### Bug Fixes
