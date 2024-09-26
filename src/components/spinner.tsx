@@ -1,24 +1,67 @@
-import {Spinner as InkSpinner, ThemeProvider, defaultTheme, extendTheme} from '@inkjs/ui'
-import {Instance, type TextProps, render} from 'ink'
-import React from 'react'
+import spinners, {type SpinnerName} from 'cli-spinners'
+import {Box, Instance, Text, render} from 'ink'
+import React, {useEffect, useState} from 'react'
 
-const customTheme = extendTheme(defaultTheme, {
-  components: {
-    Spinner: {
-      styles: {
-        frame: (): TextProps => ({
-          color: 'cyan',
-        }),
-      },
-    },
-  },
-})
+type UseSpinnerProps = {
+  /**
+   * Type of a spinner.
+   * See [cli-spinners](https://github.com/sindresorhus/cli-spinners) for available spinners.
+   *
+   * @default dots
+   */
+  readonly type?: SpinnerName
+}
 
-export default function Spinner({label}: {readonly label: string}) {
+type UseSpinnerResult = {
+  frame: string
+}
+
+function useSpinner({type = 'dots2'}: UseSpinnerProps): UseSpinnerResult {
+  const [frame, setFrame] = useState(0)
+  const spinner = spinners[type]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFrame((previousFrame) => {
+        const isLastFrame = previousFrame === spinner.frames.length - 1
+        return isLastFrame ? 0 : previousFrame + 1
+      })
+    }, spinner.interval)
+
+    return (): void => {
+      clearInterval(timer)
+    }
+  }, [spinner])
+
+  return {
+    frame: spinner.frames[frame] ?? '',
+  }
+}
+
+type SpinnerProps = {
+  readonly isBold?: boolean
+  /**
+   * Label to show near the spinner.
+   */
+  readonly label?: string
+  readonly labelPosition?: 'left' | 'right'
+} & UseSpinnerProps
+
+export default function Spinner({isBold, label, labelPosition = 'right', type}: SpinnerProps): React.ReactElement {
+  const {frame} = useSpinner({type})
+
   return (
-    <ThemeProvider theme={customTheme}>
-      <InkSpinner label={label} type="arc" />
-    </ThemeProvider>
+    <Box>
+      {label && labelPosition === 'left' && <Text>{label} </Text>}
+      {isBold ? (
+        <Text bold color="magenta">
+          {frame}
+        </Text>
+      ) : (
+        <Text color="magenta">{frame}</Text>
+      )}
+      {label && labelPosition === 'right' && <Text> {label}</Text>}
+    </Box>
   )
 }
 

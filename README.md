@@ -92,17 +92,16 @@ Add a github org or repo. Requires GH_TOKEN to be set in the environment.
 
 ```
 USAGE
-  $ multi add ENTITY [-c <value>] [-d] [-f] [--method ssh|https]
+  $ multi add ENTITY [-d] [-f] [--method ssh|https]
 
 ARGUMENTS
   ENTITY  Github org, repo, or url to add
 
 FLAGS
-  -c, --concurrency=<value>  Number of concurrent clones. Defaults to the number of repositories.
-  -d, --dry-run              Print what would be done without doing it.
-  -f, --force                Force overwrite of existing repos.
-      --method=<option>      [default: ssh] Method to use for cloning.
-                             <options: ssh|https>
+  -d, --dry-run          Print what would be done without doing it.
+  -f, --force            Force overwrite of existing repos.
+      --method=<option>  [default: ssh] Method to use for cloning.
+                         <options: ssh|https>
 
 DESCRIPTION
   Add a github org or repo. Requires GH_TOKEN to be set in the environment.
@@ -461,15 +460,13 @@ Refresh the list of repositories and corresponding metadata.
 
 ```
 USAGE
-  $ multi refresh [-a | -o <value>...] [-c <value>] [-d] [--no-cache]
+  $ multi refresh [-a | -o <value>...] [-d] [--no-cache]
 
 FLAGS
-  -a, --all                  Refresh all orgs.
-  -c, --concurrency=<value>  Number of concurrent refreshes. Defaults to the number of orgs.
-  -d, --dry-run              Show what would be done without doing it.
-  -o, --org=<value>...       Github org to refresh.
-      --no-cache             Find repos by looking at configured repos directory instead of using the cached repos.json
-                             file.
+  -a, --all             Refresh all orgs.
+  -d, --dry-run         Show what would be done without doing it.
+  -o, --org=<value>...  Github org to refresh.
+      --no-cache        Find repos by looking at configured repos directory instead of using the cached repos.json file.
 
 DESCRIPTION
   Refresh the list of repositories and corresponding metadata.

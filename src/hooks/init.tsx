@@ -1,6 +1,6 @@
-import {Alert} from '@inkjs/ui'
+/* eslint-disable perfectionist/sort-jsx-props */
 import {Hook} from '@oclif/core'
-import {Static, Text, render} from 'ink'
+import {Box, Static, Text, render} from 'ink'
 import React from 'react'
 
 import {Repos} from '../repos.js'
@@ -11,11 +11,11 @@ const hook: Hook<'init'> = async function ({config}) {
     render(
       <Static items={warnings}>
         {(warning) => (
-          <Alert key={warning} title="Warning" variant="warning">
+          <Box key={warning} borderColor="yellow" borderStyle="round" padding={1}>
             <Text>
-              Run <Text color="dim">{config.bin} refresh --all</Text> to refresh repos.json cache
+              ⚠ Run <Text color="dim">{config.bin} refresh --all</Text> to refresh repos.json cache
             </Text>
-          </Alert>
+          </Box>
         )}
       </Static>,
       {
