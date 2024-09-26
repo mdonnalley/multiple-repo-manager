@@ -1,3 +1,9 @@
+# [4.17.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.16.1...v4.17.0) (2024-09-25)
+
+### Features
+
+- use oclif/multi-stage-output ([9159682](https://github.com/mdonnalley/multiple-repo-manager/commit/9159682e0b2df2b459115e1f658daf92073fd5f3))
+
 ## [4.16.1](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.16.0...v4.16.1) (2024-09-25)
 
 ### Bug Fixes
