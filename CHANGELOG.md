@@ -1,3 +1,9 @@
+# [4.18.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.17.0...v4.18.0) (2024-09-26)
+
+### Features
+
+- prune deps ([fa0ec00](https://github.com/mdonnalley/multiple-repo-manager/commit/fa0ec002979b979d7c8a781a39f4eca75cd2123a))
+
 # [4.17.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.16.1...v4.17.0) (2024-09-25)
 
 ### Features
