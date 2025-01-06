@@ -68,7 +68,7 @@
     "sinon": "^19",
     "ts-node": "^10",
     "typescript": "^5",
-    "xo": "^0.59.3"
+    "xo": "^0.60.0"
   },
   "scripts": {
     "build": "rm -rf lib && tsc",
