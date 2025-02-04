@@ -17,7 +17,7 @@
     "@inquirer/input": "^3",
     "@oclif/core": "^4",
     "@oclif/multi-stage-output": "^0.8.1",
-    "@oclif/table": "^0.3.9",
+    "@oclif/table": "^0.4.5",
     "@octokit/plugin-paginate-graphql": "^5.0.0",
     "@octokit/plugin-request-log": "^5.0.0",
     "cli-spinners": "^2.9.2",
