@@ -5,7 +5,7 @@ jobs:
   release:
     executor:
       name: node/default
-      tag: 20.11.0
+      tag: 20.18.1
     steps:
       - checkout
       - node/install-packages:
@@ -20,7 +20,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - 20.11.0
+                - 20.18.1
       - release:
           requires:
             - node/test
