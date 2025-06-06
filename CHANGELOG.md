@@ -1,3 +1,9 @@
+# [4.19.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.18.0...v4.19.0) (2025-06-06)
+
+### Features
+
+- use advanced_search ([595baf7](https://github.com/mdonnalley/multiple-repo-manager/commit/595baf716b30f8248aef34d6c7fd4837ec77a608))
+
 # [4.18.0](https://github.com/mdonnalley/multiple-repo-manager/compare/v4.17.0...v4.18.0) (2024-09-26)
 
 ### Features
