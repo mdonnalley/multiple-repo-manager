@@ -1,11 +1,12 @@
 import type {Endpoints} from '@octokit/types'
 
 import {Errors} from '@oclif/core'
+import {Octokit} from '@octokit/core'
 import {paginateGraphQL} from '@octokit/plugin-paginate-graphql'
+import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {requestLog} from '@octokit/plugin-request-log'
 import makeDebug from 'debug'
 import {join} from 'node:path'
-import {Octokit} from 'octokit'
 
 import {Config, Configuration} from './config.js'
 
@@ -130,12 +131,14 @@ function normalizeRepo(
   }
 }
 
+const OctokitWithPlugins = Octokit.plugin(paginateGraphQL, paginateRest, requestLog)
+
 export class Github {
   private config!: Config
-  private octokit!: Octokit
+  private octokit!: InstanceType<typeof OctokitWithPlugins>
 
   constructor() {
-    this.octokit = new (Octokit.plugin(paginateGraphQL).plugin(requestLog))({
+    this.octokit = new OctokitWithPlugins({
       auth: getToken(),
       log: {
         debug: debug.extend('debug'),
@@ -267,10 +270,11 @@ export class Github {
   }
 
   public async userPulls(options?: {repos?: Repository[]}): Promise<Pull[]> {
-    const reposFilter = options?.repos ? `repo:${options.repos.map((r) => `repo:${r.fullName}`).join(' ')}` : ''
-    const query = `is:pr is:open author:${await this.getFromConfig('username')} ${reposFilter}`
-    debug(`GET /search/issues?q=${query}`)
-    const response = await this.octokit.paginate('GET /search/issues', {q: query})
+    const reposFilter = options?.repos ? `${options.repos.map((r) => `repo:${r.fullName}`).join(' OR ')}` : ''
+    const query = `is:pr is:open author:${await this.getFromConfig('username')} (${reposFilter})`
+    debug(`GET /search/issues?q=${query}&advanced_search=true`)
+    // eslint-disable-next-line camelcase
+    const response = await this.octokit.paginate('GET /search/issues', {advanced_search: 'true', q: query})
     return response.map((r) => normalizePull(r, r.repository_url.split('/').slice(-2).join('/')))
   }
 
