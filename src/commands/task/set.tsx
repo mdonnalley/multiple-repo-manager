@@ -14,7 +14,6 @@ export default class Task extends BaseCommand {
       required: true,
     }),
   }
-
   public static description = 'Provide an empty to value to unset the task. This feature is not support on Windows.'
   public static examples = [
     {
@@ -35,16 +34,13 @@ export default class Task extends BaseCommand {
       description: 'Set a task interactively',
     },
   ]
-
   public static flags = {
     interactive: Flags.boolean({
       default: false,
       description: 'Open a vim editor to add your task',
     }),
   }
-
   public static strict = false
-
   public static summary = 'Set or unset an executable task.'
 
   public async run(): Promise<void> {

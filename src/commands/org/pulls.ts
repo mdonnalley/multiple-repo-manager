@@ -18,10 +18,8 @@ export default class OrgPulls extends BaseCommand {
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }
-
   public static description =
     'List all open pull requests for added repos in an org. Requires GH_TOKEN to be set in the environment.'
-
   public static examples = [
     '<%= config.bin %> <%= command.id %> my-github-org',
     '<%= config.bin %> <%= command.id %> my-github-org --ignore-dependabot',
@@ -29,7 +27,6 @@ export default class OrgPulls extends BaseCommand {
     '<%= config.bin %> <%= command.id %> my-github-org --since 1/1/24',
     '<%= config.bin %> <%= command.id %> my-github-org --since friday',
   ]
-
   public static flags = {
     'ignore-dependabot': Flags.boolean({
       allowNo: true,

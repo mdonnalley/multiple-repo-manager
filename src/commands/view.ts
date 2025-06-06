@@ -9,7 +9,6 @@ export default class View extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }
-
   public static description = 'View a repository.'
 
   public async run(): Promise<void> {

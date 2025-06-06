@@ -6,9 +6,7 @@ export default class Cd extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }
-
   public static description = 'cd into a repository.'
-
   public static flags = {}
 
   public async run(): Promise<void> {

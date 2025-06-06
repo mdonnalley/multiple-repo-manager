@@ -10,9 +10,7 @@ export default class Get extends BaseCommand {
   public static args = {
     task: Args.string({description: 'Name of task to get', required: true}),
   }
-
   public static description = 'Return the value of a task.'
-
   public static flags = {}
 
   public async run(): Promise<void> {

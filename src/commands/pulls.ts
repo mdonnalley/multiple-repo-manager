@@ -8,7 +8,6 @@ import {printTable} from '../table.js'
 export default class Pulls extends BaseCommand {
   public static description =
     'List all your pull requests for added repositories. Requires GH_TOKEN to be set in the environment.'
-
   public static examples = ['<%= config.bin %> <%= command.id %>']
 
   public async run(): Promise<void> {

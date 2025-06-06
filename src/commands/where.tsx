@@ -11,9 +11,7 @@ export default class View extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }
-
   public static description = 'Print location of a repository.'
-
   public static flags = {
     remote: Flags.boolean({
       default: false,

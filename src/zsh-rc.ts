@@ -6,7 +6,6 @@ import execSync from './exec-sync.js'
 
 export class ZshRc {
   public static LOCATION = path.join(os.homedir(), '.zshrc')
-
   private contents!: string
 
   public append(str: string): void {

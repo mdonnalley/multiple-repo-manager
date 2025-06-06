@@ -64,7 +64,6 @@ export class AutoComplete {
     'view',
     'where',
   ]
-
   public static FILE_PATH = path.join(ConfigFile.MPM_DIR, 'autocomplete.bash')
   public static REPO_COMMANDS = ['view', 'v', 'open', 'o', 'exec', 'x', 'cd', 'remove', 'rm', 'where']
 

@@ -13,7 +13,6 @@ export default class Alias extends BaseCommand {
       required: true,
     }),
   }
-
   public static description = 'Provide an empty to value to unset the alias'
   public static examples = [
     {
@@ -25,10 +24,8 @@ export default class Alias extends BaseCommand {
       description: 'Unset an alias',
     },
   ]
-
   public static flags = {}
   public static strict = false
-
   public static summary = 'Set or unset an alias'
 
   public async run(): Promise<void> {

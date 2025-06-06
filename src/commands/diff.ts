@@ -10,10 +10,8 @@ export default class Diff extends BaseCommand {
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }
-
   public static description =
     'Show repositories in an org that are not cloned locally. Requires GH_TOKEN to be set in the environment.'
-
   public static examples = ['<%= config.bin %> <%= command.id %> my-github-org']
 
   public async run(): Promise<void> {

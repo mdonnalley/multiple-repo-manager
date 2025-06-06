@@ -9,9 +9,7 @@ export default class Remove extends BaseCommand {
   public static args = {
     repo: Args.string({description: 'Name of repository.', required: true}),
   }
-
   public static description = 'Remove a repository from your local file system.'
-
   public static flags = {}
 
   public async run(): Promise<void> {

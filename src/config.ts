@@ -10,7 +10,6 @@ export type Configuration = {
 
 export class Config extends ConfigFile<Configuration> {
   public static DEFAULT_DIRECTORY = path.join(os.homedir(), 'repos')
-
   private static DEFAULT_CONFIG: Configuration = {directory: Config.DEFAULT_DIRECTORY, username: ''}
 
   public constructor() {

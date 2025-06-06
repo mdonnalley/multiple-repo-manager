@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-jsx-props */
 import {Hook} from '@oclif/core'
-import {Box, Static, Text, render} from 'ink'
+import {Box, render, Static, Text} from 'ink'
 import React from 'react'
 
 import {Repos} from '../repos.js'

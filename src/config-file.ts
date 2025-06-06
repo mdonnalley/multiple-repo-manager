@@ -7,10 +7,8 @@ import {Directory} from './directory.js'
 
 export abstract class ConfigFile<T extends Record<string, unknown>> {
   public static MPM_DIR = path.join(os.homedir(), '.multi')
-
   public filepath: string
   public stats!: Stats
-
   private contents!: T
 
   public constructor(filename: string) {

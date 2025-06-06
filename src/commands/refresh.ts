@@ -40,13 +40,13 @@ export class Refresh extends BaseCommand {
 
     const mso = new ParallelMultiStageOutput<{repoCounts: typeof repoCounts}>({
       jsonEnabled: this.jsonEnabled(),
+      stages: orgs,
       stageSpecificBlock: orgs.map((org) => ({
         get: (data) => data?.repoCounts[org].toString(),
         label: 'repos',
         stage: org,
         type: 'static-key-value',
       })),
-      stages: orgs,
       title: flags['dry-run'] ? '[DRY RUN] Refreshing repositories' : 'Refreshing repositories',
     })
 

@@ -14,9 +14,7 @@ export default class Exec extends BaseCommand {
       required: true,
     }),
   }
-
   public static description = 'Execute a command or script in a repository.'
-
   public static examples = [
     {
       command: '<%= config.bin %> <%= command.id %> my-repo -- yarn compile',
@@ -32,7 +30,6 @@ export default class Exec extends BaseCommand {
       description: 'Interpolate values into command execution',
     },
   ]
-
   public static flags = {}
   public static strict = false
 

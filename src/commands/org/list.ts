@@ -10,14 +10,12 @@ export default class OrgList extends BaseCommand {
   public static args = {
     orgs: Args.string({description: 'Github org', required: true}),
   }
-
   public static description = 'Show all repositories in the org. Requires GH_TOKEN to be set in the environment.'
   public static examples = ['<%= config.bin %> <%= command.id %> my-github-org']
   public static flags = {
     'no-archived': Flags.boolean({description: 'Do not include archived repositories'}),
     'no-private': Flags.boolean({description: 'Do not include private repositories'}),
   }
-
   public static strict = false
 
   public async run(): Promise<void> {

@@ -2,8 +2,8 @@ import * as yml from 'js-yaml'
 import isEmpty from 'lodash/isEmpty.js'
 import path from 'node:path'
 
-import {Config} from './config.js'
 import {ConfigFile} from './config-file.js'
+import {Config} from './config.js'
 
 export type AliasesMap = Record<string, string>
 

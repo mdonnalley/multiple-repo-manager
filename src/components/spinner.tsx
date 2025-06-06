@@ -1,5 +1,5 @@
 import spinners, {type SpinnerName} from 'cli-spinners'
-import {Box, Instance, Text, render} from 'ink'
+import {Box, Instance, render, Text} from 'ink'
 import React, {useEffect, useState} from 'react'
 
 type UseSpinnerProps = {
@@ -38,21 +38,21 @@ function useSpinner({type = 'dots2'}: UseSpinnerProps): UseSpinnerResult {
   }
 }
 
-type SpinnerProps = {
+type SpinnerProps = UseSpinnerProps & {
   readonly isBold?: boolean
   /**
    * Label to show near the spinner.
    */
   readonly label?: string
   readonly labelPosition?: 'left' | 'right'
-} & UseSpinnerProps
+}
 
 export default function Spinner({isBold, label, labelPosition = 'right', type}: SpinnerProps): React.ReactElement {
   const {frame} = useSpinner({type})
 
   return (
     <Box>
-      {label && labelPosition === 'left' && <Text>{label} </Text>}
+      {label && labelPosition === 'left' ? <Text>{label} </Text> : null}
       {isBold ? (
         <Text bold color="magenta">
           {frame}
@@ -60,7 +60,7 @@ export default function Spinner({isBold, label, labelPosition = 'right', type}: 
       ) : (
         <Text color="magenta">{frame}</Text>
       )}
-      {label && labelPosition === 'right' && <Text> {label}</Text>}
+      {label && labelPosition === 'right' ? <Text> {label}</Text> : null}
     </Box>
   )
 }

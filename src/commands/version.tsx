@@ -1,4 +1,4 @@
-import {Box, Newline, Text, render} from 'ink'
+import {Box, Newline, render, Text} from 'ink'
 import BigText from 'ink-big-text'
 import Gradient from 'ink-gradient'
 import Link from 'ink-link'

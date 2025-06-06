@@ -11,10 +11,8 @@ export default class Overview extends BaseCommand {
   public static args = {
     org: Args.string({description: 'Github org', required: true}),
   }
-
   static description =
     'Provides issue, pull request, and discussion counts for the request repositories. Requires GH_TOKEN to be set in the environment.'
-
   static enableJsonFlag = true
   static examples = [
     {
@@ -30,7 +28,6 @@ export default class Overview extends BaseCommand {
       description: 'Filter out repositories by minimatch pattern',
     },
   ]
-
   static flags = {
     discussions: Flags.boolean({
       char: 'd',
@@ -66,8 +63,8 @@ export default class Overview extends BaseCommand {
 
     const [discussions, issues, pulls] = await Promise.all([
       flags.discussions ? await github.repoDiscussions(filtered) : [],
-      await github.repoIssues(filtered),
-      await github.repoPulls(filtered),
+      github.repoIssues(filtered),
+      github.repoPulls(filtered),
     ])
 
     const results = Object.fromEntries(

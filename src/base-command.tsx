@@ -7,6 +7,7 @@ import {Error as ErrorComponent} from './components/index.js'
 
 class ErrorHelp extends Help {
   public output: string[] = []
+
   public async getHelpOutput(argv: string[]): Promise<string[]> {
     await super.showHelp(argv)
     return this.output

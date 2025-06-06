@@ -26,9 +26,7 @@ export default class Open extends BaseCommand {
       required: true,
     }),
   }
-
   public static description = 'Open a repository in github.'
-
   public static examples = [
     {
       command: '<%= config.bin %> <%= command.id %> my-repo',
@@ -43,7 +41,6 @@ export default class Open extends BaseCommand {
       description: 'Open a specific file in a github repository',
     },
   ]
-
   public static flags = {
     file: Flags.string({
       char: 'f',

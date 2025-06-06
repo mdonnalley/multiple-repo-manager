@@ -1,4 +1,4 @@
-import {type TableOptions, printTable as printOclifTable, printTables as printOclifTables} from '@oclif/table'
+import {printTable as printOclifTable, printTables as printOclifTables, type TableOptions} from '@oclif/table'
 
 export function printTable<T extends Record<string, unknown>>(opts: TableOptions<T>): void {
   printOclifTable<T>({

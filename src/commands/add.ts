@@ -34,9 +34,7 @@ export default class Add extends BaseCommand {
       required: true,
     }),
   }
-
   public static description = 'Add a github org or repo. Requires GH_TOKEN to be set in the environment.'
-
   public static examples = [
     {
       command: '<%= config.bin %> <%= command.id %> my-github-org',
@@ -55,7 +53,6 @@ export default class Add extends BaseCommand {
       description: 'Add a github repo by url',
     },
   ]
-
   public static flags = {
     'dry-run': Flags.boolean({
       char: 'd',
